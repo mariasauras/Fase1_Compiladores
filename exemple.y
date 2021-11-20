@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "symtab.h"
 extern FILE *yyout;
 extern int yylineno;
 extern int yylex();
@@ -14,34 +15,27 @@ extern int yylex();
   /* Les definicions que s'utilitzen al %union han d'estar aqui */
   #include "exemple_dades.h"
   #include "exemple_funcions.h"
+  #include "symtab.h"
 }
 
 %union{
-    struct {
-        char *lexema;
-        int lenght;
-        int line;
-        value_info id_val;
-    } ident;
-    int enter;
-    float real;
-    value_info expr_val;
-    void *sense_valor;
+    sym_value_type st;
 }
 
-%token <sense_valor> ASSIGN ENDLINE
-%token <enter> INTEGER
-%token <ident> ID
-%token <real> FLOAT
-%token <ident> STRING
-%token <ident> BOOLEAN
+%token <st> ASSIGN ENDLINE
+%token <st> INTEGER
+%token <st> ID
+%token <st> FLOAT
+%token <st> STRING
+%token <st> BOOLEAN
 %token  SUMA
 
 
 
-%type <sense_valor> programa
-%type <expr_val> expressio
-%type <expr_val> valor
+%type <st> programa
+%type <st> expressio
+%type <st> valor
+%type <st> sumlist
 
 %start programa
 
@@ -55,29 +49,29 @@ programa : programa expressio {
            }
 
 expressio : ID ASSIGN valor ENDLINE  {
-              $$.val_type = $3.val_type;
+              $$.value_type = $3.value_type;
 
-              if($$.val_type == STRING_TYPE){
-                fprintf(yyout, "ID: %s pren per valor: %s\n",$1.lexema, $3.val_string);
-                $$.val_string = $3.val_string;
+              if($$.value_type == STRING_TYPE){
+                fprintf(yyout, "ID: %s pren per valor: %s\n",$1.value_data.ident.lexema, $3.value_data.ident.lexema);
+                $$.value_data.ident.lexema = $3.value_data.ident.lexema;
                
-              } else if($$.val_type == FLOAT_TYPE){
-                fprintf(yyout, "ID: %s pren per valor: %f\n",$1.lexema, $3.val_float);
-                $$.val_float = $3.val_float;
+              } else if($$.value_type == FLOAT_TYPE){
+                fprintf(yyout, "ID: %s pren per valor: %f\n",$1.value_data.ident.lexema, $3.value_data.real);
+                $$.value_data.real = $3.value_data.real;
                 
-              } else if($$.val_type == BOOL_TYPE){
-                fprintf(yyout, "ID: %s pren per valor: %s\n",$1.lexema, $3.val_bol);
-                $$.val_bol = $3.val_bol;
+              } else if($$.value_type == BOOL_TYPE){
+                fprintf(yyout, "ID: %s pren per valor: %s\n",$1.value_data.ident.lexema, $3.value_data.ident.lexema);
+                $$.value_data.ident.lexema = $3.value_data.ident.lexema;
               }else{
-                fprintf(yyout, "ID: %s pren per valor: %d\n",$1.lexema, $3.val_int);
-                $$.val_int = $3.val_int; 
+                fprintf(yyout, "ID: %s pren per valor: %d\n",$1.value_data.ident.lexema, $3.value_data.enter);
+                $$.value_data.enter= $3.value_data.enter; 
               } 
             }
 
-valor : FLOAT { $$.val_type = FLOAT_TYPE; $$.val_float = $1; }
-      | INTEGER { $$.val_type = INT_TYPE; $$.val_int = $1; }
-      | STRING { $$.val_type = STRING_TYPE; $$.val_string = $1.lexema; }
-      | BOOLEAN { $$.val_type = BOOL_TYPE; $$.val_bol = $1.lexema; }
+valor : FLOAT { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
+      | INTEGER { $$.value_type = INT_TYPE; $$.value_data.enter = $1; }
+      | STRING { $$.value_type = STRING_TYPE; $$.value_data.ident.lexema = $1.lexema; }
+      | BOOLEAN { $$.value_type = BOOL_TYPE; $$.value_data.ident.lexema = $1.lexema; }
 
 
 sumlist : sumlist SUMA valor 

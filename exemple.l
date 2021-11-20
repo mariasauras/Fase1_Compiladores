@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include "exemple.tab.h"
 #include "exemple_funcions.h"
+#include "symtab.h"
 
 %}
 
@@ -25,18 +26,18 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 %%
   
 {boolean}                  {
-                              yylval.ident.lexema = strdup(yytext);
-                              yylval.ident.lenght = yyleng;
-                              yylval.ident.id_val.val_type = BOOL_TYPE;
+                              yylval.st.value_data.ident.lexema = strdup(yytext);
+                              yylval.st.value_data.ident.lenght = yyleng;
+                              yylval.st.value_data.ident.value_type = BOOL_TYPE;
                               return BOOLEAN; 
                             }
 
 
 {lletra}({lletra}|{digit})* {
-                              yylval.ident.lexema = strdup(yytext);
-                              yylval.ident.lenght = yyleng;
-                              yylval.ident.line = yylineno;
-                              yylval.ident.id_val.val_type = UNKNOWN_TYPE;
+                              yylval.st.value_data.ident.lexema = strdup(yytext);
+                              yylval.st.value_data.ident.lenght = yyleng;
+                              yylval.st.value_data.ident.line = yylineno;
+                              yylval.st.value_data.ident.value_type = UNKNOWN_TYPE;
                               return ID;
                             }
 
@@ -45,21 +46,21 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
  
 
 {text}                      {
-                              yylval.ident.lexema = strdup(yytext);
-                              yylval.ident.lenght = yyleng;
-                              yylval.ident.id_val.val_type = STRING_TYPE;
+                              yylval.st.value_data.ident.lexema = strdup(yytext);
+                              yylval.st.value_data.ident.lenght = yyleng;
+                              yylval.st.value_data.ident.value_type = STRING_TYPE;
                               return STRING;
                             }                                 
   
 
 {digit}+"."{digit}+("e-"{digit}+)?    {
-                                      yylval.real = atof(yytext);
+                                      yylval.st.value_data.real = atof(yytext);
                                       return FLOAT;
-                                    }
+                                      }
 
 
 {digit}+                    {
-                              yylval.enter = atoi(yytext);
+                              yylval.st.value_data.enter = atoi(yytext);
                               return INTEGER;
                             }
 

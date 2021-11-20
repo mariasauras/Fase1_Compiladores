@@ -36,14 +36,17 @@ EG_OUT = ex_sortida.txt
 
 ######################################################################
 
-all : yacc lex
-	$(CC) -o $(BIN) $(CFLAGS) $(SRC) $(SRC_EXTRA) $(YACC_OUT_C) $(LEX_OUT) $(LIB)
+all : yacc lex $(SYM_TAB)
+	$(CC) -o $(BIN) $(CFLAGS) $(SRC) $(SRC_EXTRA) $(YACC_OUT_C) $(LEX_OUT) $(LIB) $(SYM_TAB)
 
 yacc : $(SRC_YACC)
 	$(YACC) $(YFLAGS) $(SRC_YACC)
 
 lex : $(SRC_LEX)
 	$(LEX) $(LFLAGS) $(SRC_LEX)
+
+$(SYM_TAB): symtab.c symtab.h 
+	gcc -c symtab.c 
 
 clean :
 	rm -f *~ $(BIN) $(OBJ) $(YACC_OUT) $(LEX_OUT) $(OTHERS) $(EG_OUT)

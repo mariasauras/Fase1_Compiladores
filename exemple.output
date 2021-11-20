@@ -1,3 +1,19 @@
+Nonterminals useless in grammar
+
+    sumlist
+
+
+Terminals unused in grammar
+
+    SUMA
+
+
+Rules useless in grammar
+
+    8 sumlist: sumlist SUMA valor
+    9        | valor
+
+
 Grammar
 
     0 $accept: programa $end
@@ -17,26 +33,27 @@ Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
-    ASSIGN <sense_valor> (258) 3
-    ENDLINE <sense_valor> (259) 3
-    INTEGER <enter> (260) 5
-    ID <ident> (261) 3
-    FLOAT <real> (262) 4
-    STRING <ident> (263) 6
-    BOOLEAN <ident> (264) 7
+    ASSIGN <st> (258) 3
+    ENDLINE <st> (259) 3
+    INTEGER <st> (260) 5
+    ID <st> (261) 3
+    FLOAT <st> (262) 4
+    STRING <st> (263) 6
+    BOOLEAN <st> (264) 7
+    SUMA (265)
 
 
 Nonterminals, with rules where they appear
 
-    $accept (10)
+    $accept (11)
         on left: 0
-    programa <sense_valor> (11)
+    programa <st> (12)
         on left: 1 2
         on right: 0 1
-    expressio <expr_val> (12)
+    expressio <st> (13)
         on left: 3
         on right: 1 2
-    valor <expr_val> (13)
+    valor <st> (14)
         on left: 4 5 6 7
         on right: 3
 
