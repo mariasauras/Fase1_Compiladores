@@ -1,0 +1,144 @@
+Grammar
+
+    0 $accept: programa $end
+
+    1 programa: programa expressio
+    2         | expressio
+
+    3 expressio: ID ASSIGN valor ENDLINE
+
+    4 valor: FLOAT
+    5      | INTEGER
+    6      | STRING
+    7      | BOOLEAN
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    ASSIGN <sense_valor> (258) 3
+    ENDLINE <sense_valor> (259) 3
+    INTEGER <enter> (260) 5
+    ID <ident> (261) 3
+    FLOAT <real> (262) 4
+    STRING <ident> (263) 6
+    BOOLEAN <ident> (264) 7
+
+
+Nonterminals, with rules where they appear
+
+    $accept (10)
+        on left: 0
+    programa <sense_valor> (11)
+        on left: 1 2
+        on right: 0 1
+    expressio <expr_val> (12)
+        on left: 3
+        on right: 1 2
+    valor <expr_val> (13)
+        on left: 4 5 6 7
+        on right: 3
+
+
+State 0
+
+    0 $accept: . programa $end
+
+    ID  shift, and go to state 1
+
+    programa   go to state 2
+    expressio  go to state 3
+
+
+State 1
+
+    3 expressio: ID . ASSIGN valor ENDLINE
+
+    ASSIGN  shift, and go to state 4
+
+
+State 2
+
+    0 $accept: programa . $end
+    1 programa: programa . expressio
+
+    $end  shift, and go to state 5
+    ID    shift, and go to state 1
+
+    expressio  go to state 6
+
+
+State 3
+
+    2 programa: expressio .
+
+    $default  reduce using rule 2 (programa)
+
+
+State 4
+
+    3 expressio: ID ASSIGN . valor ENDLINE
+
+    INTEGER  shift, and go to state 7
+    FLOAT    shift, and go to state 8
+    STRING   shift, and go to state 9
+    BOOLEAN  shift, and go to state 10
+
+    valor  go to state 11
+
+
+State 5
+
+    0 $accept: programa $end .
+
+    $default  accept
+
+
+State 6
+
+    1 programa: programa expressio .
+
+    $default  reduce using rule 1 (programa)
+
+
+State 7
+
+    5 valor: INTEGER .
+
+    $default  reduce using rule 5 (valor)
+
+
+State 8
+
+    4 valor: FLOAT .
+
+    $default  reduce using rule 4 (valor)
+
+
+State 9
+
+    6 valor: STRING .
+
+    $default  reduce using rule 6 (valor)
+
+
+State 10
+
+    7 valor: BOOLEAN .
+
+    $default  reduce using rule 7 (valor)
+
+
+State 11
+
+    3 expressio: ID ASSIGN valor . ENDLINE
+
+    ENDLINE  shift, and go to state 12
+
+
+State 12
+
+    3 expressio: ID ASSIGN valor ENDLINE .
+
+    $default  reduce using rule 3 (expressio)

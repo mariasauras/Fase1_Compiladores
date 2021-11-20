@@ -1,0 +1,4 @@
+x = "Hola"
+a = true
+c = false
+b = 0.5e-1

@@ -1,0 +1,12 @@
+ID: x pren per valor: "Hola"
+programa -> expressio :
+  expressio = 'Cadena: "Hola"'
+ID: a pren per valor: true
+programa -> expressio :
+  expressio = 'Boolean: true'
+ID: c pren per valor: false
+programa -> expressio :
+  expressio = 'Boolean: false'
+ID: b pren per valor: 0.050000
+programa -> expressio :
+  expressio = 'Float: 0.050000'
