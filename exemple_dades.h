@@ -9,7 +9,8 @@ typedef enum {
   INT_TYPE,
   FLOAT_TYPE,
   STRING_TYPE,
-  BOOL_TYPE
+  BOOL_TYPE,
+  COMMENT_TYPE
 } data_type;
 
 
@@ -19,6 +20,7 @@ typedef struct {
   float val_float;
   char *val_string;
   char *val_bol;
+  char *val_comment;
 } value_info;
 
 

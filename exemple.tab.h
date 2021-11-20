@@ -81,11 +81,10 @@ union YYSTYPE
     } ident;
     int enter;
     float real;
-    bool boleano;
     value_info expr_val;
     void *sense_valor;
 
-#line 89 "exemple.tab.h"
+#line 88 "exemple.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

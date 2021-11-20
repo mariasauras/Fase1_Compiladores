@@ -17,9 +17,13 @@
 lletra  [a-zA-Z]
 digit   [0-9]
 boolean (true|false)
+text    ["][^\n\t\"\']+["] 
+open_com ((lletra|digit|boleano|text)+[ ]+[#][^\n\t\"\']+)
+close_com ([ ]*[#=][^\t\"\']+[=#])
 
 
 %%
+
 {boolean}+                {
                               yylval.ident.lexema = strdup(yytext);
                               yylval.ident.lenght = yyleng;
@@ -36,8 +40,10 @@ boolean (true|false)
                             }
 
 "="                         { return ASSIGN; }
-   
-["][^\n\t\"\']+["]          {
+
+ 
+
+{text}                      {
                               yylval.ident.lexema = strdup(yytext);
                               yylval.ident.lenght = yyleng;
                               yylval.ident.id_val.val_type = STRING_TYPE;

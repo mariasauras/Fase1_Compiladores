@@ -1,5 +1,5 @@
-x = "Hola"
-a = true
-n = false
-c = 3
-b = 0.5e-1
+i = 10                          
+r = 0.5e-1
+r2 = 3.4                    
+s = "Hi, my name is Maria"       
+b = true                        

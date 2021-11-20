@@ -1,15 +1,15 @@
-ID: x pren per valor: "Hola"
+ID: i pren per valor: 10
 programa -> expressio :
-  expressio = 'Cadena: "Hola"'
-ID: a pren per valor: true
-programa -> expressio :
-  expressio = 'Boolean: true'
-ID: n pren per valor: false
-programa -> expressio :
-  expressio = 'Boolean: false'
-ID: c pren per valor: 3
-programa -> expressio :
-  expressio = 'Integer: 3'
-ID: b pren per valor: 0.050000
+  expressio = 'Integer: 10'
+ID: r pren per valor: 0.050000
 programa -> expressio :
   expressio = 'Float: 0.050000'
+ID: r2 pren per valor: 3.400000
+programa -> expressio :
+  expressio = 'Float: 3.400000'
+ID: s pren per valor: "Hi, my name is Maria"
+programa -> expressio :
+  expressio = 'Cadena: "Hi, my name is Maria"'
+ID: b pren per valor: true
+programa -> expressio :
+  expressio = 'Boolean: true'

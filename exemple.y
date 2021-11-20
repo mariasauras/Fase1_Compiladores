@@ -25,7 +25,6 @@ extern int yylex();
     } ident;
     int enter;
     float real;
-    bool boleano;
     value_info expr_val;
     void *sense_valor;
 }

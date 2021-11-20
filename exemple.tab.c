@@ -158,11 +158,10 @@ union YYSTYPE
     } ident;
     int enter;
     float real;
-    bool boleano;
     value_info expr_val;
     void *sense_valor;
 
-#line 166 "exemple.tab.c"
+#line 165 "exemple.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -538,7 +537,7 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    50,    50,    53,    57,    78,    79,    80,    81
+       0,    49,    49,    52,    56,    77,    78,    79,    80
 };
 #endif
 
@@ -1327,23 +1326,23 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 50 "exemple.y"
+#line 49 "exemple.y"
                               {
              fprintf(yyout, "programa -> expressio :\n  expressio = '%s'\n", value_info_to_str((yyvsp[0].expr_val)));
            }
-#line 1335 "exemple.tab.c"
+#line 1334 "exemple.tab.c"
     break;
 
   case 3:
-#line 53 "exemple.y"
+#line 52 "exemple.y"
                        {
              fprintf(yyout, "programa -> expressio :\n  expressio = '%s'\n", value_info_to_str((yyvsp[0].expr_val)));
            }
-#line 1343 "exemple.tab.c"
+#line 1342 "exemple.tab.c"
     break;
 
   case 4:
-#line 57 "exemple.y"
+#line 56 "exemple.y"
                                      {
               (yyval.expr_val).val_type = (yyvsp[-1].expr_val).val_type;
 
@@ -1364,35 +1363,35 @@ yyreduce:
             
 
             }
-#line 1368 "exemple.tab.c"
+#line 1367 "exemple.tab.c"
     break;
 
   case 5:
-#line 78 "exemple.y"
+#line 77 "exemple.y"
               { (yyval.expr_val).val_type = FLOAT_TYPE; (yyval.expr_val).val_float = (yyvsp[0].real); }
-#line 1374 "exemple.tab.c"
+#line 1373 "exemple.tab.c"
     break;
 
   case 6:
-#line 79 "exemple.y"
+#line 78 "exemple.y"
                 { (yyval.expr_val).val_type = INT_TYPE; (yyval.expr_val).val_int = (yyvsp[0].enter); }
-#line 1380 "exemple.tab.c"
+#line 1379 "exemple.tab.c"
     break;
 
   case 7:
-#line 80 "exemple.y"
+#line 79 "exemple.y"
                { (yyval.expr_val).val_type = STRING_TYPE; (yyval.expr_val).val_string = (yyvsp[0].ident).lexema; }
-#line 1386 "exemple.tab.c"
+#line 1385 "exemple.tab.c"
     break;
 
   case 8:
-#line 81 "exemple.y"
+#line 80 "exemple.y"
                 { (yyval.expr_val).val_type = BOOL_TYPE; (yyval.expr_val).val_bol = (yyvsp[0].ident).lexema; }
-#line 1392 "exemple.tab.c"
+#line 1391 "exemple.tab.c"
     break;
 
 
-#line 1396 "exemple.tab.c"
+#line 1395 "exemple.tab.c"
 
       default: break;
     }
@@ -1624,5 +1623,5 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 83 "exemple.y"
+#line 82 "exemple.y"
 

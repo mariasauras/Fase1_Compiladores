@@ -17,6 +17,8 @@ char *type_to_str(data_type val_type)
     return strdup("Cadena");
   }else if(val_type == BOOL_TYPE){
     return strdup("Boolean");
+  }else if(val_type == COMMENT_TYPE){
+    return strdup("Comment");
   }else{
     return strdup("Error: incorrect value for 'val_type'");
   }
@@ -37,6 +39,8 @@ char *value_info_to_str(value_info value)
     sprintf(buffer, "Cadena: %s", value.val_string);
   } else if(value.val_type == BOOL_TYPE){
     sprintf(buffer, "Boolean: %s", value.val_bol);
+  }else if(value.val_type == COMMENT_TYPE){
+    sprintf(buffer, "the comment is: %s", value.val_comment);
   }else {
     sprintf(buffer, "Error: incorrect value for 'value.val_type'");
   }
