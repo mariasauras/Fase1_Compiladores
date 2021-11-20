@@ -18,7 +18,7 @@ lletra  [a-zA-Z]
 digit   [0-9]
 boolean (true|false)
 text    ["][^\n\t\"\']+["] 
-com     ([ ]*[#][^\n\t\"\']+ | [ ]*[#=][^\t\"\']+[=#])
+comentario     ([ ]*[#][^\n\t\"\']+ | [ ]*[#=][^\t\"\']+[=#])
 
 
 
