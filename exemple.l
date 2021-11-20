@@ -18,8 +18,8 @@ lletra  [a-zA-Z]
 digit   [0-9]
 boolean (true|false)
 text    ["][^\n\t\"\']+["] 
-open_com ((lletra|digit|boleano|text)+[ ]+[#][^\n\t\"\']+)
-close_com ([ ]*[#=][^\t\"\']+[=#])
+com     ([ ]*[#][^\n\t\"\']+ | [ ]*[#=][^\t\"\']+[=#])
+
 
 
 %%

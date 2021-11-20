@@ -1,4 +1,4 @@
-i = 10                          
+i = 10          #a comment                        
 r = 0.5e-1
 r2 = 3.4                    
 s = "Hi, my name is Maria"       
