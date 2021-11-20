@@ -17,19 +17,20 @@
 lletra  [a-zA-Z]
 digit   [0-9]
 boolean (true|false)
-text    ["][^\n\t\"\']+["] 
-comentario     ([ ]*[#][^\n\t\"\']+ | [ ]*[#=][^\t\"\']+[=#])
+text    ["][^\n\t\"\']*["] 
+comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 
 
 
 %%
-
-{boolean}+                {
+  
+{boolean}                  {
                               yylval.ident.lexema = strdup(yytext);
                               yylval.ident.lenght = yyleng;
                               yylval.ident.id_val.val_type = BOOL_TYPE;
                               return BOOLEAN; 
                             }
+
 
 {lletra}({lletra}|{digit})* {
                               yylval.ident.lexema = strdup(yytext);
@@ -51,18 +52,18 @@ comentario     ([ ]*[#][^\n\t\"\']+ | [ ]*[#=][^\t\"\']+[=#])
                             }                                 
   
 
-{digit}+"."({digit}|{lletra}|-)+          {
-                              yylval.real = atof(yytext);
-                              return FLOAT;
-                            }
+{digit}+"."{digit}+("e-"{digit}+)?    {
+                                      yylval.real = atof(yytext);
+                                      return FLOAT;
+                                    }
+
 
 {digit}+                    {
                               yylval.enter = atoi(yytext);
                               return INTEGER;
                             }
 
-
-
+"+"                           { return SUMA; }
 
 ^[ \t]*[\n]                 {}
 

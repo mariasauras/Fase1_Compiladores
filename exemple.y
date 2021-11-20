@@ -35,7 +35,8 @@ extern int yylex();
 %token <real> FLOAT
 %token <ident> STRING
 %token <ident> BOOLEAN
-%token <ident> COMMENT
+%token  SUMA
+
 
 
 %type <sense_valor> programa
@@ -56,7 +57,6 @@ programa : programa expressio {
 expressio : ID ASSIGN valor ENDLINE  {
               $$.val_type = $3.val_type;
 
-
               if($$.val_type == STRING_TYPE){
                 fprintf(yyout, "ID: %s pren per valor: %s\n",$1.lexema, $3.val_string);
                 $$.val_string = $3.val_string;
@@ -68,21 +68,19 @@ expressio : ID ASSIGN valor ENDLINE  {
               } else if($$.val_type == BOOL_TYPE){
                 fprintf(yyout, "ID: %s pren per valor: %s\n",$1.lexema, $3.val_bol);
                 $$.val_bol = $3.val_bol;
-                
               }else{
                 fprintf(yyout, "ID: %s pren per valor: %d\n",$1.lexema, $3.val_int);
-                $$.val_int = $3.val_int;
-                
+                $$.val_int = $3.val_int; 
               } 
-              
-            
-
             }
 
 valor : FLOAT { $$.val_type = FLOAT_TYPE; $$.val_float = $1; }
       | INTEGER { $$.val_type = INT_TYPE; $$.val_int = $1; }
       | STRING { $$.val_type = STRING_TYPE; $$.val_string = $1.lexema; }
       | BOOLEAN { $$.val_type = BOOL_TYPE; $$.val_bol = $1.lexema; }
-      | COMMENT { $$.val_type = COMMENT_TYPE; $$.val_comment = $1.lexema; }
+
+
+sumlist : sumlist SUMA valor 
+        | valor
 
 %%

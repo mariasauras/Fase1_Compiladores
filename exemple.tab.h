@@ -63,8 +63,7 @@ extern int yydebug;
     ID = 261,
     FLOAT = 262,
     STRING = 263,
-    BOOLEAN = 264,
-    COMMENT = 265
+    BOOLEAN = 264
   };
 #endif
 
@@ -85,7 +84,7 @@ union YYSTYPE
     value_info expr_val;
     void *sense_valor;
 
-#line 89 "exemple.tab.h"
+#line 88 "exemple.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

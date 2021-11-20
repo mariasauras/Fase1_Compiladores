@@ -76,3 +76,7 @@ void yyerror(char *explanation)
 {
   fprintf(stderr, "Error: %s , in line %d\n", explanation, yylineno);
 }
+
+void sum_op(){
+  
+}

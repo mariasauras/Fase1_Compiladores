@@ -1,5 +1,4 @@
-i = 10                                
-r = 0.5e-1
-r2 = 3.4                    
-s = "Hi, my name is Maria"       
-b = true                        
+i = 10  
+r = 3.4  
+s1 = "compiladores "
+r= 3.4                                                                                            
