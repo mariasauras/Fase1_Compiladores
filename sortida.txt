@@ -4,9 +4,12 @@ programa -> expressio :
 ID: a pren per valor: true
 programa -> expressio :
   expressio = 'Boolean: true'
-ID: c pren per valor: false
+ID: n pren per valor: false
 programa -> expressio :
   expressio = 'Boolean: false'
+ID: c pren per valor: 3
+programa -> expressio :
+  expressio = 'Integer: 3'
 ID: b pren per valor: 0.050000
 programa -> expressio :
   expressio = 'Float: 0.050000'
