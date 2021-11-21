@@ -64,7 +64,9 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
                               return INTEGER;
                             }
 
-"+"                           { return SUMA; }
+"+"                         { return SUMA; }
+
+"-"                         { return RESTA; }            
 
 ^[ \t]*[\n]                 {}
 

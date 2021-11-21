@@ -27,6 +27,7 @@ extern int yylex();
 %token <st.value_data.ident> STRING
 %token <st.value_data.ident> BOOLEAN
 %token  SUMA
+%token  RESTA
 
 
 %type <st> programa
