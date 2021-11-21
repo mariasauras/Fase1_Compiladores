@@ -2,7 +2,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 extern FILE *yyout;
 extern int yylineno;
 extern int yylex();
@@ -50,18 +49,18 @@ expressio : ID ASSIGN valor ENDLINE  {
               $$.value_type = $3.value_type;
 
               if($$.value_type == STRING_TYPE){
-                fprintf(yyout, "ID: %s pren per valor: %s\n",$1.value_data.ident.lexema, $3.value_data.ident.lexema);
+                fprintf(yyout, "ID: %s pren per valor: %s\n",$1.lexema, $3.value_data.ident.lexema);
                 $$.value_data.ident.lexema = $3.value_data.ident.lexema;
                
               } else if($$.value_type == FLOAT_TYPE){
-                fprintf(yyout, "ID: %s pren per valor: %f\n",$1.value_data.ident.lexema, $3.value_data.real);
+                fprintf(yyout, "ID: %s pren per valor: %f\n",$1.lexema, $3.value_data.real);
                 $$.value_data.real = $3.value_data.real;
                 
               } else if($$.value_type == BOOL_TYPE){
-                fprintf(yyout, "ID: %s pren per valor: %s\n",$1.value_data.ident.lexema, $3.value_data.ident.lexema);
+                fprintf(yyout, "ID: %s pren per valor: %s\n",$1.lexema, $3.value_data.ident.lexema);
                 $$.value_data.ident.lexema = $3.value_data.ident.lexema;
               }else{
-                fprintf(yyout, "ID: %s pren per valor: %d\n",$1.value_data.ident.lexema, $3.value_data.enter);
+                fprintf(yyout, "ID: %s pren per valor: %d\n",$1.lexema, $3.value_data.enter);
                 $$.value_data.enter= $3.value_data.enter; 
               } 
             }

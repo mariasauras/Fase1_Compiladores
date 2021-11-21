@@ -4,9 +4,9 @@ programa -> expressio :
 ID: r pren per valor: 3.400000
 programa -> expressio :
   expressio = 'Float: 3.400000'
-ID: s1 pren per valor: "compiladores "
+ID: s1 pren per valor: "compiladores"
 programa -> expressio :
-  expressio = 'Cadena: "compiladores "'
-ID: r pren per valor: 3.400000
+  expressio = 'Cadena: "compiladores"'
+ID: r2 pren per valor: 0.020000
 programa -> expressio :
-  expressio = 'Float: 3.400000'
+  expressio = 'Float: 0.020000'
