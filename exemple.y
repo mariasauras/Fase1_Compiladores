@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "symtab.h"
 extern FILE *yyout;
 extern int yylineno;
 extern int yylex();

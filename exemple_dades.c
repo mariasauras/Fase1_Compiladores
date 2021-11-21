@@ -3,8 +3,6 @@
 #include <string.h>
 #include <stdbool.h>
 #include "exemple_dades.h"
-#include "symtab.h"
-
 
 char *type_to_str(sym_value_type st)
 {

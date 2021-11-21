@@ -44,7 +44,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 14 "exemple.y"
+#line 13 "exemple.y"
 
   /* Les definicions que s'utilitzen al %union han d'estar aqui */
   #include "exemple_dades.h"
@@ -73,7 +73,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 21 "exemple.y"
+#line 20 "exemple.y"
 
     sym_value_type st;
 

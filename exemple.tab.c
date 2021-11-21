@@ -72,14 +72,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include "symtab.h"
 extern FILE *yyout;
 extern int yylineno;
 extern int yylex();
 /*extern void yyerror(char*);*/
 
 
-#line 83 "exemple.tab.c"
+#line 82 "exemple.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -122,14 +121,14 @@ extern int yylex();
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 14 "exemple.y"
+#line 13 "exemple.y"
 
   /* Les definicions que s'utilitzen al %union han d'estar aqui */
   #include "exemple_dades.h"
   #include "exemple_funcions.h"
   #include "symtab.h"
 
-#line 133 "exemple.tab.c"
+#line 132 "exemple.tab.c"
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -151,11 +150,11 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 21 "exemple.y"
+#line 20 "exemple.y"
 
     sym_value_type st;
 
-#line 159 "exemple.tab.c"
+#line 158 "exemple.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -531,7 +530,7 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    44,    44,    47,    51,    71,    72,    73,    74
+       0,    43,    43,    46,    50,    70,    71,    72,    73
 };
 #endif
 
@@ -1321,23 +1320,23 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 44 "exemple.y"
+#line 43 "exemple.y"
                               {
              fprintf(yyout, "programa -> expressio :\n  expressio = '%s'\n", value_info_to_str((yyvsp[0].st)));
            }
-#line 1329 "exemple.tab.c"
+#line 1328 "exemple.tab.c"
     break;
 
   case 3:
-#line 47 "exemple.y"
+#line 46 "exemple.y"
                        {
              fprintf(yyout, "programa -> expressio :\n  expressio = '%s'\n", value_info_to_str((yyvsp[0].st)));
            }
-#line 1337 "exemple.tab.c"
+#line 1336 "exemple.tab.c"
     break;
 
   case 4:
-#line 51 "exemple.y"
+#line 50 "exemple.y"
                                      {
               (yyval.st).value_type = (yyvsp[-1].st).value_type;
 
@@ -1357,35 +1356,35 @@ yyreduce:
                 (yyval.st).value_data.enter= (yyvsp[-1].st).value_data.enter; 
               } 
             }
-#line 1361 "exemple.tab.c"
+#line 1360 "exemple.tab.c"
     break;
 
   case 5:
-#line 71 "exemple.y"
+#line 70 "exemple.y"
               { (yyval.st).value_type = FLOAT_TYPE; (yyval.st).value_data.real = (yyvsp[0].st); }
-#line 1367 "exemple.tab.c"
+#line 1366 "exemple.tab.c"
     break;
 
   case 6:
-#line 72 "exemple.y"
+#line 71 "exemple.y"
                 { (yyval.st).value_type = INT_TYPE; (yyval.st).value_data.enter = (yyvsp[0].st); }
-#line 1373 "exemple.tab.c"
+#line 1372 "exemple.tab.c"
     break;
 
   case 7:
-#line 73 "exemple.y"
+#line 72 "exemple.y"
                { (yyval.st).value_type = STRING_TYPE; (yyval.st).value_data.ident.lexema = (yyvsp[0].st).lexema; }
-#line 1379 "exemple.tab.c"
+#line 1378 "exemple.tab.c"
     break;
 
   case 8:
-#line 74 "exemple.y"
+#line 73 "exemple.y"
                 { (yyval.st).value_type = BOOL_TYPE; (yyval.st).value_data.ident.lexema = (yyvsp[0].st).lexema; }
-#line 1385 "exemple.tab.c"
+#line 1384 "exemple.tab.c"
     break;
 
 
-#line 1389 "exemple.tab.c"
+#line 1388 "exemple.tab.c"
 
       default: break;
     }
@@ -1617,5 +1616,5 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 80 "exemple.y"
+#line 79 "exemple.y"
 
