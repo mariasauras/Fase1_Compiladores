@@ -1,6 +1,7 @@
 /* Copyright 1988 by GeoMaker Software                                      */
 /* Written by Mark Grand                                                    */
-
+#include <stdio.h>
+#include <stdlib.h>
 /* This is the header file for use with the symbol table functions          */
 
 /****************************************************************************/
@@ -19,11 +20,9 @@ typedef struct data {
         char *lexema;
         int lenght;
         int line;
-        value_info id_val;
     } ident;
     int enter;
     float real;
-    value_info expr_val;
     void *sense_valor;
 }data;
 
@@ -37,7 +36,7 @@ typedef enum{
 
 typedef struct sym_value_type {
 	struct data value_data;
-	enum type value_type;
+	type value_type;
 }sym_value_type;  
 
 /* Uncomment the following define if bindings should point to rather than   */
@@ -166,7 +165,7 @@ typedef const char * sym_name_type;     /* If you are using something other */
 
 /****************************************************************************/
 /*                                                                          */
-/*                   end of #defines to configure symtab                    /
+/*                   end of #defines to configure symtab                    */
 /*    Most configuration can be accomplished by editing lines above this.   */
 /*                                                                          */
 /****************************************************************************/

@@ -1,4 +1,4 @@
 i = 10  
 r = 3.4  
-s1 = "compiladores "
-r= 3.4                                                                                            
+s1 = "compiladores"
+r2 = 0.2e-1                                                                                          
