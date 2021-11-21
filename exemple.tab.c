@@ -530,7 +530,7 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    43,    43,    46,    50,    70,    71,    72,    73
+       0,    42,    42,    45,    49,    69,    70,    71,    72
 };
 #endif
 
@@ -1320,7 +1320,7 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 43 "exemple.y"
+#line 42 "exemple.y"
                               {
              fprintf(yyout, "programa -> expressio :\n  expressio = '%s'\n", value_info_to_str((yyvsp[0].st)));
            }
@@ -1328,7 +1328,7 @@ yyreduce:
     break;
 
   case 3:
-#line 46 "exemple.y"
+#line 45 "exemple.y"
                        {
              fprintf(yyout, "programa -> expressio :\n  expressio = '%s'\n", value_info_to_str((yyvsp[0].st)));
            }
@@ -1336,23 +1336,23 @@ yyreduce:
     break;
 
   case 4:
-#line 50 "exemple.y"
+#line 49 "exemple.y"
                                      {
               (yyval.st).value_type = (yyvsp[-1].st).value_type;
 
               if((yyval.st).value_type == STRING_TYPE){
-                fprintf(yyout, "ID: %s pren per valor: %s\n",(yyvsp[-3].st).value_data.ident.lexema, (yyvsp[-1].st).value_data.ident.lexema);
+                fprintf(yyout, "ID: %s pren per valor: %s\n",(yyvsp[-3].st.value_data.ident).value_data.ident.lexema, (yyvsp[-1].st).value_data.ident.lexema);
                 (yyval.st).value_data.ident.lexema = (yyvsp[-1].st).value_data.ident.lexema;
                
               } else if((yyval.st).value_type == FLOAT_TYPE){
-                fprintf(yyout, "ID: %s pren per valor: %f\n",(yyvsp[-3].st).value_data.ident.lexema, (yyvsp[-1].st).value_data.real);
+                fprintf(yyout, "ID: %s pren per valor: %f\n",(yyvsp[-3].st.value_data.ident).value_data.ident.lexema, (yyvsp[-1].st).value_data.real);
                 (yyval.st).value_data.real = (yyvsp[-1].st).value_data.real;
                 
               } else if((yyval.st).value_type == BOOL_TYPE){
-                fprintf(yyout, "ID: %s pren per valor: %s\n",(yyvsp[-3].st).value_data.ident.lexema, (yyvsp[-1].st).value_data.ident.lexema);
+                fprintf(yyout, "ID: %s pren per valor: %s\n",(yyvsp[-3].st.value_data.ident).value_data.ident.lexema, (yyvsp[-1].st).value_data.ident.lexema);
                 (yyval.st).value_data.ident.lexema = (yyvsp[-1].st).value_data.ident.lexema;
               }else{
-                fprintf(yyout, "ID: %s pren per valor: %d\n",(yyvsp[-3].st).value_data.ident.lexema, (yyvsp[-1].st).value_data.enter);
+                fprintf(yyout, "ID: %s pren per valor: %d\n",(yyvsp[-3].st.value_data.ident).value_data.ident.lexema, (yyvsp[-1].st).value_data.enter);
                 (yyval.st).value_data.enter= (yyvsp[-1].st).value_data.enter; 
               } 
             }
@@ -1360,26 +1360,26 @@ yyreduce:
     break;
 
   case 5:
-#line 70 "exemple.y"
-              { (yyval.st).value_type = FLOAT_TYPE; (yyval.st).value_data.real = (yyvsp[0].st); }
+#line 69 "exemple.y"
+              { (yyval.st).value_type = FLOAT_TYPE; (yyval.st).value_data.real = (yyvsp[0].st.value_data.real); }
 #line 1366 "exemple.tab.c"
     break;
 
   case 6:
-#line 71 "exemple.y"
-                { (yyval.st).value_type = INT_TYPE; (yyval.st).value_data.enter = (yyvsp[0].st); }
+#line 70 "exemple.y"
+                { (yyval.st).value_type = INT_TYPE; (yyval.st).value_data.enter = (yyvsp[0].st.value_data.enter); }
 #line 1372 "exemple.tab.c"
     break;
 
   case 7:
-#line 72 "exemple.y"
-               { (yyval.st).value_type = STRING_TYPE; (yyval.st).value_data.ident.lexema = (yyvsp[0].st).lexema; }
+#line 71 "exemple.y"
+               { (yyval.st).value_type = STRING_TYPE; (yyval.st).value_data.ident.lexema = (yyvsp[0].st.value_data.ident).lexema; }
 #line 1378 "exemple.tab.c"
     break;
 
   case 8:
-#line 73 "exemple.y"
-                { (yyval.st).value_type = BOOL_TYPE; (yyval.st).value_data.ident.lexema = (yyvsp[0].st).lexema; }
+#line 72 "exemple.y"
+                { (yyval.st).value_type = BOOL_TYPE; (yyval.st).value_data.ident.lexema = (yyvsp[0].st.value_data.ident).lexema; }
 #line 1384 "exemple.tab.c"
     break;
 
@@ -1616,5 +1616,5 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 79 "exemple.y"
+#line 78 "exemple.y"
 

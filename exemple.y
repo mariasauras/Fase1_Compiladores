@@ -21,14 +21,13 @@ extern int yylex();
     sym_value_type st;
 }
 
-%token <st> ASSIGN ENDLINE
-%token <st> INTEGER
-%token <st> ID
-%token <st> FLOAT
-%token <st> STRING
-%token <st> BOOLEAN
+%token <st.value_data.sense_valor> ASSIGN ENDLINE
+%token <st.value_data.enter> INTEGER
+%token <st.value_data.ident> ID
+%token <st.value_data.real> FLOAT
+%token <st.value_data.ident> STRING
+%token <st.value_data.ident> BOOLEAN
 %token  SUMA
-
 
 
 %type <st> programa

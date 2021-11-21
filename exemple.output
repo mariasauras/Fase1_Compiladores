@@ -33,13 +33,13 @@ Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
-    ASSIGN <st> (258) 3
-    ENDLINE <st> (259) 3
-    INTEGER <st> (260) 5
-    ID <st> (261) 3
-    FLOAT <st> (262) 4
-    STRING <st> (263) 6
-    BOOLEAN <st> (264) 7
+    ASSIGN <st.value_data.sense_valor> (258) 3
+    ENDLINE <st.value_data.sense_valor> (259) 3
+    INTEGER <st.value_data.enter> (260) 5
+    ID <st.value_data.ident> (261) 3
+    FLOAT <st.value_data.real> (262) 4
+    STRING <st.value_data.ident> (263) 6
+    BOOLEAN <st.value_data.ident> (264) 7
     SUMA (265)
 
 

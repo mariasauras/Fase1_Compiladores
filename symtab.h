@@ -1,6 +1,9 @@
+#ifndef SYMTAB
+#define SYMTAB
+
+
 /* Copyright 1988 by GeoMaker Software                                      */
 /* Written by Mark Grand                                                    */
-
 /* This is the header file for use with the symbol table functions          */
 
 /****************************************************************************/
@@ -24,11 +27,12 @@ typedef enum{
 
 }type;															
 
-typedef struct{
+typedef struct data{
 	struct{
         char *lexema;
         int lenght;
         int line;
+		type value_type;
     } ident;
     int enter;
     float real;
@@ -163,7 +167,7 @@ typedef const char * sym_name_type;     /* If you are using something other */
 /* Uncomment the following to include sym_histogram in the compile          */
 /* #define SYM_HISTOGRAM */
 
-
+#endif
 /****************************************************************************/
 /*                                                                          */
 /*                   end of #defines to configure symtab                    */
