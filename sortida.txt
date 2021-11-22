@@ -10,3 +10,6 @@ programa -> expressio :
 ID: r2 pren per valor: 0.020000
 programa -> expressio :
   expressio = 'Float: 0.020000'
+ID: a pren per valor: 4
+programa -> expressio :
+  expressio = 'Integer: 4'

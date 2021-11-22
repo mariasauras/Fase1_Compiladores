@@ -141,7 +141,8 @@ extern int yydebug;
     FLOAT = 262,
     STRING = 263,
     BOOLEAN = 264,
-    SUMA = 265
+    SUMA = 265,
+    RESTA = 266
   };
 #endif
 
@@ -153,7 +154,7 @@ union YYSTYPE
 
     sym_value_type st;
 
-#line 157 "exemple.tab.c"
+#line 158 "exemple.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -472,19 +473,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  5
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   9
+#define YYLAST   13
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  11
+#define YYNTOKENS  12
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  4
+#define YYNNTS  5
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  8
+#define YYNRULES  11
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  13
+#define YYNSTATES  18
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   265
+#define YYMAXUTOK   266
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -522,14 +523,15 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10
+       5,     6,     7,     8,     9,    10,    11
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    41,    41,    44,    48,    68,    69,    70,    71
+       0,    42,    42,    45,    49,    68,    69,    70,    71,    74,
+      75,    76
 };
 #endif
 
@@ -539,8 +541,8 @@ static const yytype_int8 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "ASSIGN", "ENDLINE", "INTEGER", "ID",
-  "FLOAT", "STRING", "BOOLEAN", "SUMA", "$accept", "programa", "expressio",
-  "valor", YY_NULLPTR
+  "FLOAT", "STRING", "BOOLEAN", "SUMA", "RESTA", "$accept", "programa",
+  "expressio", "valor", "oplist", YY_NULLPTR
 };
 #endif
 
@@ -550,11 +552,11 @@ static const char *const yytname[] =
 static const yytype_int16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265
+     265,   266
 };
 # endif
 
-#define YYPACT_NINF (-5)
+#define YYPACT_NINF (-12)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -568,8 +570,8 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       1,    -1,     0,    -5,    -4,    -5,    -5,    -5,    -5,    -5,
-      -5,     4,    -5
+      -5,     7,     2,   -12,     4,   -12,   -12,   -12,   -12,   -12,
+     -12,   -12,    -4,   -12,     4,     4,   -12,   -12
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -578,19 +580,19 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        0,     0,     0,     3,     0,     1,     2,     6,     5,     7,
-       8,     0,     4
+       8,    11,     0,     4,     0,     0,     9,    10
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -5,    -5,     7,    -5
+     -12,   -12,     3,   -11,   -12
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,     3,    11
+      -1,     2,     3,    11,    12
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -598,32 +600,36 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       5,     7,     4,     8,     9,    10,     1,     1,    12,     6
+      13,     1,     5,    16,    17,     6,    14,    15,     1,     7,
+       4,     8,     9,    10
 };
 
 static const yytype_int8 yycheck[] =
 {
-       0,     5,     3,     7,     8,     9,     6,     6,     4,     2
+       4,     6,     0,    14,    15,     2,    10,    11,     6,     5,
+       3,     7,     8,     9
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     6,    12,    13,     3,     0,    13,     5,     7,     8,
-       9,    14,     4
+       0,     6,    13,    14,     3,     0,    14,     5,     7,     8,
+       9,    15,    16,     4,    10,    11,    15,    15
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    11,    12,    12,    13,    14,    14,    14,    14
+       0,    12,    13,    13,    14,    15,    15,    15,    15,    16,
+      16,    16
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     2,     1,     4,     1,     1,     1,     1
+       0,     2,     2,     1,     4,     1,     1,     1,     1,     3,
+       3,     1
 };
 
 
@@ -1319,71 +1325,76 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 41 "exemple.y"
+#line 42 "exemple.y"
                               {
              fprintf(yyout, "programa -> expressio :\n  expressio = '%s'\n", value_info_to_str((yyvsp[0].st)));
            }
-#line 1327 "exemple.tab.c"
+#line 1333 "exemple.tab.c"
     break;
 
   case 3:
-#line 44 "exemple.y"
+#line 45 "exemple.y"
                        {
              fprintf(yyout, "programa -> expressio :\n  expressio = '%s'\n", value_info_to_str((yyvsp[0].st)));
            }
-#line 1335 "exemple.tab.c"
+#line 1341 "exemple.tab.c"
     break;
 
   case 4:
-#line 48 "exemple.y"
-                                     {
+#line 49 "exemple.y"
+                                      {
               (yyval.st).value_type = (yyvsp[-1].st).value_type;
 
               if((yyval.st).value_type == STRING_TYPE){
                 fprintf(yyout, "ID: %s pren per valor: %s\n",(yyvsp[-3].st.value_data.ident).lexema, (yyvsp[-1].st).value_data.ident.lexema);
                 (yyval.st).value_data.ident.lexema = (yyvsp[-1].st).value_data.ident.lexema;
-               
               } else if((yyval.st).value_type == FLOAT_TYPE){
                 fprintf(yyout, "ID: %s pren per valor: %f\n",(yyvsp[-3].st.value_data.ident).lexema, (yyvsp[-1].st).value_data.real);
                 (yyval.st).value_data.real = (yyvsp[-1].st).value_data.real;
-                
               } else if((yyval.st).value_type == BOOL_TYPE){
-                fprintf(yyout, "ID: %s pren per valor: %s\n",(yyvsp[-3].st.value_data.ident).lexema, (yyvsp[-1].st).value_data.ident.lexema);
-                (yyval.st).value_data.ident.lexema = (yyvsp[-1].st).value_data.ident.lexema;
+                fprintf(yyout, "ID: %s pren per valor: %d\n",(yyvsp[-3].st.value_data.ident).lexema, (yyvsp[-1].st).value_data.boolean);
+                (yyval.st).value_data.boolean = (yyvsp[-1].st).value_data.boolean;
               }else{
                 fprintf(yyout, "ID: %s pren per valor: %d\n",(yyvsp[-3].st.value_data.ident).lexema, (yyvsp[-1].st).value_data.enter);
                 (yyval.st).value_data.enter= (yyvsp[-1].st).value_data.enter; 
-              } 
+              }
+
             }
-#line 1359 "exemple.tab.c"
+#line 1364 "exemple.tab.c"
     break;
 
   case 5:
 #line 68 "exemple.y"
               { (yyval.st).value_type = FLOAT_TYPE; (yyval.st).value_data.real = (yyvsp[0].st.value_data.real); }
-#line 1365 "exemple.tab.c"
+#line 1370 "exemple.tab.c"
     break;
 
   case 6:
 #line 69 "exemple.y"
                 { (yyval.st).value_type = INT_TYPE; (yyval.st).value_data.enter = (yyvsp[0].st.value_data.enter); }
-#line 1371 "exemple.tab.c"
+#line 1376 "exemple.tab.c"
     break;
 
   case 7:
 #line 70 "exemple.y"
                { (yyval.st).value_type = STRING_TYPE; (yyval.st).value_data.ident.lexema = (yyvsp[0].st.value_data.ident).lexema; }
-#line 1377 "exemple.tab.c"
+#line 1382 "exemple.tab.c"
     break;
 
   case 8:
 #line 71 "exemple.y"
-                { (yyval.st).value_type = BOOL_TYPE; (yyval.st).value_data.ident.lexema = (yyvsp[0].st.value_data.ident).lexema; }
-#line 1383 "exemple.tab.c"
+                { (yyval.st).value_type = BOOL_TYPE; (yyval.st).value_data.boolean = (yyvsp[0].st.value_data.boolean); }
+#line 1388 "exemple.tab.c"
+    break;
+
+  case 9:
+#line 74 "exemple.y"
+                           {sum_op(&(yyval.st),(yyvsp[0].st),(yyvsp[0].st));}
+#line 1394 "exemple.tab.c"
     break;
 
 
-#line 1387 "exemple.tab.c"
+#line 1398 "exemple.tab.c"
 
       default: break;
     }
@@ -1615,5 +1626,5 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 77 "exemple.y"
+#line 78 "exemple.y"
 

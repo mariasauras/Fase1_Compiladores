@@ -1,6 +1,7 @@
 #ifndef SYMTAB
 #define SYMTAB
 
+#include <stdbool.h>
 
 /* Copyright 1988 by GeoMaker Software                                      */
 /* Written by Mark Grand                                                    */
@@ -24,7 +25,7 @@ typedef enum{
   	FLOAT_TYPE,
   	STRING_TYPE,
   	BOOL_TYPE
-
+	  
 }type;															
 
 typedef struct data{
@@ -36,6 +37,7 @@ typedef struct data{
     } ident;
     int enter;
     float real;
+	bool boolean;
     void *sense_valor;
 }data;
 

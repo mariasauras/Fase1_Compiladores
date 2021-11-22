@@ -5,7 +5,12 @@ extern int yyparse();
 extern FILE *yyin;
 extern FILE *yyout;
 extern int yylineno;
+#include "exemple_funcions.h" 
 
+
+/*********************************************************************/
+/*                   Funciones FLEX                                  */
+/*********************************************************************/
 
 int init_analisi_lexica(char *filename)
 {
@@ -77,6 +82,28 @@ void yyerror(char *explanation)
   fprintf(stderr, "Error: %s , in line %d\n", explanation, yylineno);
 }
 
-void sum_op(){
+/*********************************************************************/
+/*                   Funciones ARITMETICA                            */
+/*********************************************************************/
+
+void sum_op(sym_value_type * val, sym_value_type v1, sym_value_type v2){
+
+  if(v1.value_type == BOOL_TYPE || v2.value_type == BOOL_TYPE  || v1.value_type == STRING_TYPE || v2.value_type == STRING_TYPE){
+    (*val).value_data.ident.lexema = "ERROR";
+  } else {
+    if (v1.value_type == INT_TYPE && v2.value_type == INT_TYPE){
+      (*val).value_data.enter = v1.value_data.enter + v2.value_data.enter;
+      (*val).value_type = INT_TYPE;
+    } else if(v1.value_type == INT_TYPE && v2.value_type == FLOAT_TYPE){
+      (*val).value_type = FLOAT_TYPE;
+      (*val).value_data.real = v1.value_data.enter + v2.value_data.real;
+    } else if(v1.value_type == FLOAT_TYPE && v2.value_type == INT_TYPE){
+       (*val).value_type = FLOAT_TYPE;
+      (*val).value_data.real = v1.value_data.real + v2.value_data.enter;
+    } else {
+      (*val).value_data.real = v1.value_data.real + v2.value_data.real;
+      (*val).value_type = FLOAT_TYPE;
+    }
+  }
   
 }
