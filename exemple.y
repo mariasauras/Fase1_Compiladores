@@ -56,8 +56,12 @@ expressio : ID ASSIGN oplist ENDLINE  {
                 fprintf(yyout, "ID: %s pren per valor: %f\n",$1.lexema, $3.value_data.real);
                 $$.value_data.real = $3.value_data.real;
               } else if($$.value_type == BOOL_TYPE){
-                fprintf(yyout, "ID: %s pren per valor: %d\n",$1.lexema, $3.value_data.boolean);
                 $$.value_data.boolean = $3.value_data.boolean;
+                if($$.value_data.boolean == 1){
+                  fprintf(yyout, "True\n"); 
+                } else {
+                  fprintf(yyout, "False\n");
+                }
               }else{
                 fprintf(yyout, "ID: %s pren per valor: %d\n",$1.lexema, $3.value_data.enter);
                 $$.value_data.enter= $3.value_data.enter; 
@@ -72,7 +76,7 @@ valor : FLOAT { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
 
 
 oplist : oplist SUMA valor {sum_op(&$$,$3,$3);}
-        | oplist RESTA valor
+        | oplist RESTA valor 
         | valor
 
 %%

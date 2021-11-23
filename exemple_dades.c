@@ -35,7 +35,9 @@ char *value_info_to_str(sym_value_type st)
   } else if(st.value_type == STRING_TYPE){
     sprintf(buffer, "Cadena: %s", st.value_data.ident.lexema);
   } else if(st.value_type == BOOL_TYPE){
-    sprintf(buffer, "Boolean: %d", st.value_data.boolean);
+    if(st.value_data.boolean == 0){
+      sprintf(buffer, "Boolean: FALSE");
+    }else sprintf(buffer, "Boolean: TRUE");
   }else {
     sprintf(buffer, "Error: incorrect value for 'value.st'");
   }

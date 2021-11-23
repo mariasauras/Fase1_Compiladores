@@ -89,7 +89,7 @@ void yyerror(char *explanation)
 void sum_op(sym_value_type * val, sym_value_type v1, sym_value_type v2){
 
   if(v1.value_type == BOOL_TYPE || v2.value_type == BOOL_TYPE  || v1.value_type == STRING_TYPE || v2.value_type == STRING_TYPE){
-    (*val).value_data.ident.lexema = "ERROR";
+    yyerror("Can't operate with these value type");
   } else {
     if (v1.value_type == INT_TYPE && v2.value_type == INT_TYPE){
       (*val).value_data.enter = v1.value_data.enter + v2.value_data.enter;
