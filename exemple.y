@@ -49,9 +49,9 @@ programa : programa expressio {
 expressio : ID ASSIGN oplist ENDLINE  {
               $$.value_type = $3.value_type;
 
-              if($$.value_type == STRING_TYPE){
-                fprintf(yyout, "ID: %s pren per valor: %s\n",$1.lexema, $3.value_data.ident.lexema);
-                $$.value_data.ident.lexema = $3.value_data.ident.lexema;
+              if($$.value_type == INT_TYPE){
+                fprintf(yyout, "ID: %s pren per valor: %d\n",$1.lexema, $3.value_data.enter);
+                $$.value_data.enter= $3.value_data.enter;
               } else if($$.value_type == FLOAT_TYPE){
                 fprintf(yyout, "ID: %s pren per valor: %f\n",$1.lexema, $3.value_data.real);
                 $$.value_data.real = $3.value_data.real;
@@ -63,8 +63,8 @@ expressio : ID ASSIGN oplist ENDLINE  {
                   fprintf(yyout, "False\n");
                 }
               }else{
-                fprintf(yyout, "ID: %s pren per valor: %d\n",$1.lexema, $3.value_data.enter);
-                $$.value_data.enter= $3.value_data.enter; 
+                 fprintf(yyout, "ID: %s pren per valor: %s\n",$1.lexema, $3.value_data.ident.lexema);
+                $$.value_data.ident.lexema = $3.value_data.ident.lexema;
               }
 
             }
@@ -75,7 +75,7 @@ valor : FLOAT { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
       | BOOLEAN { $$.value_type = BOOL_TYPE; $$.value_data.boolean = $1; }
 
 
-oplist : oplist SUMA valor {sum_op(&$$,$3,$3);}
+oplist : oplist SUMA valor { op(&$$,$$,$3); }
         | oplist RESTA valor 
         | valor
 

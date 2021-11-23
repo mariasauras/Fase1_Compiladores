@@ -36,7 +36,7 @@ typedef struct data{
 		type value_type;
     } ident;
     int enter;
-    double real;
+    float real;
 	bool boolean;
     void *sense_valor;
 }data;

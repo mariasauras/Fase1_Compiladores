@@ -13,7 +13,7 @@
 
     void yyerror(char *explanation);
 
-    void sum_op(sym_value_type * val, sym_value_type v1, sym_value_type v2);
+    void op(sym_value_type * val, sym_value_type v1, sym_value_type v2);
 
 
 #endif

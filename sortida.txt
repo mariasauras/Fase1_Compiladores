@@ -13,3 +13,9 @@ programa -> expressio :
 False
 programa -> expressio :
   expressio = 'Boolean: FALSE'
+ID: b pren per valor: 4.300000
+programa -> expressio :
+  expressio = 'Float: 4.300000'
+ID: c pren per valor: 9.400000
+programa -> expressio :
+  expressio = 'Float: 9.400000'

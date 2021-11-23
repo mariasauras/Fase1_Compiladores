@@ -43,7 +43,6 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 
 "="                         { return ASSIGN; }
 
- 
 
 {text}                      {
                               yylval.st.value_data.ident.lexema = strdup(yytext);
@@ -63,6 +62,7 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
                               yylval.st.value_data.enter = atoi(yytext);
                               return INTEGER;
                             }
+
 
 "+"                         { return SUMA; }
 
