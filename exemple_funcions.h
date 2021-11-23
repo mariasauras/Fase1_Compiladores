@@ -1,7 +1,7 @@
 #ifndef EXEMPLE_FUNCIONS_H
     #define EXEMPLE_FUNCIONS_H
     #include "symtab.h"
-
+    
 
     int init_analisi_lexica(char *);
     int end_analisi_lexica();
@@ -14,12 +14,20 @@
     void yyerror(char *explanation);
 
     /*********************************************************************/
-    /*                   Funciones ARITMETICA                            */
+    /*                  ARITMETICAL FUNCTIONS                            */
     /*********************************************************************/
 
     void sum_op(sym_value_type * val, sym_value_type v1, sym_value_type v2);
 
     void rest_op(sym_value_type * val, sym_value_type v1, sym_value_type v2);
+
+    void mul_op(sym_value_type * val, sym_value_type v1, sym_value_type v2);
+
+    void div_op(sym_value_type * val, sym_value_type v1, sym_value_type v2);
+
+    void mod_op(sym_value_type * val, sym_value_type v1, sym_value_type v2);
+
+    void pow_op(sym_value_type * val, sym_value_type v1, sym_value_type v2);
 
 
 #endif

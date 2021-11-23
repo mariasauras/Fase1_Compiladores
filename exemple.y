@@ -32,8 +32,8 @@ extern int yylex();
 %token <st.value_data.real> FLOAT
 %token <st.value_data.ident> STRING
 %token <st.value_data.boolean> BOOLEAN
-%token  SUMA
-%token  RESTA
+%token  SUMA RESTA MUL DIV MOD POW CONCAT
+
 
 
 %type <st> programa
@@ -81,8 +81,16 @@ valor : FLOAT { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
       | BOOLEAN { $$.value_type = BOOL_TYPE; $$.value_data.boolean = $1; }
 
 
-oplist : oplist SUMA valor { sum_op(&$$,$1,$3); }
+oplist : oplist SUMA mullist { sum_op(&$$,$1,$3); }
         | oplist RESTA valor { rest_op(&$$,$1,$3); }
-        | valor
+        | oplist MUL valor { mul_op(&$$,$1,$3); }
+        | oplist DIV valor { div_op(&$$,$1,$3); }
+        | oplist MOD valor { mod_op(&$$,$1,$3); }
+        | oplist POW valor { pow_op(&$$,$1,$3); }
+        | oplist CONCAT valor { }
+        | mullist
+
+mullist : mullist MUL mullist 
+        | valor 
 
 %%

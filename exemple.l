@@ -52,6 +52,16 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 
 "-"                         { return RESTA; }
 
+"*"                         { return MUL; } 
+
+"/"                         { return DIV; }
+
+"%"                         { return MOD; }
+
+"^"                         { return POW; } 
+
+{text}"* , *"{text}         { return CONCAT; }                    
+
 "="                         { return ASSIGN; }
 
 

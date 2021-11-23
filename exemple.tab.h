@@ -66,7 +66,12 @@ extern int yydebug;
     STRING = 263,
     BOOLEAN = 264,
     SUMA = 265,
-    RESTA = 266
+    RESTA = 266,
+    MUL = 267,
+    DIV = 268,
+    MOD = 269,
+    POW = 270,
+    CONCAT = 271
   };
 #endif
 
@@ -78,7 +83,7 @@ union YYSTYPE
 
     sym_value_type st;
 
-#line 82 "exemple.tab.h"
+#line 87 "exemple.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

@@ -142,7 +142,12 @@ extern int yydebug;
     STRING = 263,
     BOOLEAN = 264,
     SUMA = 265,
-    RESTA = 266
+    RESTA = 266,
+    MUL = 267,
+    DIV = 268,
+    MOD = 269,
+    POW = 270,
+    CONCAT = 271
   };
 #endif
 
@@ -154,7 +159,7 @@ union YYSTYPE
 
     sym_value_type st;
 
-#line 158 "exemple.tab.c"
+#line 163 "exemple.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -473,19 +478,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  5
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   13
+#define YYLAST   26
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  12
+#define YYNTOKENS  17
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  5
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  11
+#define YYNRULES  16
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  18
+#define YYNSTATES  28
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   266
+#define YYMAXUTOK   271
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -523,7 +528,8 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15,    16
 };
 
 #if YYDEBUG
@@ -531,7 +537,7 @@ static const yytype_int8 yytranslate[] =
 static const yytype_int8 yyrline[] =
 {
        0,    48,    48,    51,    55,    78,    79,    80,    81,    84,
-      85,    86
+      85,    86,    87,    88,    89,    90,    91
 };
 #endif
 
@@ -541,8 +547,8 @@ static const yytype_int8 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "ASSIGN", "ENDLINE", "INTEGER", "ID",
-  "FLOAT", "STRING", "BOOLEAN", "SUMA", "RESTA", "$accept", "programa",
-  "expressio", "valor", "oplist", YY_NULLPTR
+  "FLOAT", "STRING", "BOOLEAN", "SUMA", "RESTA", "MUL", "DIV", "MOD",
+  "POW", "CONCAT", "$accept", "programa", "expressio", "valor", "oplist", YY_NULLPTR
 };
 #endif
 
@@ -552,11 +558,11 @@ static const char *const yytname[] =
 static const yytype_int16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266
+     265,   266,   267,   268,   269,   270,   271
 };
 # endif
 
-#define YYPACT_NINF (-12)
+#define YYPACT_NINF (-6)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -570,8 +576,9 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -5,     7,     2,   -12,     4,   -12,   -12,   -12,   -12,   -12,
-     -12,   -12,    -4,   -12,     4,     4,   -12,   -12
+      -5,     0,    20,    -6,    16,    -6,    -6,    -6,    -6,    -6,
+      -6,    -6,    -4,    -6,    16,    16,    16,    16,    16,    16,
+      16,    -6,    -6,    -6,    -6,    -6,    -6,    -6
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -580,13 +587,14 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        0,     0,     0,     3,     0,     1,     2,     6,     5,     7,
-       8,    11,     0,     4,     0,     0,     9,    10
+       8,    16,     0,     4,     0,     0,     0,     0,     0,     0,
+       0,     9,    10,    11,    12,    13,    14,    15
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -12,   -12,     3,   -11,   -12
+      -6,    -6,     2,    -1,    -6
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -600,36 +608,39 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      13,     1,     5,    16,    17,     6,    14,    15,     1,     7,
-       4,     8,     9,    10
+      13,     1,     0,     4,     6,     0,    14,    15,    16,    17,
+      18,    19,    20,    21,    22,    23,    24,    25,    26,    27,
+       5,     7,     0,     8,     9,    10,     1
 };
 
 static const yytype_int8 yycheck[] =
 {
-       4,     6,     0,    14,    15,     2,    10,    11,     6,     5,
-       3,     7,     8,     9
+       4,     6,    -1,     3,     2,    -1,    10,    11,    12,    13,
+      14,    15,    16,    14,    15,    16,    17,    18,    19,    20,
+       0,     5,    -1,     7,     8,     9,     6
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     6,    13,    14,     3,     0,    14,     5,     7,     8,
-       9,    15,    16,     4,    10,    11,    15,    15
+       0,     6,    18,    19,     3,     0,    19,     5,     7,     8,
+       9,    20,    21,     4,    10,    11,    12,    13,    14,    15,
+      16,    20,    20,    20,    20,    20,    20,    20
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    12,    13,    13,    14,    15,    15,    15,    15,    16,
-      16,    16
+       0,    17,    18,    18,    19,    20,    20,    20,    20,    21,
+      21,    21,    21,    21,    21,    21,    21
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     2,     1,     4,     1,     1,     1,     1,     3,
-       3,     1
+       3,     3,     3,     3,     3,     3,     1
 };
 
 
@@ -1329,7 +1340,7 @@ yyreduce:
                               {
              fprintf(yyout, "programa -> expressio :\n  expressio = '%s'\n", value_info_to_str((yyvsp[0].st)));
            }
-#line 1333 "exemple.tab.c"
+#line 1344 "exemple.tab.c"
     break;
 
   case 3:
@@ -1337,7 +1348,7 @@ yyreduce:
                        {
              fprintf(yyout, "programa -> expressio :\n  expressio = '%s'\n", value_info_to_str((yyvsp[0].st)));
            }
-#line 1341 "exemple.tab.c"
+#line 1352 "exemple.tab.c"
     break;
 
   case 4:
@@ -1364,47 +1375,77 @@ yyreduce:
               }
 
             }
-#line 1368 "exemple.tab.c"
+#line 1379 "exemple.tab.c"
     break;
 
   case 5:
 #line 78 "exemple.y"
               { (yyval.st).value_type = FLOAT_TYPE; (yyval.st).value_data.real = (yyvsp[0].st.value_data.real); }
-#line 1374 "exemple.tab.c"
+#line 1385 "exemple.tab.c"
     break;
 
   case 6:
 #line 79 "exemple.y"
                 { (yyval.st).value_type = INT_TYPE; (yyval.st).value_data.enter = (yyvsp[0].st.value_data.enter); }
-#line 1380 "exemple.tab.c"
+#line 1391 "exemple.tab.c"
     break;
 
   case 7:
 #line 80 "exemple.y"
                { (yyval.st).value_type = STRING_TYPE; (yyval.st).value_data.ident.lexema = (yyvsp[0].st.value_data.ident).lexema; }
-#line 1386 "exemple.tab.c"
+#line 1397 "exemple.tab.c"
     break;
 
   case 8:
 #line 81 "exemple.y"
                 { (yyval.st).value_type = BOOL_TYPE; (yyval.st).value_data.boolean = (yyvsp[0].st.value_data.boolean); }
-#line 1392 "exemple.tab.c"
+#line 1403 "exemple.tab.c"
     break;
 
   case 9:
 #line 84 "exemple.y"
                            { sum_op(&(yyval.st),(yyvsp[-2].st),(yyvsp[0].st)); }
-#line 1398 "exemple.tab.c"
+#line 1409 "exemple.tab.c"
     break;
 
   case 10:
 #line 85 "exemple.y"
                              { rest_op(&(yyval.st),(yyvsp[-2].st),(yyvsp[0].st)); }
-#line 1404 "exemple.tab.c"
+#line 1415 "exemple.tab.c"
+    break;
+
+  case 11:
+#line 86 "exemple.y"
+                           { mul_op(&(yyval.st),(yyvsp[-2].st),(yyvsp[0].st)); }
+#line 1421 "exemple.tab.c"
+    break;
+
+  case 12:
+#line 87 "exemple.y"
+                           { div_op(&(yyval.st),(yyvsp[-2].st),(yyvsp[0].st)); }
+#line 1427 "exemple.tab.c"
+    break;
+
+  case 13:
+#line 88 "exemple.y"
+                           { mod_op(&(yyval.st),(yyvsp[-2].st),(yyvsp[0].st)); }
+#line 1433 "exemple.tab.c"
+    break;
+
+  case 14:
+#line 89 "exemple.y"
+                           { pow_op(&(yyval.st),(yyvsp[-2].st),(yyvsp[0].st)); }
+#line 1439 "exemple.tab.c"
+    break;
+
+  case 15:
+#line 90 "exemple.y"
+                              { }
+#line 1445 "exemple.tab.c"
     break;
 
 
-#line 1408 "exemple.tab.c"
+#line 1449 "exemple.tab.c"
 
       default: break;
     }
@@ -1636,5 +1677,5 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 88 "exemple.y"
+#line 93 "exemple.y"
 

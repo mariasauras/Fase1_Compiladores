@@ -7,7 +7,7 @@
 CC = gcc
 LEX = flex
 YACC = bison
-LIB = -lfl
+LIB = -lfl -lm 
 
 SRC_LEX = exemple.l
 SRC_YACC = exemple.y

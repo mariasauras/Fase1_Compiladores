@@ -14,7 +14,12 @@ Grammar
 
     8 oplist: oplist SUMA valor
     9       | oplist RESTA valor
-   10       | valor
+   10       | oplist MUL valor
+   11       | oplist DIV valor
+   12       | oplist MOD valor
+   13       | oplist POW valor
+   14       | oplist CONCAT valor
+   15       | valor
 
 
 Terminals, with rules where they appear
@@ -30,24 +35,29 @@ Terminals, with rules where they appear
     BOOLEAN <st.value_data.boolean> (264) 7
     SUMA (265) 8
     RESTA (266) 9
+    MUL (267) 10
+    DIV (268) 11
+    MOD (269) 12
+    POW (270) 13
+    CONCAT (271) 14
 
 
 Nonterminals, with rules where they appear
 
-    $accept (12)
+    $accept (17)
         on left: 0
-    programa <st> (13)
+    programa <st> (18)
         on left: 1 2
         on right: 0 1
-    expressio <st> (14)
+    expressio <st> (19)
         on left: 3
         on right: 1 2
-    valor <st> (15)
+    valor <st> (20)
         on left: 4 5 6 7
-        on right: 8 9 10
-    oplist <st> (16)
-        on left: 8 9 10
-        on right: 3 8 9
+        on right: 8 9 10 11 12 13 14 15
+    oplist <st> (21)
+        on left: 8 9 10 11 12 13 14 15
+        on right: 3 8 9 10 11 12 13 14
 
 
 State 0
@@ -142,9 +152,9 @@ State 10
 
 State 11
 
-   10 oplist: valor .
+   15 oplist: valor .
 
-    $default  reduce using rule 10 (oplist)
+    $default  reduce using rule 15 (oplist)
 
 
 State 12
@@ -152,10 +162,20 @@ State 12
     3 expressio: ID ASSIGN oplist . ENDLINE
     8 oplist: oplist . SUMA valor
     9       | oplist . RESTA valor
+   10       | oplist . MUL valor
+   11       | oplist . DIV valor
+   12       | oplist . MOD valor
+   13       | oplist . POW valor
+   14       | oplist . CONCAT valor
 
     ENDLINE  shift, and go to state 13
     SUMA     shift, and go to state 14
     RESTA    shift, and go to state 15
+    MUL      shift, and go to state 16
+    DIV      shift, and go to state 17
+    MOD      shift, and go to state 18
+    POW      shift, and go to state 19
+    CONCAT   shift, and go to state 20
 
 
 State 13
@@ -174,7 +194,7 @@ State 14
     STRING   shift, and go to state 9
     BOOLEAN  shift, and go to state 10
 
-    valor  go to state 16
+    valor  go to state 21
 
 
 State 15
@@ -186,18 +206,113 @@ State 15
     STRING   shift, and go to state 9
     BOOLEAN  shift, and go to state 10
 
-    valor  go to state 17
+    valor  go to state 22
 
 
 State 16
+
+   10 oplist: oplist MUL . valor
+
+    INTEGER  shift, and go to state 7
+    FLOAT    shift, and go to state 8
+    STRING   shift, and go to state 9
+    BOOLEAN  shift, and go to state 10
+
+    valor  go to state 23
+
+
+State 17
+
+   11 oplist: oplist DIV . valor
+
+    INTEGER  shift, and go to state 7
+    FLOAT    shift, and go to state 8
+    STRING   shift, and go to state 9
+    BOOLEAN  shift, and go to state 10
+
+    valor  go to state 24
+
+
+State 18
+
+   12 oplist: oplist MOD . valor
+
+    INTEGER  shift, and go to state 7
+    FLOAT    shift, and go to state 8
+    STRING   shift, and go to state 9
+    BOOLEAN  shift, and go to state 10
+
+    valor  go to state 25
+
+
+State 19
+
+   13 oplist: oplist POW . valor
+
+    INTEGER  shift, and go to state 7
+    FLOAT    shift, and go to state 8
+    STRING   shift, and go to state 9
+    BOOLEAN  shift, and go to state 10
+
+    valor  go to state 26
+
+
+State 20
+
+   14 oplist: oplist CONCAT . valor
+
+    INTEGER  shift, and go to state 7
+    FLOAT    shift, and go to state 8
+    STRING   shift, and go to state 9
+    BOOLEAN  shift, and go to state 10
+
+    valor  go to state 27
+
+
+State 21
 
     8 oplist: oplist SUMA valor .
 
     $default  reduce using rule 8 (oplist)
 
 
-State 17
+State 22
 
     9 oplist: oplist RESTA valor .
 
     $default  reduce using rule 9 (oplist)
+
+
+State 23
+
+   10 oplist: oplist MUL valor .
+
+    $default  reduce using rule 10 (oplist)
+
+
+State 24
+
+   11 oplist: oplist DIV valor .
+
+    $default  reduce using rule 11 (oplist)
+
+
+State 25
+
+   12 oplist: oplist MOD valor .
+
+    $default  reduce using rule 12 (oplist)
+
+
+State 26
+
+   13 oplist: oplist POW valor .
+
+    $default  reduce using rule 13 (oplist)
+
+
+State 27
+
+   14 oplist: oplist CONCAT valor .
+
+    $default  reduce using rule 14 (oplist)
