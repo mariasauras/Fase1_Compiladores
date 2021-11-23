@@ -48,6 +48,10 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
                               return ID;
                             }
 
+"+"                         { return SUMA; }
+
+"-"                         { return RESTA; }
+
 "="                         { return ASSIGN; }
 
 
@@ -56,18 +60,17 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
                               yylval.st.value_data.ident.lenght = yyleng;
                               yylval.st.value_data.ident.value_type = STRING_TYPE;
                               return STRING;
-                            }                                 
-"-"                       { return RESTA; }  
-
-"+"                         { return SUMA; }
-
-[^{float} -]?{float}   {
-                                      yylval.st.value_data.real = atof(yytext);
-                                      return FLOAT;
-                                      }
+                            } 
+  
 
 
-[^(0-9)+ -]?{digit}+                {
+{float}                     {
+                              yylval.st.value_data.real = atof(yytext);
+                              return FLOAT;
+                            }
+
+
+{digit}+                {
                               yylval.st.value_data.enter = atoi(yytext);
                               return INTEGER;
                             }
