@@ -1,3 +1,9 @@
+/*
+* Olau Sancho Souto & Maria Sauras Fernandez
+*   First part of Minijulia Compiler
+*           Lexical class (Flex)
+*/
+
 %{
 
 #include <stdio.h>
@@ -51,23 +57,23 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
                               yylval.st.value_data.ident.value_type = STRING_TYPE;
                               return STRING;
                             }                                 
-  
+"-"                       { return RESTA; }  
 
-[-]?{float}   {
+"+"                         { return SUMA; }
+
+[^{float} -]?{float}   {
                                       yylval.st.value_data.real = atof(yytext);
                                       return FLOAT;
                                       }
 
 
-[-]?{digit}+                    {
+[^(0-9)+ -]?{digit}+                {
                               yylval.st.value_data.enter = atoi(yytext);
                               return INTEGER;
                             }
 
 
-"+"                         { return SUMA; }
-
-"-"                         { return RESTA; }            
+          
 
 ^[ \t]*[\n]                 {}
 

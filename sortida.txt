@@ -1,21 +1,24 @@
-ID: i pren per valor: 10
+ID: i value: 10
 programa -> expressio :
   expressio = 'Integer: 10'
-ID: r pren per valor: 3.400000
+ID: r value: 3.400000
 programa -> expressio :
   expressio = 'Float: 3.400000'
-ID: s1 pren per valor: "compiladores"
+ID: s1 value: "compiladores"
 programa -> expressio :
   expressio = 'Cadena: "compiladores"'
-ID: r2 pren per valor: 0.300000
+ID: r2 value: 0.300000
 programa -> expressio :
   expressio = 'Float: 0.300000'
-False
+ID: a value: False
 programa -> expressio :
   expressio = 'Boolean: FALSE'
-ID: b pren per valor: 4.300000
+ID: c value: 0
+programa -> expressio :
+  expressio = 'Integer: 0'
+ID: b value: 4.300000
 programa -> expressio :
   expressio = 'Float: 4.300000'
-ID: c pren per valor: -1
+ID: d value: -1.200000
 programa -> expressio :
-  expressio = 'Integer: -1'
+  expressio = 'Float: -1.200000'

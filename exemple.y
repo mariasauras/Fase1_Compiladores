@@ -1,3 +1,9 @@
+/*
+* Olau Sancho Souto & Maria Sauras Fernandez
+*   First part of Minijulia Compiler
+*        Sintactical class (BISON)
+*/
+
 %{
 
 #include <stdio.h>
@@ -50,20 +56,20 @@ expressio : ID ASSIGN oplist ENDLINE  {
               $$.value_type = $3.value_type;
 
               if($$.value_type == INT_TYPE){
-                fprintf(yyout, "ID: %s pren per valor: %d\n",$1.lexema, $3.value_data.enter);
+                fprintf(yyout, "ID: %s value: %d\n",$1.lexema, $3.value_data.enter);
                 $$.value_data.enter= $3.value_data.enter;
               } else if($$.value_type == FLOAT_TYPE){
-                fprintf(yyout, "ID: %s pren per valor: %f\n",$1.lexema, $3.value_data.real);
+                fprintf(yyout, "ID: %s value: %f\n",$1.lexema, $3.value_data.real);
                 $$.value_data.real = $3.value_data.real;
               } else if($$.value_type == BOOL_TYPE){
                 $$.value_data.boolean = $3.value_data.boolean;
                 if($$.value_data.boolean == 1){
-                  fprintf(yyout, "True\n"); 
+                  fprintf(yyout, "ID: %s value: True\n",$1.lexema); 
                 } else {
-                  fprintf(yyout, "False\n");
+                  fprintf(yyout, "ID: %s value: False\n",$1.lexema);
                 }
               }else{
-                 fprintf(yyout, "ID: %s pren per valor: %s\n",$1.lexema, $3.value_data.ident.lexema);
+                 fprintf(yyout, "ID: %s value: %s\n",$1.lexema, $3.value_data.ident.lexema);
                 $$.value_data.ident.lexema = $3.value_data.ident.lexema;
               }
 
