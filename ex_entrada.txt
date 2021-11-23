@@ -4,4 +4,4 @@ s1 = "compiladores"
 r2 = 0.3         
 a = false
 b = 0.3 + 4     
-c =  1+ 3.4 + 5                                                              
+c =  -2+1                                                           

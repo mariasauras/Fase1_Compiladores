@@ -18,6 +18,7 @@
 lletra  [a-zA-Z]
 digit   [0-9]
 boolean (true|false)
+float   {digit}+"."{digit}+("e-"{digit}+)? 
 text    ["][^\n\t\"\']*["] 
 comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 
@@ -52,13 +53,13 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
                             }                                 
   
 
-{digit}+"."{digit}+("e-"{digit}+)?    {
+[-]?{float}   {
                                       yylval.st.value_data.real = atof(yytext);
                                       return FLOAT;
                                       }
 
 
-{digit}+                    {
+[-]?{digit}+                    {
                               yylval.st.value_data.enter = atoi(yytext);
                               return INTEGER;
                             }

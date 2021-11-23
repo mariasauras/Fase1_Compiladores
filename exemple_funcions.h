@@ -13,7 +13,13 @@
 
     void yyerror(char *explanation);
 
-    void op(sym_value_type * val, sym_value_type v1, sym_value_type v2);
+    /*********************************************************************/
+    /*                   Funciones ARITMETICA                            */
+    /*********************************************************************/
+
+    void sum_op(sym_value_type * val, sym_value_type v1, sym_value_type v2);
+
+    void rest_op(sym_value_type * val, sym_value_type v1, sym_value_type v2);
 
 
 #endif

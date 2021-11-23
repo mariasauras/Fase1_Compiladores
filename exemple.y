@@ -75,8 +75,8 @@ valor : FLOAT { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
       | BOOLEAN { $$.value_type = BOOL_TYPE; $$.value_data.boolean = $1; }
 
 
-oplist : oplist SUMA valor { op(&$$,$$,$3); }
-        | oplist RESTA valor 
+oplist : oplist SUMA valor { sum_op(&$$,$1,$3); }
+        | oplist RESTA valor { rest_op(&$$,$1,$3); }
         | valor
 
 %%
