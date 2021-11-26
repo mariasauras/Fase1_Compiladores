@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <math.h>
 
 extern int yyparse();
@@ -133,7 +134,7 @@ void rest_op(sym_value_type * val, sym_value_type v1, sym_value_type v2){
 
 void mul_op(sym_value_type * val, sym_value_type v1, sym_value_type v2){
 
-  if(v1.value_type == BOOL_TYPE || v2.value_type == BOOL_TYPE  || v1.value_type == STRING_TYPE || v2.value_type == STRING_TYPE){
+  if(v1.value_type == BOOL_TYPE || v2.value_type == BOOL_TYPE ){
     yyerror("Can't operate with these value type");
   } else {
     if (v1.value_type == INT_TYPE && v2.value_type == INT_TYPE){
@@ -145,10 +146,12 @@ void mul_op(sym_value_type * val, sym_value_type v1, sym_value_type v2){
     } else if(v1.value_type == FLOAT_TYPE && v2.value_type == INT_TYPE){
        (*val).value_type = FLOAT_TYPE;
       (*val).value_data.real = v1.value_data.real * v2.value_data.enter;
-    } else {
+    } else if(v1.value_type == FLOAT_TYPE && v2.value_type == FLOAT_TYPE) {
       (*val).value_type = FLOAT_TYPE;
       (*val).value_data.real = v1.value_data.real * v2.value_data.real;
-      
+    } else{
+      (*val).value_type = STRING_TYPE;
+      (*val).value_type = malloc(strlen(v1.value_data.ident.lexema) + strlen(v2.value_data.ident.lexema));
     }
   }
 }

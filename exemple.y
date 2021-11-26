@@ -82,15 +82,14 @@ valor : FLOAT { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
 
 
 oplist : oplist SUMA mullist { sum_op(&$$,$1,$3); }
-        | oplist RESTA valor { rest_op(&$$,$1,$3); }
-        | oplist MUL valor { mul_op(&$$,$1,$3); }
-        | oplist DIV valor { div_op(&$$,$1,$3); }
-        | oplist MOD valor { mod_op(&$$,$1,$3); }
+        | oplist RESTA mullist { rest_op(&$$,$1,$3); }
         | oplist POW valor { pow_op(&$$,$1,$3); }
-        | oplist CONCAT valor { }
         | mullist
 
-mullist : mullist MUL mullist 
+mullist : mullist MUL mullist { mul_op(&$$,$1,$3); } 
+        | mullist DIV mullist { div_op(&$$,$1,$3); }
+        | mullist MOD mullist { mod_op(&$$,$1,$3); }
         | valor 
+
 
 %%
