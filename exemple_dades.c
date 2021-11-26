@@ -16,6 +16,8 @@ char *type_to_str(sym_value_type st)
     return strdup("Cadena");
   }else if(st.value_type == BOOL_TYPE){
     return strdup("Boolean");
+  }else if(st.value_type == ID_TYPE){
+    return strdup("ID");
   }else{
     return strdup("Error: incorrect value for 'st'");
   }
@@ -38,6 +40,8 @@ char *value_info_to_str(sym_value_type st)
     if(st.value_data.boolean == 0){
       sprintf(buffer, "Boolean: FALSE");
     }else sprintf(buffer, "Boolean: TRUE");
+  }else if(st.value_type == ID_TYPE){
+    sprintf(buffer, "ID: %s", st.value_data.ident.lexema);
   }else {
     sprintf(buffer, "Error: incorrect value for 'value.st'");
   }

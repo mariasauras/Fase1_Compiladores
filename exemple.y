@@ -23,7 +23,7 @@ extern int yylex();
 }
 
 %union{
-    sym_value_type st;
+  sym_value_type st;
 }
 
 %token <st.value_data.sense_valor> ASSIGN ENDLINE
@@ -52,6 +52,7 @@ programa : programa expressio {
 
 expressio : ID ASSIGN sumrest ENDLINE  {
               $$.value_type = $3.value_type;
+              sym_enter($1.lexema, &$3);
 
               if($$.value_type == INT_TYPE){
                 fprintf(yyout, "ID: %s value: %ld\n",$1.lexema, $3.value_data.enter);
@@ -93,14 +94,15 @@ expressio : ID ASSIGN sumrest ENDLINE  {
               }
             }
 
-valor : FLOAT { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
-      | INTEGER { $$.value_type = INT_TYPE; $$.value_data.enter = $1; }
-      | STRING { $$.value_type = STRING_TYPE; $$.value_data.ident.lexema = $1.lexema; }
-      | BOOLEAN { $$.value_type = BOOL_TYPE; $$.value_data.boolean = $1; }
+valor : FLOAT     { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
+      | INTEGER   { $$.value_type = INT_TYPE; $$.value_data.enter = $1; }
+      | STRING    { $$.value_type = STRING_TYPE; $$.value_data.ident.lexema = $1.lexema; }
+      | BOOLEAN   { $$.value_type = BOOL_TYPE; $$.value_data.boolean = $1; }
       | OP sumrest CP { $$ = $2; }
+      | ID        { sym_lookup($1.lexema, &$$); }
 
-
-sumrest : sumrest SUMA mullist { sum_op(&$$,$1,$3); }
+/* Jerarquia de prioridades */
+sumrest : sumrest SUMA mullist  { sum_op(&$$,$1,$3); }
         | sumrest RESTA mullist { rest_op(&$$,$1,$3); }
         | mullist
 
@@ -109,7 +111,7 @@ mullist : mullist MUL powlist { mul_op(&$$,$1,$3); }
         | mullist MOD powlist { mod_op(&$$,$1,$3); }
         | powlist
 
-powlist : powlist POW powlist{ pow_op(&$$,$1,$3); }
+powlist : powlist POW powlist { pow_op(&$$,$1,$3); }
         | valor 
 
 %%

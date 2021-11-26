@@ -82,7 +82,7 @@ union YYSTYPE
 {
 #line 25 "exemple.y"
 
-    sym_value_type st;
+  sym_value_type st;
 
 #line 88 "exemple.tab.h"
 

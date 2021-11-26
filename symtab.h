@@ -24,6 +24,7 @@ typedef enum{
   	INT_TYPE,
   	FLOAT_TYPE,
   	STRING_TYPE,
+	ID_TYPE,
   	BOOL_TYPE
 	  
 }type;															

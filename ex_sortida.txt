@@ -16,3 +16,9 @@ programa -> expressio :
 FLOAT value: 2.500000
 programa -> expressio :
   expressio = 'Float: 2.500000'
+ID: k value: 1
+programa -> expressio :
+  expressio = 'Integer: 1'
+ INT value: 24
+programa -> expressio :
+  expressio = 'Integer: 24'
