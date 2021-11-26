@@ -151,7 +151,9 @@ void mul_op(sym_value_type * val, sym_value_type v1, sym_value_type v2){
       (*val).value_data.real = v1.value_data.real * v2.value_data.real;
     } else{
       (*val).value_type = STRING_TYPE;
-      (*val).value_type = malloc(strlen(v1.value_data.ident.lexema) + strlen(v2.value_data.ident.lexema));
+      val = malloc(strlen(v1.value_data.ident.lexema) + strlen(v2.value_data.ident.lexema));
+      strcpy(val, v1.value_data.ident.lexema);
+      strcat(val, v2.value_data.ident.lexema);
     }
   }
 }
