@@ -1,42 +1,12 @@
-ID: i value: 10
+FLOAT value: 6.400000
 programa -> expressio :
-  expressio = 'Integer: 10'
-ID: r value: 3.400000
+  expressio = 'Float: 6.400000'
+ INT value: 8
 programa -> expressio :
-  expressio = 'Float: 3.400000'
-ID: s1 value: "compiladores"
+  expressio = 'Integer: 8'
+STRING value: "Hola"
 programa -> expressio :
-  expressio = 'Cadena: "compiladores"'
-ID: r2 value: 0.300000
-programa -> expressio :
-  expressio = 'Float: 0.300000'
-ID: a value: False
-programa -> expressio :
-  expressio = 'Boolean: FALSE'
-ID: c value: 0
-programa -> expressio :
-  expressio = 'Integer: 0'
-ID: b value: 4.300000
-programa -> expressio :
-  expressio = 'Float: 4.300000'
-ID: d value: -1.200000
-programa -> expressio :
-  expressio = 'Float: -1.200000'
-ID: mul1 value: 5.100000
-programa -> expressio :
-  expressio = 'Float: 5.100000'
-ID: mul2 value: 9900
-programa -> expressio :
-  expressio = 'Integer: 9900'
-ID: div1 value: 4
-programa -> expressio :
-  expressio = 'Integer: 4'
-ID: mod value: 20
+  expressio = 'Cadena: "Hola"'
+ INT value: 20
 programa -> expressio :
   expressio = 'Integer: 20'
-ID: pow value: 5.278032
-programa -> expressio :
-  expressio = 'Float: 5.278032'
-ID: pow2 value: 9
-programa -> expressio :
-  expressio = 'Integer: 9'

@@ -29,7 +29,7 @@ char *value_info_to_str(sym_value_type st)
   if (st.value_type == UNKNOWN_TYPE) {
     sprintf(buffer, "Unknown value type");
   } else if (st.value_type == INT_TYPE) {
-    sprintf(buffer, "Integer: %d", st.value_data.enter);
+    sprintf(buffer, "Integer: %ld", st.value_data.enter);
   } else if (st.value_type == FLOAT_TYPE) {
     sprintf(buffer, "Float: %f", st.value_data.real);
   } else if(st.value_type == STRING_TYPE){

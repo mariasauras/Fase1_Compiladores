@@ -58,9 +58,7 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 
 "%"                         { return MOD; }
 
-"^"                         { return POW; } 
-
-{text}"* , *"{text}         { return CONCAT; }                    
+"^"                         { return POW; }                    
 
 "="                         { return ASSIGN; }
 

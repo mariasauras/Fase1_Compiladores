@@ -70,8 +70,7 @@ extern int yydebug;
     MUL = 267,
     DIV = 268,
     MOD = 269,
-    POW = 270,
-    CONCAT = 271
+    POW = 270
   };
 #endif
 
@@ -83,7 +82,7 @@ union YYSTYPE
 
     sym_value_type st;
 
-#line 87 "exemple.tab.h"
+#line 86 "exemple.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

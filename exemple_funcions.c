@@ -84,9 +84,9 @@ void yyerror(char *explanation)
   fprintf(stderr, "Error: %s , in line %d\n", explanation, yylineno);
 }
 
-/*********************************************************************/
-/*                  ARITMETICAL FUNCTIONS                            */
-/*********************************************************************/
+/**********************************************************************/
+/*                  ARITHMETICAL FUNCTIONS                            */
+/**********************************************************************/
 
 void sum_op(sym_value_type * val, sym_value_type v1, sym_value_type v2){
 
@@ -150,10 +150,11 @@ void mul_op(sym_value_type * val, sym_value_type v1, sym_value_type v2){
       (*val).value_type = FLOAT_TYPE;
       (*val).value_data.real = v1.value_data.real * v2.value_data.real;
     } else{
+      /* CONCAT*/
       (*val).value_type = STRING_TYPE;
-      val = malloc(strlen(v1.value_data.ident.lexema) + strlen(v2.value_data.ident.lexema));
-      strcpy(val, v1.value_data.ident.lexema);
-      strcat(val, v2.value_data.ident.lexema);
+      (*val).value_data.ident.lexema = malloc(strlen(v1.value_data.ident.lexema) + strlen(v2.value_data.ident.lexema) + 1);
+      strcpy((*val).value_data.ident.lexema, v1.value_data.ident.lexema);
+      strcat((*val).value_data.ident.lexema, v2.value_data.ident.lexema);
     }
   }
 }
