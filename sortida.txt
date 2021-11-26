@@ -10,3 +10,9 @@ programa -> expressio :
  INT value: 20
 programa -> expressio :
   expressio = 'Integer: 20'
+ID: n value: 23
+programa -> expressio :
+  expressio = 'Integer: 23'
+FLOAT value: 2.500000
+programa -> expressio :
+  expressio = 'Float: 2.500000'

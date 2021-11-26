@@ -1,4 +1,4 @@
-State 28 conflicts: 1 shift/reduce
+State 31 conflicts: 1 shift/reduce
 
 
 Grammar
@@ -15,18 +15,19 @@ Grammar
     6      | INTEGER
     7      | STRING
     8      | BOOLEAN
+    9      | OP sumrest CP
 
-    9 sumrest: sumrest SUMA mullist
-   10        | sumrest RESTA mullist
-   11        | mullist
+   10 sumrest: sumrest SUMA mullist
+   11        | sumrest RESTA mullist
+   12        | mullist
 
-   12 mullist: mullist MUL powlist
-   13        | mullist DIV powlist
-   14        | mullist MOD powlist
-   15        | powlist
+   13 mullist: mullist MUL powlist
+   14        | mullist DIV powlist
+   15        | mullist MOD powlist
+   16        | powlist
 
-   16 powlist: powlist POW powlist
-   17        | valor
+   17 powlist: powlist POW powlist
+   18        | valor
 
 
 Terminals, with rules where they appear
@@ -40,36 +41,38 @@ Terminals, with rules where they appear
     FLOAT <st.value_data.real> (262) 5
     STRING <st.value_data.ident> (263) 7
     BOOLEAN <st.value_data.boolean> (264) 8
-    SUMA (265) 9
-    RESTA (266) 10
-    MUL (267) 12
-    DIV (268) 13
-    MOD (269) 14
-    POW (270) 16
+    SUMA (265) 10
+    RESTA (266) 11
+    MUL (267) 13
+    DIV (268) 14
+    MOD (269) 15
+    POW (270) 17
+    OP (271) 9
+    CP (272) 9
 
 
 Nonterminals, with rules where they appear
 
-    $accept (16)
+    $accept (18)
         on left: 0
-    programa <st> (17)
+    programa <st> (19)
         on left: 1 2
         on right: 0 1
-    expressio <st> (18)
+    expressio <st> (20)
         on left: 3 4
         on right: 1 2
-    valor <st> (19)
-        on left: 5 6 7 8
-        on right: 17
-    sumrest <st> (20)
-        on left: 9 10 11
-        on right: 3 4 9 10
-    mullist <st> (21)
-        on left: 12 13 14 15
-        on right: 9 10 11 12 13 14
-    powlist <st> (22)
-        on left: 16 17
-        on right: 12 13 14 15 16
+    valor <st> (21)
+        on left: 5 6 7 8 9
+        on right: 18
+    sumrest <st> (22)
+        on left: 10 11 12
+        on right: 3 4 9 10 11
+    mullist <st> (23)
+        on left: 13 14 15 16
+        on right: 10 11 12 13 14 15
+    powlist <st> (24)
+        on left: 17 18
+        on right: 13 14 15 16 17
 
 
 State 0
@@ -81,13 +84,14 @@ State 0
     FLOAT    shift, and go to state 3
     STRING   shift, and go to state 4
     BOOLEAN  shift, and go to state 5
+    OP       shift, and go to state 6
 
-    programa   go to state 6
-    expressio  go to state 7
-    valor      go to state 8
-    sumrest    go to state 9
-    mullist    go to state 10
-    powlist    go to state 11
+    programa   go to state 7
+    expressio  go to state 8
+    valor      go to state 9
+    sumrest    go to state 10
+    mullist    go to state 11
+    powlist    go to state 12
 
 
 State 1
@@ -101,7 +105,7 @@ State 2
 
     3 expressio: ID . ASSIGN sumrest ENDLINE
 
-    ASSIGN  shift, and go to state 12
+    ASSIGN  shift, and go to state 13
 
 
 State 3
@@ -127,73 +131,90 @@ State 5
 
 State 6
 
+    9 valor: OP . sumrest CP
+
+    INTEGER  shift, and go to state 1
+    FLOAT    shift, and go to state 3
+    STRING   shift, and go to state 4
+    BOOLEAN  shift, and go to state 5
+    OP       shift, and go to state 6
+
+    valor    go to state 9
+    sumrest  go to state 14
+    mullist  go to state 11
+    powlist  go to state 12
+
+
+State 7
+
     0 $accept: programa . $end
     1 programa: programa . expressio
 
-    $end     shift, and go to state 13
+    $end     shift, and go to state 15
     INTEGER  shift, and go to state 1
     ID       shift, and go to state 2
     FLOAT    shift, and go to state 3
     STRING   shift, and go to state 4
     BOOLEAN  shift, and go to state 5
+    OP       shift, and go to state 6
 
-    expressio  go to state 14
-    valor      go to state 8
-    sumrest    go to state 9
-    mullist    go to state 10
-    powlist    go to state 11
+    expressio  go to state 16
+    valor      go to state 9
+    sumrest    go to state 10
+    mullist    go to state 11
+    powlist    go to state 12
 
 
-State 7
+State 8
 
     2 programa: expressio .
 
     $default  reduce using rule 2 (programa)
 
 
-State 8
-
-   17 powlist: valor .
-
-    $default  reduce using rule 17 (powlist)
-
-
 State 9
 
-    4 expressio: sumrest . ENDLINE
-    9 sumrest: sumrest . SUMA mullist
-   10        | sumrest . RESTA mullist
+   18 powlist: valor .
 
-    ENDLINE  shift, and go to state 15
-    SUMA     shift, and go to state 16
-    RESTA    shift, and go to state 17
+    $default  reduce using rule 18 (powlist)
 
 
 State 10
 
-   11 sumrest: mullist .
-   12 mullist: mullist . MUL powlist
-   13        | mullist . DIV powlist
-   14        | mullist . MOD powlist
+    4 expressio: sumrest . ENDLINE
+   10 sumrest: sumrest . SUMA mullist
+   11        | sumrest . RESTA mullist
 
-    MUL  shift, and go to state 18
-    DIV  shift, and go to state 19
-    MOD  shift, and go to state 20
-
-    $default  reduce using rule 11 (sumrest)
+    ENDLINE  shift, and go to state 17
+    SUMA     shift, and go to state 18
+    RESTA    shift, and go to state 19
 
 
 State 11
 
-   15 mullist: powlist .
-   16 powlist: powlist . POW powlist
+   12 sumrest: mullist .
+   13 mullist: mullist . MUL powlist
+   14        | mullist . DIV powlist
+   15        | mullist . MOD powlist
 
-    POW  shift, and go to state 21
+    MUL  shift, and go to state 20
+    DIV  shift, and go to state 21
+    MOD  shift, and go to state 22
 
-    $default  reduce using rule 15 (mullist)
+    $default  reduce using rule 12 (sumrest)
 
 
 State 12
+
+   16 mullist: powlist .
+   17 powlist: powlist . POW powlist
+
+    POW  shift, and go to state 23
+
+    $default  reduce using rule 16 (mullist)
+
+
+State 13
 
     3 expressio: ID ASSIGN . sumrest ENDLINE
 
@@ -201,195 +222,220 @@ State 12
     FLOAT    shift, and go to state 3
     STRING   shift, and go to state 4
     BOOLEAN  shift, and go to state 5
+    OP       shift, and go to state 6
 
-    valor    go to state 8
-    sumrest  go to state 22
-    mullist  go to state 10
-    powlist  go to state 11
+    valor    go to state 9
+    sumrest  go to state 24
+    mullist  go to state 11
+    powlist  go to state 12
 
 
-State 13
+State 14
+
+    9 valor: OP sumrest . CP
+   10 sumrest: sumrest . SUMA mullist
+   11        | sumrest . RESTA mullist
+
+    SUMA   shift, and go to state 18
+    RESTA  shift, and go to state 19
+    CP     shift, and go to state 25
+
+
+State 15
 
     0 $accept: programa $end .
 
     $default  accept
 
 
-State 14
+State 16
 
     1 programa: programa expressio .
 
     $default  reduce using rule 1 (programa)
 
 
-State 15
+State 17
 
     4 expressio: sumrest ENDLINE .
 
     $default  reduce using rule 4 (expressio)
 
 
-State 16
-
-    9 sumrest: sumrest SUMA . mullist
-
-    INTEGER  shift, and go to state 1
-    FLOAT    shift, and go to state 3
-    STRING   shift, and go to state 4
-    BOOLEAN  shift, and go to state 5
-
-    valor    go to state 8
-    mullist  go to state 23
-    powlist  go to state 11
-
-
-State 17
-
-   10 sumrest: sumrest RESTA . mullist
-
-    INTEGER  shift, and go to state 1
-    FLOAT    shift, and go to state 3
-    STRING   shift, and go to state 4
-    BOOLEAN  shift, and go to state 5
-
-    valor    go to state 8
-    mullist  go to state 24
-    powlist  go to state 11
-
-
 State 18
 
-   12 mullist: mullist MUL . powlist
+   10 sumrest: sumrest SUMA . mullist
 
     INTEGER  shift, and go to state 1
     FLOAT    shift, and go to state 3
     STRING   shift, and go to state 4
     BOOLEAN  shift, and go to state 5
+    OP       shift, and go to state 6
 
-    valor    go to state 8
-    powlist  go to state 25
+    valor    go to state 9
+    mullist  go to state 26
+    powlist  go to state 12
 
 
 State 19
 
-   13 mullist: mullist DIV . powlist
+   11 sumrest: sumrest RESTA . mullist
 
     INTEGER  shift, and go to state 1
     FLOAT    shift, and go to state 3
     STRING   shift, and go to state 4
     BOOLEAN  shift, and go to state 5
+    OP       shift, and go to state 6
 
-    valor    go to state 8
-    powlist  go to state 26
+    valor    go to state 9
+    mullist  go to state 27
+    powlist  go to state 12
 
 
 State 20
 
-   14 mullist: mullist MOD . powlist
+   13 mullist: mullist MUL . powlist
 
     INTEGER  shift, and go to state 1
     FLOAT    shift, and go to state 3
     STRING   shift, and go to state 4
     BOOLEAN  shift, and go to state 5
+    OP       shift, and go to state 6
 
-    valor    go to state 8
-    powlist  go to state 27
+    valor    go to state 9
+    powlist  go to state 28
 
 
 State 21
 
-   16 powlist: powlist POW . powlist
+   14 mullist: mullist DIV . powlist
 
     INTEGER  shift, and go to state 1
     FLOAT    shift, and go to state 3
     STRING   shift, and go to state 4
     BOOLEAN  shift, and go to state 5
+    OP       shift, and go to state 6
 
-    valor    go to state 8
-    powlist  go to state 28
+    valor    go to state 9
+    powlist  go to state 29
 
 
 State 22
 
-    3 expressio: ID ASSIGN sumrest . ENDLINE
-    9 sumrest: sumrest . SUMA mullist
-   10        | sumrest . RESTA mullist
+   15 mullist: mullist MOD . powlist
 
-    ENDLINE  shift, and go to state 29
-    SUMA     shift, and go to state 16
-    RESTA    shift, and go to state 17
+    INTEGER  shift, and go to state 1
+    FLOAT    shift, and go to state 3
+    STRING   shift, and go to state 4
+    BOOLEAN  shift, and go to state 5
+    OP       shift, and go to state 6
+
+    valor    go to state 9
+    powlist  go to state 30
 
 
 State 23
 
-    9 sumrest: sumrest SUMA mullist .
-   12 mullist: mullist . MUL powlist
-   13        | mullist . DIV powlist
-   14        | mullist . MOD powlist
+   17 powlist: powlist POW . powlist
 
-    MUL  shift, and go to state 18
-    DIV  shift, and go to state 19
-    MOD  shift, and go to state 20
+    INTEGER  shift, and go to state 1
+    FLOAT    shift, and go to state 3
+    STRING   shift, and go to state 4
+    BOOLEAN  shift, and go to state 5
+    OP       shift, and go to state 6
 
-    $default  reduce using rule 9 (sumrest)
+    valor    go to state 9
+    powlist  go to state 31
 
 
 State 24
 
-   10 sumrest: sumrest RESTA mullist .
-   12 mullist: mullist . MUL powlist
-   13        | mullist . DIV powlist
-   14        | mullist . MOD powlist
+    3 expressio: ID ASSIGN sumrest . ENDLINE
+   10 sumrest: sumrest . SUMA mullist
+   11        | sumrest . RESTA mullist
 
-    MUL  shift, and go to state 18
-    DIV  shift, and go to state 19
-    MOD  shift, and go to state 20
-
-    $default  reduce using rule 10 (sumrest)
+    ENDLINE  shift, and go to state 32
+    SUMA     shift, and go to state 18
+    RESTA    shift, and go to state 19
 
 
 State 25
 
-   12 mullist: mullist MUL powlist .
-   16 powlist: powlist . POW powlist
+    9 valor: OP sumrest CP .
 
-    POW  shift, and go to state 21
-
-    $default  reduce using rule 12 (mullist)
+    $default  reduce using rule 9 (valor)
 
 
 State 26
 
-   13 mullist: mullist DIV powlist .
-   16 powlist: powlist . POW powlist
+   10 sumrest: sumrest SUMA mullist .
+   13 mullist: mullist . MUL powlist
+   14        | mullist . DIV powlist
+   15        | mullist . MOD powlist
 
-    POW  shift, and go to state 21
+    MUL  shift, and go to state 20
+    DIV  shift, and go to state 21
+    MOD  shift, and go to state 22
 
-    $default  reduce using rule 13 (mullist)
+    $default  reduce using rule 10 (sumrest)
 
 
 State 27
 
-   14 mullist: mullist MOD powlist .
-   16 powlist: powlist . POW powlist
+   11 sumrest: sumrest RESTA mullist .
+   13 mullist: mullist . MUL powlist
+   14        | mullist . DIV powlist
+   15        | mullist . MOD powlist
 
-    POW  shift, and go to state 21
+    MUL  shift, and go to state 20
+    DIV  shift, and go to state 21
+    MOD  shift, and go to state 22
 
-    $default  reduce using rule 14 (mullist)
+    $default  reduce using rule 11 (sumrest)
 
 
 State 28
 
-   16 powlist: powlist . POW powlist
-   16        | powlist POW powlist .
+   13 mullist: mullist MUL powlist .
+   17 powlist: powlist . POW powlist
 
-    POW  shift, and go to state 21
+    POW  shift, and go to state 23
 
-    POW       [reduce using rule 16 (powlist)]
-    $default  reduce using rule 16 (powlist)
+    $default  reduce using rule 13 (mullist)
 
 
 State 29
+
+   14 mullist: mullist DIV powlist .
+   17 powlist: powlist . POW powlist
+
+    POW  shift, and go to state 23
+
+    $default  reduce using rule 14 (mullist)
+
+
+State 30
+
+   15 mullist: mullist MOD powlist .
+   17 powlist: powlist . POW powlist
+
+    POW  shift, and go to state 23
+
+    $default  reduce using rule 15 (mullist)
+
+
+State 31
+
+   17 powlist: powlist . POW powlist
+   17        | powlist POW powlist .
+
+    POW  shift, and go to state 23
+
+    POW       [reduce using rule 17 (powlist)]
+    $default  reduce using rule 17 (powlist)
+
+
+State 32
 
     3 expressio: ID ASSIGN sumrest ENDLINE .
 

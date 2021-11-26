@@ -165,8 +165,8 @@ void div_op(sym_value_type * val, sym_value_type v1, sym_value_type v2){
     yyerror("Can't operate with these value type");
   } else {
     if (v1.value_type == INT_TYPE && v2.value_type == INT_TYPE){
-      (*val).value_type = INT_TYPE;
-      (*val).value_data.enter = v1.value_data.enter / v2.value_data.enter;
+      (*val).value_type = FLOAT_TYPE;
+      (*val).value_data.real = (float)v1.value_data.enter / v2.value_data.enter;
     } else if(v1.value_type == INT_TYPE && v2.value_type == FLOAT_TYPE){
       (*val).value_type = FLOAT_TYPE;
       (*val).value_data.real = v1.value_data.enter / v2.value_data.real;

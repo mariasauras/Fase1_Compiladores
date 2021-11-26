@@ -48,6 +48,10 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
                               return ID;
                             }
 
+"("                         { return OP; }
+
+")"                         { return CP; }
+
 "+"                         { return SUMA; }
 
 "-"                         { return RESTA; }

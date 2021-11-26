@@ -32,7 +32,7 @@ extern int yylex();
 %token <st.value_data.real> FLOAT
 %token <st.value_data.ident> STRING
 %token <st.value_data.boolean> BOOLEAN
-%token  SUMA RESTA MUL DIV MOD POW 
+%token  SUMA RESTA MUL DIV MOD POW OP CP
 
 %type <st> programa
 %type <st> expressio
@@ -97,6 +97,7 @@ valor : FLOAT { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
       | INTEGER { $$.value_type = INT_TYPE; $$.value_data.enter = $1; }
       | STRING { $$.value_type = STRING_TYPE; $$.value_data.ident.lexema = $1.lexema; }
       | BOOLEAN { $$.value_type = BOOL_TYPE; $$.value_data.boolean = $1; }
+      | OP sumrest CP { $$ = $2; }
 
 
 sumrest : sumrest SUMA mullist { sum_op(&$$,$1,$3); }
@@ -110,6 +111,5 @@ mullist : mullist MUL powlist { mul_op(&$$,$1,$3); }
 
 powlist : powlist POW powlist{ pow_op(&$$,$1,$3); }
         | valor 
-
 
 %%
