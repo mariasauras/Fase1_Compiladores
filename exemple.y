@@ -32,7 +32,7 @@ extern int yylex();
 %token <st.value_data.real> FLOAT
 %token <st.value_data.ident> STRING
 %token <st.value_data.boolean> BOOLEAN
-%token  SUMA RESTA MUL DIV MOD POW OP CP
+%token  SUMA RESTA MUL DIV MOD POW OP CP OC CC
 
 %type <st> programa
 %type <st> expressio

@@ -24,11 +24,9 @@
 lletra  [a-zA-Z]
 digit   [0-9]
 boolean (true|false)
-float   {digit}+"."{digit}+("e-"{digit}+)? 
+float   {digit}+"."{digit}*("e-"{digit}+)? 
 text    ["][^\n\t\"\']*["] 
 comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
-
-
 
 %%
   
@@ -66,6 +64,10 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 
 "="                         { return ASSIGN; }
 
+"[*"                        { return OC; }
+
+"*]"                        { return CC; }
+
 
 {text}                      {
                               yylval.st.value_data.ident.lexema = strdup(yytext);
@@ -97,4 +99,3 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 .                           {}
 
 %%
-
