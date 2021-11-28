@@ -213,3 +213,23 @@ void pow_op(sym_value_type * val, sym_value_type v1, sym_value_type v2){
     }
   }
 }
+
+void ini_matrix(sym_value_type * row, sym_value_type matrix_value){
+  
+  (*row).value_data.num_elems = 0;
+
+  if(matrix_value.value_type == INT_TYPE){
+
+    (*row).value_data.integer_matrix = calloc((*row).value_data.num_elems+1, sizeof(long));
+    (*row).value_data.integer_matrix[0] = matrix_value.value_data.enter;
+
+  } else{
+
+    (*row).value_data.float_matrix = calloc((*row).value_data.num_elems+1, sizeof(float));
+    (*row).value_data.float_matrix[0] = matrix_value.value_data.real;
+  }
+
+  (*row).value_data.num_elems++;
+  (*row).value_data.row = 1;
+  (*row).value_data.column = 1;
+}

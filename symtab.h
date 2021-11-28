@@ -40,6 +40,11 @@ typedef struct data{
     float real;
 	bool boolean;
     void *sense_valor;
+	float *float_matrix;
+	long *integer_matrix;
+	long row;
+	long column;
+	long num_elems;
 }data;
 
 typedef struct sym_value_type {

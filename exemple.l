@@ -21,6 +21,10 @@
 %option noinput
 %option nounput
 
+/* Definimos matrix y lo usaremos tanto para los vectores como para las matrices*/
+/**/
+%S MATRIX
+
 lletra  [a-zA-Z]
 digit   [0-9]
 boolean (true|false)
@@ -64,9 +68,13 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 
 "="                         { return ASSIGN; }
 
-"[*"                        { return OC; }
+"[*"                        { BEGIN MATRIX; return OC; }
 
-"*]"                        { return CC; }
+<MATRIX>";"                 { return PC; }
+
+<MATRIX>" "                 { return SPACE; }        
+
+"*]"                        { BEGIN INITIAL; return CC; }
 
 
 {text}                      {

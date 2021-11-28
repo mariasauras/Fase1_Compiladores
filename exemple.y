@@ -32,12 +32,13 @@ extern int yylex();
 %token <st.value_data.real> FLOAT
 %token <st.value_data.ident> STRING
 %token <st.value_data.boolean> BOOLEAN
-%token  SUMA RESTA MUL DIV MOD POW OP CP OC CC
+%token  SUMA RESTA MUL DIV MOD POW OP CP OC CC PC SPACE
 
 %type <st> programa
 %type <st> expressio
 %type <st> valor
 %type <st> sumrest mullist powlist
+%type <st> matrix row  matrix_value
 
 %start programa
 
@@ -100,6 +101,18 @@ valor : FLOAT     { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
       | BOOLEAN   { $$.value_type = BOOL_TYPE; $$.value_data.boolean = $1; }
       | OP sumrest CP { $$ = $2; }
       | ID        { sym_lookup($1.lexema, &$$); }
+      | OC matrix CC     {  }
+
+matrix_value : FLOAT
+             | INTEGER
+             | OP sumrest CP 
+             | ID        
+
+matrix : matrix PC row
+       | row
+
+row : row SPACE matrix_value
+    | matrix_value
 
 /* Jerarquia de prioridades */
 sumrest : sumrest SUMA mullist  { sum_op(&$$,$1,$3); }
