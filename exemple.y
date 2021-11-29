@@ -58,9 +58,11 @@ expressio : ID ASSIGN sumrest ENDLINE  {
               if($$.value_type == INT_TYPE){
                 fprintf(yyout, "ID: %s value: %ld\n",$1.lexema, $3.value_data.enter);
                 $$.value_data.enter= $3.value_data.enter;
+
               } else if($$.value_type == FLOAT_TYPE){
                 fprintf(yyout, "ID: %s value: %f\n",$1.lexema, $3.value_data.real);
                 $$.value_data.real = $3.value_data.real;
+
               } else if($$.value_type == BOOL_TYPE){
                 $$.value_data.boolean = $3.value_data.boolean;
                 if($$.value_data.boolean == 1){
@@ -68,9 +70,25 @@ expressio : ID ASSIGN sumrest ENDLINE  {
                 } else {
                   fprintf(yyout, "ID: %s value: False\n",$1.lexema);
                 }
+
               }else if($$.value_type == MATRIX_TYPE){
-                fprintf(yyout, "ID: %s value: %ld\n",$1.lexema, $3.value_data.integer_matrix[0]);
-                $$.value_data.real = $3.value_data.real;
+
+                if($3.value_data.matrix_type == INT_TYPE){
+
+                  for(int i = 0; i< $3.value_data.column; i++)
+                    fprintf(yyout, "ID: %s value: %ld ", $1.lexema, $3.value_data.integer_matrix[i]);
+
+                  fprintf(yyout,"\n");
+
+                } else {
+
+                  for(int i = 0; i < $3.value_data.column; i++)
+                    fprintf(yyout, "ID: %s value: %f ",$1.lexema, $3.value_data.float_matrix[i]);
+
+                  fprintf(yyout,"\n");
+                  
+                }
+
               }else{
                  fprintf(yyout, "ID: %s value: %s\n",$1.lexema, $3.value_data.ident.lexema);
                 $$.value_data.ident.lexema = $3.value_data.ident.lexema;
@@ -78,7 +96,6 @@ expressio : ID ASSIGN sumrest ENDLINE  {
             }
           | sumrest ENDLINE  {
               $$.value_type = $1.value_type;
-
               if($$.value_type == INT_TYPE){
                 fprintf(yyout, " INT value: %ld\n", $1.value_data.enter);
                 $$.value_data.enter= $1.value_data.enter;
@@ -98,24 +115,16 @@ expressio : ID ASSIGN sumrest ENDLINE  {
               }
             }
 
-valor : FLOAT     { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
-      | INTEGER   { $$.value_type = INT_TYPE; $$.value_data.enter = $1; }
-      | STRING    { $$.value_type = STRING_TYPE; $$.value_data.ident.lexema = $1.lexema; }
-      | BOOLEAN   { $$.value_type = BOOL_TYPE; $$.value_data.boolean = $1; }
-      | OP sumrest CP { $$ = $2; }
-      | ID        { sym_lookup($1.lexema, &$$); }
-      | OC matrix CC     {  }
 
-matrix_value : FLOAT    { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
-             | INTEGER  { $$.value_type = INT_TYPE; $$.value_data.enter = $1; }
-             | OP sumrest CP { $$ = $2; }
-             | ID       { sym_lookup($1.lexema, &$$); }   
+matrix_value : FLOAT    { $$.value_type = MATRIX_TYPE; $$.value_data.matrix_type = FLOAT_TYPE; $$.value_data.real = $1; }
+             | INTEGER  { $$.value_type = MATRIX_TYPE; $$.value_data.matrix_type = INT_TYPE; $$.value_data.enter = $1; }
+ 
 
 matrix : matrix PC row
        | row
 
-row : row SPACE matrix_value
-    | matrix_value              {col_ini(&$$, $1);}
+row : row SPACE matrix_value    { col_value(&$$,$1,$3); }
+    | matrix_value              { col_ini(&$$, $1); }
 
 /* Jerarquia de prioridades */
 sumrest : sumrest SUMA mullist  { sum_op(&$$,$1,$3); }
@@ -129,5 +138,13 @@ mullist : mullist MUL powlist { mul_op(&$$,$1,$3); }
 
 powlist : powlist POW powlist { pow_op(&$$,$1,$3); }
         | valor 
+
+valor : FLOAT     { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
+      | INTEGER   { $$.value_type = INT_TYPE; $$.value_data.enter = $1; }
+      | STRING    { $$.value_type = STRING_TYPE; $$.value_data.ident.lexema = $1.lexema; }
+      | BOOLEAN   { $$.value_type = BOOL_TYPE; $$.value_data.boolean = $1; }
+      | OP sumrest CP { $$ = $2; }
+      | ID        { sym_lookup($1.lexema, &$$); }
+      | OC matrix CC     {  }
 
 %%

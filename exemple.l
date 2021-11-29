@@ -68,13 +68,13 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 
 "="                         { return ASSIGN; }
 
-"[*"                        { BEGIN MATRIX; return OC; }
+"["" "*                     { BEGIN MATRIX; return OC; }
 
-<MATRIX>";"                 { return PC; }
+<MATRIX>" "*;" "            { return PC; }
 
-<MATRIX>" "                 { return SPACE; }        
+<MATRIX>" "+                { return SPACE; }        
 
-"*]"                        { BEGIN INITIAL; return CC; }
+" "*"]"                     { BEGIN INITIAL; return CC; }
 
 
 {text}                      {

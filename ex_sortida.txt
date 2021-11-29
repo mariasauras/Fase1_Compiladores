@@ -22,6 +22,6 @@ programa -> expressio :
  INT value: 24
 programa -> expressio :
   expressio = 'Integer: 24'
-ID: k value: 4
+ID: vc value: vc
 programa -> expressio :
-  expressio = 'Integer: 4'
+  expressio = 'Error: incorrect value '

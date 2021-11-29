@@ -16,6 +16,8 @@ char *type_to_str(sym_value_type st)
     return strdup("Cadena");
   }else if(st.value_type == BOOL_TYPE){
     return strdup("Boolean");
+  }else if(st.value_type == MATRIX_TYPE){
+    return strdup("Vector/Matrix");
   }else if(st.value_type == ID_TYPE){
     return strdup("ID");
   }else{
@@ -36,6 +38,14 @@ char *value_info_to_str(sym_value_type st)
     sprintf(buffer, "Float: %f", st.value_data.real);
   } else if(st.value_type == STRING_TYPE){
     sprintf(buffer, "Cadena: %s", st.value_data.ident.lexema);
+  }else if(st.value_type == MATRIX_TYPE){
+    if(st.value_data.matrix_type == INT_TYPE){
+      for(int i = 0; i < st.value_data.column; i++)
+        sprintf(buffer, "Integer vector/matrix: %ld", st.value_data.integer_matrix[i]);
+    } else {
+      for(int i = 0; i < st.value_data.column; i++)
+        sprintf(buffer, "Float vector/matrix: %f", st.value_data.float_matrix[i]);
+    }
   } else if(st.value_type == BOOL_TYPE){
     if(st.value_data.boolean == 0){
       sprintf(buffer, "Boolean: FALSE");
@@ -43,7 +53,7 @@ char *value_info_to_str(sym_value_type st)
   }else if(st.value_type == ID_TYPE){
     sprintf(buffer, "ID: %s", st.value_data.ident.lexema);
   }else {
-    sprintf(buffer, "Error: incorrect value for 'value.st'");
+    sprintf(buffer, "Error: incorrect value ");
   }
   return strdup(buffer);
 }
