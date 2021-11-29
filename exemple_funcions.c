@@ -26,7 +26,6 @@ int init_analisi_lexica(char *filename)
   return error;
 }
 
-
 int end_analisi_lexica()
 {
   int error;
@@ -39,7 +38,6 @@ int end_analisi_lexica()
   return error;
 }
 
-
 int init_analisi_sintactica(char* filename)
 {
   int error = EXIT_SUCCESS;
@@ -49,7 +47,6 @@ int init_analisi_sintactica(char* filename)
   }
   return error;
 }
-
 
 int end_analisi_sintactica(void)
 {
@@ -64,7 +61,6 @@ int end_analisi_sintactica(void)
   }
   return error;
 }
-
 
 int analisi_semantica(void)
 {
@@ -214,22 +210,55 @@ void pow_op(sym_value_type * val, sym_value_type v1, sym_value_type v2){
   }
 }
 
-void ini_matrix(sym_value_type * row, sym_value_type matrix_value){
+/*********************************************************************/
+/*                 MATRIX&VECTOR FUNCTIONS                           */
+/*********************************************************************/
+
+/* Function to inicialize columns */
+
+void col_ini(sym_value_type * row, sym_value_type matrix_value){
   
   (*row).value_data.num_elems = 0;
+  (*row).value_type = MATRIX_TYPE;
+
+  if(matrix_value.value_type == INT_TYPE){
+
+    matrix_value.value_data.matrix_type = INT_TYPE;
+    (*row).value_data.integer_matrix = calloc((*row).value_data.num_elems+1, sizeof(long));
+    if((*row).value_data.integer_matrix  == NULL) yyerror("Error. Can't inicialize heap memory");
+    (*row).value_data.integer_matrix[0] = matrix_value.value_data.enter;
+
+  } else if(matrix_value.value_type == FLOAT_TYPE){
+
+    matrix_value.value_data.matrix_type = FLOAT_TYPE;
+    (*row).value_data.float_matrix = calloc((*row).value_data.num_elems+1, sizeof(float));
+     if((*row).value_data.float_matrix  == NULL) yyerror("Error. Can't inicialize heap memory");
+    (*row).value_data.float_matrix[0] = matrix_value.value_data.real;
+
+  } else yyerror(" Matrix only accept Integer or Float.");
+  
+  (*row).value_data.num_elems++;
+  (*row).value_data.column = 1;
+}
+
+/* Function to inicialize rows */
+
+void row_ini(sym_value_type * row, sym_value_type matrix_value){
 
   if(matrix_value.value_type == INT_TYPE){
 
     (*row).value_data.integer_matrix = calloc((*row).value_data.num_elems+1, sizeof(long));
-    (*row).value_data.integer_matrix[0] = matrix_value.value_data.enter;
+    if((*row).value_data.integer_matrix  == NULL) yyerror("Error. Can't inicialize heap memory");
+   
 
-  } else{
+  } else if(matrix_value.value_type == FLOAT_TYPE){
 
     (*row).value_data.float_matrix = calloc((*row).value_data.num_elems+1, sizeof(float));
-    (*row).value_data.float_matrix[0] = matrix_value.value_data.real;
-  }
+     if((*row).value_data.float_matrix  == NULL) yyerror("Error. Can't inicialize heap memory");
+    
 
-  (*row).value_data.num_elems++;
-  (*row).value_data.row = 1;
-  (*row).value_data.column = 1;
+  } else yyerror(" Matrix only accept Integer or Float.");
+  
+
+
 }

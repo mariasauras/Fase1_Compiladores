@@ -25,6 +25,7 @@ typedef enum{
   	FLOAT_TYPE,
   	STRING_TYPE,
 	ID_TYPE,
+	MATRIX_TYPE,
   	BOOL_TYPE
 	  
 }type;															
@@ -45,6 +46,7 @@ typedef struct data{
 	long row;
 	long column;
 	long num_elems;
+	type matrix_type;
 }data;
 
 typedef struct sym_value_type {

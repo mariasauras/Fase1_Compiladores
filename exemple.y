@@ -68,6 +68,9 @@ expressio : ID ASSIGN sumrest ENDLINE  {
                 } else {
                   fprintf(yyout, "ID: %s value: False\n",$1.lexema);
                 }
+              }else if($$.value_type == MATRIX_TYPE){
+                fprintf(yyout, "ID: %s value: %ld\n",$1.lexema, $3.value_data.integer_matrix[0]);
+                $$.value_data.real = $3.value_data.real;
               }else{
                  fprintf(yyout, "ID: %s value: %s\n",$1.lexema, $3.value_data.ident.lexema);
                 $$.value_data.ident.lexema = $3.value_data.ident.lexema;
@@ -103,16 +106,16 @@ valor : FLOAT     { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
       | ID        { sym_lookup($1.lexema, &$$); }
       | OC matrix CC     {  }
 
-matrix_value : FLOAT
-             | INTEGER
-             | OP sumrest CP 
-             | ID        
+matrix_value : FLOAT    { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
+             | INTEGER  { $$.value_type = INT_TYPE; $$.value_data.enter = $1; }
+             | OP sumrest CP { $$ = $2; }
+             | ID       { sym_lookup($1.lexema, &$$); }   
 
 matrix : matrix PC row
        | row
 
 row : row SPACE matrix_value
-    | matrix_value
+    | matrix_value              {col_ini(&$$, $1);}
 
 /* Jerarquia de prioridades */
 sumrest : sumrest SUMA mullist  { sum_op(&$$,$1,$3); }
