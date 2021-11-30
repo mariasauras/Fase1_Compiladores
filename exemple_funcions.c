@@ -218,18 +218,20 @@ void pow_op(sym_value_type * val, sym_value_type v1, sym_value_type v2){
 
 void col_ini(sym_value_type * matrix, sym_value_type matrix_value){
 
+  (*matrix).value_type = MATRIX_TYPE;
   /* Indico que tipo de valor tendra */
   if(matrix_value.value_type == INT_TYPE){
-    (*matrix).value_type = MATRIX_TYPE;
 
     (*matrix).value_data.matrix_type = INT_TYPE;
+
     (*matrix).value_data.integer_matrix = calloc(1, sizeof(long));
-    if((*matrix).value_data.integer_matrix  == NULL) yyerror("Error. Can't inicialize heap memory");
+    if((*matrix).value_data.integer_matrix == NULL) yyerror("Error. Can't inicialize heap memory");
     (*matrix).value_data.integer_matrix[0] = matrix_value.value_data.enter;
 
   } else if(matrix_value.value_type == FLOAT_TYPE){
-    (*matrix).value_type = MATRIX_TYPE;
+   
     (*matrix).value_data.matrix_type = FLOAT_TYPE;
+
     (*matrix).value_data.float_matrix = calloc(1, sizeof(float));
      if((*matrix).value_data.float_matrix  == NULL) yyerror("Error. Can't inicialize heap memory");
     (*matrix).value_data.float_matrix[0] = matrix_value.value_data.real;
@@ -243,12 +245,11 @@ void col_ini(sym_value_type * matrix, sym_value_type matrix_value){
 
 /* Function to inicialice more than one columns */
 void col_value(sym_value_type * matrix, sym_value_type v1, sym_value_type v2){
-  /* Indico que tipo de valor tendra */
+  
   (*matrix).value_type = MATRIX_TYPE;
-  /* Miramos el contenido del vector o de la matriz */
+
   if(v2.value_type == INT_TYPE){
-    /* Indico que tipo de valor tendra */
-    (*matrix).value_type = MATRIX_TYPE;
+
     (*matrix).value_data.matrix_type = INT_TYPE;
 
     (*matrix).value_data.integer_matrix = calloc(v1.value_data.column+1, sizeof(long));
@@ -263,7 +264,6 @@ void col_value(sym_value_type * matrix, sym_value_type v1, sym_value_type v2){
 
   } else if(v2.value_type == FLOAT_TYPE){
     /* Indico que tipo de valor tendra */
-    (*matrix).value_type = MATRIX_TYPE;
     (*matrix).value_data.matrix_type = FLOAT_TYPE;
     (*matrix).value_data.float_matrix = calloc(v1.value_data.column+1, sizeof(float));
     if((*matrix).value_data.float_matrix  == NULL) yyerror("Error. Can't inicialize heap memory");
@@ -279,7 +279,6 @@ void col_value(sym_value_type * matrix, sym_value_type v1, sym_value_type v2){
   
   (*matrix).value_data.column=v1.value_data.column+1;
   (*matrix).value_data.num_elems++;
-  
 }
 
 
