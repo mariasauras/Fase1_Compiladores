@@ -1390,7 +1390,7 @@ yyreduce:
                 } else if((yyval.st).value_data.matrix_type == FLOAT_TYPE) {
                   for(int i= 0; i<(yyval.st).value_data.column; i++) fprintf(yyout, "%f ",(yyval.st).value_data.float_matrix[i]);
                 } else yyerror("Only accept Integer or Float matrix");
-                fprintf(yyout, "]");
+                fprintf(yyout,"]\n");
               }
             }
 #line 1397 "exemple.tab.c"

@@ -78,7 +78,7 @@ expressio : ID ASSIGN sumrest ENDLINE  {
                 } else if($$.value_data.matrix_type == FLOAT_TYPE) {
                   for(int i= 0; i<$$.value_data.column; i++) fprintf(yyout, "%f ",$$.value_data.float_matrix[i]);
                 } else yyerror("Only accept Integer or Float matrix");
-                fprintf(yyout, "]");
+                fprintf(yyout,"]\n");
               }
             }
           | sumrest ENDLINE  {
