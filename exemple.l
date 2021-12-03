@@ -70,7 +70,7 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 
 "["" "*                     { BEGIN MATRIX; return OC; }
 
-<MATRIX>" "*;" "            { return PC; }
+<MATRIX>" "*;" "*           { return PC; }
 
 <MATRIX>" "+                { return SPACE; }        
 

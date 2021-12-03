@@ -74,11 +74,18 @@ expressio : ID ASSIGN sumrest ENDLINE  {
               }else if ($$.value_type == MATRIX_TYPE){
                 if($$.value_data.matrix_type == INT_TYPE) {
                   fprintf(yyout, "INTEGER MATRIX [");
-                  for(int i= 0; i<$$.value_data.column; i++) fprintf(yyout, "%ld ",$$.value_data.integer_matrix[i]);
+                  for(int i= 0; i<$$.value_data.row; i++) 
+                    for(int j= 0; j<$$.value_data.column; j++){
+                      int pos = $$.value_data.column*i+j;
+                      fprintf(yyout, "%ld ",$$.value_data.integer_matrix[pos]);
+                    }
                 } else if($$.value_data.matrix_type == FLOAT_TYPE) {
                   for(int i= 0; i<$$.value_data.column; i++) fprintf(yyout, "%f ",$$.value_data.float_matrix[i]);
                 } else yyerror("Only accept Integer or Float matrix");
                 fprintf(yyout,"]\n");
+                fprintf(yyout,"Num de columnas Vector/Matrix: %ld\n", $$.value_data.column);
+                if($$.value_data.row > 1) fprintf(yyout,"Num de Filas Matrix: %ld\n", $$.value_data.row);
+                fprintf(yyout,"Num de elems Vector/Matrix: %ld\n", $$.value_data.num_elems);
               }
             }
           | sumrest ENDLINE  {
@@ -107,8 +114,8 @@ matrix_value : FLOAT    { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1;  
              | INTEGER  { $$.value_type = INT_TYPE; $$.value_data.enter = $1; }
  
 
-matrix : matrix PC row
-       | row
+matrix : matrix PC row          { row_value(&$$,$1,$3); }
+       | row                    { $$.value_data.row = 1; }
 
 row : row SPACE matrix_value    { col_value(&$$,$1,$3); }
     | matrix_value              { col_ini(&$$, $1);}

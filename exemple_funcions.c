@@ -281,5 +281,36 @@ void col_value(sym_value_type * matrix, sym_value_type v1, sym_value_type v2){
   (*matrix).value_data.num_elems++;
 }
 
+void row_value(sym_value_type *matrix, sym_value_type v1, sym_value_type v2){
+
+  (*matrix).value_type = MATRIX_TYPE;
+
+  if(v1.value_data.column != v2.value_data.column) yyerror("Error. Diferent size of columns in matrix");
+  /* TODO: Mirar el tipo de matriz solo FLOAT o INTEGER*/
+  (*matrix).value_data.matrix_type=INT_TYPE;
+
+  (*matrix).value_data.integer_matrix = calloc(v1.value_data.num_elems+v2.value_data.num_elems, sizeof(long));
+  if((*matrix).value_data.integer_matrix  == NULL) yyerror("Error. Can't inicialize heap memory");
+
+  for(int i=0; i<v1.value_data.num_elems ; i++){
+      (*matrix).value_data.integer_matrix[i] = v1.value_data.integer_matrix[i];
+  }
+
+  int j = 0;
+  for(int i = v1.value_data.num_elems ; i<v2.value_data.column+v1.value_data.num_elems; i++){
+    (*matrix).value_data.integer_matrix[i] = v2.value_data.integer_matrix[j];
+    j++;
+  }
+
+  free(v1.value_data.integer_matrix);
+  free(v2.value_data.integer_matrix);
+
+  (*matrix).value_data.row = (*matrix).value_data.row + 1;
+  (*matrix).value_data.column = v2.value_data.column;
+  (*matrix).value_data.num_elems = (*matrix).value_data.row * (*matrix).value_data.column;
+  
+
+}
+
 
 

@@ -33,11 +33,12 @@
     /*                 MATRIX&VECTOR FUNCTIONS                           */
     /*********************************************************************/
 
-    void col_ini(sym_value_type * row, sym_value_type matrix_value);
+    void col_ini(sym_value_type * matrix, sym_value_type matrix_value);
 
-    void row_ini(sym_value_type * row, sym_value_type matrix_value);
+    void col_value(sym_value_type * matrix, sym_value_type v1, sym_value_type v2);
 
-    void col_value(sym_value_type * row, sym_value_type v1, sym_value_type v2);
+    void row_value(sym_value_type * matrix, sym_value_type v1, sym_value_type v2);
+
 
 
 #endif
