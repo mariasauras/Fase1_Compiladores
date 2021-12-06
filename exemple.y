@@ -58,7 +58,7 @@ expressio : ID ASSIGN sumrest ENDLINE  {
                
 
               } else if($$.value_type == FLOAT_TYPE){
-                fprintf(yyout, "ID: %s value: %f\n",$1.lexema, $3.value_data.real);
+                fprintf(yyout, "ID: %s value: %.2f\n",$1.lexema, $3.value_data.real);
 
               } else if($$.value_type == BOOL_TYPE){
                 
@@ -72,15 +72,24 @@ expressio : ID ASSIGN sumrest ENDLINE  {
                 fprintf(yyout, "ID: %s value: %s\n",$1.lexema, $3.value_data.ident.lexema);
 
               }else if ($$.value_type == MATRIX_TYPE){
-                if($$.value_data.matrix_type == INT_TYPE) {
-                  fprintf(yyout, "INTEGER MATRIX [");
+                  if($$.value_data.matrix_type == INT_TYPE) {
+                  int pos;
+                  if($$.value_data.row > 1) fprintf(yyout, "INTEGER MATRIX [");
+                  fprintf(yyout, "INTEGER VECTOR [");
                   for(int i= 0; i<$$.value_data.row; i++) 
                     for(int j= 0; j<$$.value_data.column; j++){
-                      int pos = $$.value_data.column*i+j;
+                      pos = $$.value_data.column*i+j;
                       fprintf(yyout, "%ld ",$$.value_data.integer_matrix[pos]);
                     }
                 } else if($$.value_data.matrix_type == FLOAT_TYPE) {
-                  for(int i= 0; i<$$.value_data.column; i++) fprintf(yyout, "%f ",$$.value_data.float_matrix[i]);
+                    int pos;
+                    if($$.value_data.row > 1) fprintf(yyout, "FLOAT MATRIX [");
+                    fprintf(yyout, "FLOAT VECTOR [");
+                    for(int i= 0; i<$$.value_data.row; i++) 
+                      for(int j= 0; j<$$.value_data.column; j++){
+                        pos = $$.value_data.column*i+j;
+                        fprintf(yyout, "%.2f ",$$.value_data.float_matrix[pos]);
+                      }
                 } else yyerror("Only accept Integer or Float matrix");
                 fprintf(yyout,"]\n");
                 fprintf(yyout,"Num de columnas Vector/Matrix: %ld\n", $$.value_data.column);

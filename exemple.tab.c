@@ -541,9 +541,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    47,    47,    48,    51,    91,   113,   114,   117,   118,
-     120,   121,   124,   125,   126,   128,   129,   130,   131,   133,
-     134,   136,   137,   138,   139,   140,   141,   142
+       0,    47,    47,    48,    51,   100,   122,   123,   126,   127,
+     129,   130,   133,   134,   135,   137,   138,   139,   140,   142,
+     143,   145,   146,   147,   148,   149,   150,   151
 };
 #endif
 
@@ -1370,7 +1370,7 @@ yyreduce:
                
 
               } else if((yyval.st).value_type == FLOAT_TYPE){
-                fprintf(yyout, "ID: %s value: %f\n",(yyvsp[-3].st.value_data.ident).lexema, (yyvsp[-1].st).value_data.real);
+                fprintf(yyout, "ID: %s value: %.2f\n",(yyvsp[-3].st.value_data.ident).lexema, (yyvsp[-1].st).value_data.real);
 
               } else if((yyval.st).value_type == BOOL_TYPE){
                 
@@ -1384,15 +1384,24 @@ yyreduce:
                 fprintf(yyout, "ID: %s value: %s\n",(yyvsp[-3].st.value_data.ident).lexema, (yyvsp[-1].st).value_data.ident.lexema);
 
               }else if ((yyval.st).value_type == MATRIX_TYPE){
-                if((yyval.st).value_data.matrix_type == INT_TYPE) {
-                  fprintf(yyout, "INTEGER MATRIX [");
+                  if((yyval.st).value_data.matrix_type == INT_TYPE) {
+                  int pos;
+                  if((yyval.st).value_data.row > 1) fprintf(yyout, "INTEGER MATRIX [");
+                  fprintf(yyout, "INTEGER VECTOR [");
                   for(int i= 0; i<(yyval.st).value_data.row; i++) 
                     for(int j= 0; j<(yyval.st).value_data.column; j++){
-                      int pos = (yyval.st).value_data.column*i+j;
+                      pos = (yyval.st).value_data.column*i+j;
                       fprintf(yyout, "%ld ",(yyval.st).value_data.integer_matrix[pos]);
                     }
                 } else if((yyval.st).value_data.matrix_type == FLOAT_TYPE) {
-                  for(int i= 0; i<(yyval.st).value_data.column; i++) fprintf(yyout, "%f ",(yyval.st).value_data.float_matrix[i]);
+                    int pos;
+                    if((yyval.st).value_data.row > 1) fprintf(yyout, "FLOAT MATRIX [");
+                    fprintf(yyout, "FLOAT VECTOR [");
+                    for(int i= 0; i<(yyval.st).value_data.row; i++) 
+                      for(int j= 0; j<(yyval.st).value_data.column; j++){
+                        pos = (yyval.st).value_data.column*i+j;
+                        fprintf(yyout, "%.2f ",(yyval.st).value_data.float_matrix[pos]);
+                      }
                 } else yyerror("Only accept Integer or Float matrix");
                 fprintf(yyout,"]\n");
                 fprintf(yyout,"Num de columnas Vector/Matrix: %ld\n", (yyval.st).value_data.column);
@@ -1400,11 +1409,11 @@ yyreduce:
                 fprintf(yyout,"Num de elems Vector/Matrix: %ld\n", (yyval.st).value_data.num_elems);
               }
             }
-#line 1404 "exemple.tab.c"
+#line 1413 "exemple.tab.c"
     break;
 
   case 5:
-#line 91 "exemple.y"
+#line 100 "exemple.y"
                              {
               (yyval.st).value_type = (yyvsp[-1].st).value_type;
               if((yyval.st).value_type == INT_TYPE){
@@ -1425,131 +1434,131 @@ yyreduce:
                 (yyval.st).value_data.ident.lexema = (yyvsp[-1].st).value_data.ident.lexema;
               }
             }
-#line 1429 "exemple.tab.c"
+#line 1438 "exemple.tab.c"
     break;
 
   case 6:
-#line 113 "exemple.y"
+#line 122 "exemple.y"
                         { (yyval.st).value_type = FLOAT_TYPE; (yyval.st).value_data.real = (yyvsp[0].st.value_data.real);  }
-#line 1435 "exemple.tab.c"
+#line 1444 "exemple.tab.c"
     break;
 
   case 7:
-#line 114 "exemple.y"
+#line 123 "exemple.y"
                         { (yyval.st).value_type = INT_TYPE; (yyval.st).value_data.enter = (yyvsp[0].st.value_data.enter); }
-#line 1441 "exemple.tab.c"
+#line 1450 "exemple.tab.c"
     break;
 
   case 8:
-#line 117 "exemple.y"
+#line 126 "exemple.y"
                                 { row_value(&(yyval.st),(yyvsp[-2].st),(yyvsp[0].st)); }
-#line 1447 "exemple.tab.c"
+#line 1456 "exemple.tab.c"
     break;
 
   case 9:
-#line 118 "exemple.y"
+#line 127 "exemple.y"
                                 { (yyval.st).value_data.row = 1; }
-#line 1453 "exemple.tab.c"
+#line 1462 "exemple.tab.c"
     break;
 
   case 10:
-#line 120 "exemple.y"
+#line 129 "exemple.y"
                                 { col_value(&(yyval.st),(yyvsp[-2].st),(yyvsp[0].st)); }
-#line 1459 "exemple.tab.c"
+#line 1468 "exemple.tab.c"
     break;
 
   case 11:
-#line 121 "exemple.y"
+#line 130 "exemple.y"
                                 { col_ini(&(yyval.st), (yyvsp[0].st));}
-#line 1465 "exemple.tab.c"
+#line 1474 "exemple.tab.c"
     break;
 
   case 12:
-#line 124 "exemple.y"
+#line 133 "exemple.y"
                                 { sum_op(&(yyval.st),(yyvsp[-2].st),(yyvsp[0].st)); }
-#line 1471 "exemple.tab.c"
+#line 1480 "exemple.tab.c"
     break;
 
   case 13:
-#line 125 "exemple.y"
+#line 134 "exemple.y"
                                 { rest_op(&(yyval.st),(yyvsp[-2].st),(yyvsp[0].st)); }
-#line 1477 "exemple.tab.c"
+#line 1486 "exemple.tab.c"
     break;
 
   case 15:
-#line 128 "exemple.y"
+#line 137 "exemple.y"
                               { mul_op(&(yyval.st),(yyvsp[-2].st),(yyvsp[0].st)); }
-#line 1483 "exemple.tab.c"
+#line 1492 "exemple.tab.c"
     break;
 
   case 16:
-#line 129 "exemple.y"
+#line 138 "exemple.y"
                               { div_op(&(yyval.st),(yyvsp[-2].st),(yyvsp[0].st)); }
-#line 1489 "exemple.tab.c"
+#line 1498 "exemple.tab.c"
     break;
 
   case 17:
-#line 130 "exemple.y"
+#line 139 "exemple.y"
                               { mod_op(&(yyval.st),(yyvsp[-2].st),(yyvsp[0].st)); }
-#line 1495 "exemple.tab.c"
+#line 1504 "exemple.tab.c"
     break;
 
   case 19:
-#line 133 "exemple.y"
+#line 142 "exemple.y"
                             { pow_op(&(yyval.st),(yyvsp[-2].st),(yyvsp[0].st)); }
-#line 1501 "exemple.tab.c"
+#line 1510 "exemple.tab.c"
     break;
 
   case 20:
-#line 134 "exemple.y"
+#line 143 "exemple.y"
                 { }
-#line 1507 "exemple.tab.c"
+#line 1516 "exemple.tab.c"
     break;
 
   case 21:
-#line 136 "exemple.y"
+#line 145 "exemple.y"
                   { (yyval.st).value_type = FLOAT_TYPE; (yyval.st).value_data.real = (yyvsp[0].st.value_data.real); }
-#line 1513 "exemple.tab.c"
+#line 1522 "exemple.tab.c"
     break;
 
   case 22:
-#line 137 "exemple.y"
+#line 146 "exemple.y"
                   { (yyval.st).value_type = INT_TYPE; (yyval.st).value_data.enter = (yyvsp[0].st.value_data.enter); }
-#line 1519 "exemple.tab.c"
+#line 1528 "exemple.tab.c"
     break;
 
   case 23:
-#line 138 "exemple.y"
+#line 147 "exemple.y"
                   { (yyval.st).value_type = STRING_TYPE; (yyval.st).value_data.ident.lexema = (yyvsp[0].st.value_data.ident).lexema; }
-#line 1525 "exemple.tab.c"
+#line 1534 "exemple.tab.c"
     break;
 
   case 24:
-#line 139 "exemple.y"
+#line 148 "exemple.y"
                   { (yyval.st).value_type = BOOL_TYPE; (yyval.st).value_data.boolean = (yyvsp[0].st.value_data.boolean); }
-#line 1531 "exemple.tab.c"
+#line 1540 "exemple.tab.c"
     break;
 
   case 25:
-#line 140 "exemple.y"
+#line 149 "exemple.y"
                       { (yyval.st) = (yyvsp[-1].st); }
-#line 1537 "exemple.tab.c"
+#line 1546 "exemple.tab.c"
     break;
 
   case 26:
-#line 141 "exemple.y"
+#line 150 "exemple.y"
                   { sym_lookup((yyvsp[0].st.value_data.ident).lexema, &(yyval.st)); }
-#line 1543 "exemple.tab.c"
+#line 1552 "exemple.tab.c"
     break;
 
   case 27:
-#line 142 "exemple.y"
+#line 151 "exemple.y"
                          { (yyval.st) = (yyvsp[-1].st); }
-#line 1549 "exemple.tab.c"
+#line 1558 "exemple.tab.c"
     break;
 
 
-#line 1553 "exemple.tab.c"
+#line 1562 "exemple.tab.c"
 
       default: break;
     }
@@ -1781,5 +1790,5 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 144 "exemple.y"
+#line 153 "exemple.y"
 

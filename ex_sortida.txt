@@ -1,5 +1,15 @@
-INTEGER MATRIX [4 7 6 4 5 6 7 8 9 4 7 3 ]
+ID: i value: 2.40
+FLOAT VECTOR [2.10 5.60 ]
+Num de columnas Vector/Matrix: 2
+Num de elems Vector/Matrix: 2
+INTEGER VECTOR [2 3 4 ]
 Num de columnas Vector/Matrix: 3
-Num de Filas Matrix: 4
-Num de elems Vector/Matrix: 12
-ID: i value: 2
+Num de elems Vector/Matrix: 3
+FLOAT MATRIX [FLOAT VECTOR [3.40 5.60 1.20 3.30 ]
+Num de columnas Vector/Matrix: 2
+Num de Filas Matrix: 2
+Num de elems Vector/Matrix: 4
+INTEGER MATRIX [INTEGER VECTOR [3 4 5 1 2 3 ]
+Num de columnas Vector/Matrix: 3
+Num de Filas Matrix: 2
+Num de elems Vector/Matrix: 6
