@@ -281,11 +281,19 @@ void col_value(sym_value_type * matrix, sym_value_type v1, sym_value_type v2){
   (*matrix).value_data.num_elems++;
 }
 
+/* Function for using vectors and matrices with more than one line */
 void row_value(sym_value_type *matrix, sym_value_type v1, sym_value_type v2){
 
   (*matrix).value_type = MATRIX_TYPE;
   
+  
   if(v1.value_data.column != v2.value_data.column) yyerror("Error. Diferent size of columns in matrix");
+
+  /* Type of vectors and matrices: 
+   1. INT TYPE
+   2. FLOAT TYPE
+   3. INT TYPE AND FLOAT TYPE
+   4. FLOAT TYPE AND INT TYPE */
 
   if(v1.value_data.matrix_type == INT_TYPE && v2.value_data.matrix_type == INT_TYPE){
     (*matrix).value_data.matrix_type = INT_TYPE;
@@ -293,18 +301,23 @@ void row_value(sym_value_type *matrix, sym_value_type v1, sym_value_type v2){
     (*matrix).value_data.integer_matrix = calloc(v1.value_data.num_elems+v2.value_data.num_elems, sizeof(long));
     if((*matrix).value_data.integer_matrix  == NULL) yyerror("Error. Can't inicialize heap memory");
 
+    /* Copy the content of first row (V1) in the final matrix */
     for(int i=0; i<v1.value_data.num_elems ; i++) (*matrix).value_data.integer_matrix[i] = v1.value_data.integer_matrix[i];
 
+    /* Copy the content of second row (V2) in the final matrix.
+        In ths part of the code we treat this if V2 was the second row but not it's not necessarily 
+        the second line it may be the fourth (for example).  */
     int j = 0;
     for(int i = v1.value_data.num_elems ; i<v2.value_data.column+v1.value_data.num_elems; i++){
       (*matrix).value_data.integer_matrix[i] = v2.value_data.integer_matrix[j];
       j++;
     }
 
+    /* free the heap memory of the V1 and v2*/
     free(v1.value_data.integer_matrix);
     free(v2.value_data.integer_matrix);
    
-  } else if (v1.value_data.matrix_type == FLOAT_TYPE && v2.value_data.matrix_type == FLOAT_TYPE){
+  } else if ((v1.value_data.matrix_type == FLOAT_TYPE && v2.value_data.matrix_type == FLOAT_TYPE)){
     (*matrix).value_data.matrix_type = FLOAT_TYPE;
 
     (*matrix).value_data.float_matrix = calloc(v1.value_data.num_elems+v2.value_data.num_elems, sizeof(float));
@@ -320,12 +333,43 @@ void row_value(sym_value_type *matrix, sym_value_type v1, sym_value_type v2){
 
     free(v1.value_data.float_matrix);
     free(v2.value_data.float_matrix);
-  } else yyerror("INCORRECT VALUE OF MATRIX & VECTOR");
+  } else if ((v1.value_data.matrix_type == INT_TYPE && v2.value_data.matrix_type == FLOAT_TYPE)){
+    (*matrix).value_data.matrix_type = FLOAT_TYPE;
+
+    (*matrix).value_data.float_matrix = calloc(v1.value_data.num_elems+v2.value_data.num_elems, sizeof(float));
+    if((*matrix).value_data.float_matrix  == NULL) yyerror("Error. Can't inicialize heap memory");
+  
+    for(int i=0; i<v1.value_data.num_elems ; i++) (*matrix).value_data.float_matrix[i] = (float)v1.value_data.integer_matrix[i];
+
+    int j = 0;
+    for(int i = v1.value_data.num_elems ; i<v2.value_data.column+v1.value_data.num_elems; i++){
+      (*matrix).value_data.float_matrix[i] = v2.value_data.float_matrix[j];
+      j++;
+    }
+
+    free(v1.value_data.integer_matrix);
+    free(v2.value_data.float_matrix);
+  }else if ((v1.value_data.matrix_type == FLOAT_TYPE && v2.value_data.matrix_type == INT_TYPE)){
+    (*matrix).value_data.matrix_type = FLOAT_TYPE;
+
+    (*matrix).value_data.float_matrix = calloc(v1.value_data.num_elems+v2.value_data.num_elems, sizeof(float));
+    if((*matrix).value_data.float_matrix  == NULL) yyerror("Error. Can't inicialize heap memory");
+  
+    for(int i=0; i<v1.value_data.num_elems ; i++) (*matrix).value_data.float_matrix[i] = v1.value_data.float_matrix[i];
+
+    int j = 0;
+    for(int i = v1.value_data.num_elems ; i<v2.value_data.column+v1.value_data.num_elems; i++){
+      (*matrix).value_data.float_matrix[i] = (float)v2.value_data.integer_matrix[j];
+      j++;
+    }
+
+    free(v2.value_data.integer_matrix);
+    free(v1.value_data.float_matrix);
+  }else yyerror("INCORRECT VALUE OF MATRIX & VECTOR");
 
   (*matrix).value_data.row = (*matrix).value_data.row + 1;
   (*matrix).value_data.column = v2.value_data.column;
   (*matrix).value_data.num_elems = (*matrix).value_data.row * (*matrix).value_data.column;
-
 
 }
 
