@@ -318,7 +318,6 @@ void pow_op(sym_value_type * val, sym_value_type v1, sym_value_type v2){
 /*********************************************************************/
 
 /* Function to inicialize columns */
-
 void col_ini(sym_value_type * matrix, sym_value_type matrix_value){
 
   (*matrix).value_type = MATRIX_TYPE;
@@ -476,7 +475,6 @@ void row_value(sym_value_type *matrix, sym_value_type v1, sym_value_type v2){
 
 }
 
-/* Function to operate with vectors and matrices */
-
-
-
+/**********************************************************************/
+/*                  BOOLEAN FUNCTIONS                            */
+/**********************************************************************/

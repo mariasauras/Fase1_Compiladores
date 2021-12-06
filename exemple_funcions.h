@@ -39,6 +39,10 @@
 
     void row_value(sym_value_type * matrix, sym_value_type v1, sym_value_type v2);
 
+    /**********************************************************************/
+    /*                  ARITHMETICAL FUNCTIONS                            */
+    /**********************************************************************/
+
 
 
 #endif
