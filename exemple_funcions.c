@@ -239,15 +239,52 @@ void mul_op(sym_value_type * val, sym_value_type v1, sym_value_type v2){
     if (v1.value_type == INT_TYPE && v2.value_type == INT_TYPE){
       (*val).value_type = INT_TYPE;
       (*val).value_data.enter = v1.value_data.enter * v2.value_data.enter;
+
     } else if(v1.value_type == INT_TYPE && v2.value_type == FLOAT_TYPE){
       (*val).value_type = FLOAT_TYPE;
       (*val).value_data.real = v1.value_data.enter * v2.value_data.real;
+
     } else if(v1.value_type == FLOAT_TYPE && v2.value_type == INT_TYPE){
        (*val).value_type = FLOAT_TYPE;
       (*val).value_data.real = v1.value_data.real * v2.value_data.enter;
+
     } else if(v1.value_type == FLOAT_TYPE && v2.value_type == FLOAT_TYPE) {
       (*val).value_type = FLOAT_TYPE;
       (*val).value_data.real = v1.value_data.real * v2.value_data.real;
+
+    } else if(v1.value_type == MATRIX_TYPE && v2.value_type == MATRIX_TYPE) {
+      (*val).value_type = MATRIX_TYPE;
+      
+      if(v1.value_data.column != v2.value_data.row){
+         yyerror("BAD DECLARATION: The num. of rows of matrix A should be equal to the number of column of matrix B");
+      } else {
+
+        if( v1.value_data.matrix_type == INT_TYPE && v2.value_data.matrix_type == INT_TYPE){
+        (*val).value_data.matrix_type = INT_TYPE;
+        int pos,p,p1,sum=0;
+
+        (*val).value_data.integer_matrix = calloc(v1.value_data.row*v2.value_data.column, sizeof(long));
+        if((*val).value_data.integer_matrix == NULL) yyerror("Can't inicialize heap memory");
+
+        (*val).value_data.row = v1.value_data.row;
+        (*val).value_data.column = v2.value_data.column;
+        (*val).value_data.num_elems = v1.value_data.row*v2.value_data.column;
+
+        for(int i = 0; i<v1.value_data.row; i++)
+          for(int j = 0; j<v2.value_data.column; j++){
+            pos = v2.value_data.column*i+j;
+            for(int k = 0; k< v2.value_data.row; k++){
+              p = v1.value_data.column*i + k;
+              p1 = v2.value_data.column*k + j;
+              sum = sum +  v1.value_data.integer_matrix[p] * v2.value_data.integer_matrix[p1];
+            } 
+            (*val).value_data.integer_matrix[pos] = sum;
+            sum = 0;
+          }
+      }
+
+      }
+       
     } else{
       /* CONCAT*/
       (*val).value_type = STRING_TYPE;

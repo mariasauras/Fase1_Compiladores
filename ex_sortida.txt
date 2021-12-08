@@ -1,29 +1,12 @@
-ID: i value: 2.40
-FLOAT VECTOR [2.10 5.60 ]
-Num de columnas Vector/Matrix: 2
-Num de elems Vector/Matrix: 2
-INTEGER VECTOR [0 3 4 ]
-Num de columnas Vector/Matrix: 3
-Num de elems Vector/Matrix: 3
-INTEGER VECTOR [2 3 ]
-Num de columnas Vector/Matrix: 2
-Num de elems Vector/Matrix: 2
-FLOAT MATRIX [FLOAT VECTOR [3.40 5.60 1.20 3.30 ]
-Num de columnas Vector/Matrix: 2
-Num de Filas Matrix: 2
-Num de elems Vector/Matrix: 4
-INTEGER MATRIX [INTEGER VECTOR [3 4 5 1 2 3 ]
+INTEGER MATRIX [INTEGER VECTOR [1 2 3 4 5 6 ]
 Num de columnas Vector/Matrix: 3
 Num de Filas Matrix: 2
 Num de elems Vector/Matrix: 6
-FLOAT MATRIX [FLOAT VECTOR [3.30 4.50 5.00 6.00 ]
+INTEGER MATRIX [INTEGER VECTOR [1 2 1 2 1 2 ]
 Num de columnas Vector/Matrix: 2
-Num de Filas Matrix: 2
-Num de elems Vector/Matrix: 4
-FLOAT VECTOR [2.10 2.60 -4.00 ]
-Num de columnas Vector/Matrix: 3
-Num de elems Vector/Matrix: 3
-FLOAT MATRIX [FLOAT VECTOR [0.40 1.60 -3.80 2.30 ]
+Num de Filas Matrix: 3
+Num de elems Vector/Matrix: 6
+INTEGER MATRIX [INTEGER VECTOR [6 12 15 30 ]
 Num de columnas Vector/Matrix: 2
 Num de Filas Matrix: 2
 Num de elems Vector/Matrix: 4
