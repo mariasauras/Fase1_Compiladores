@@ -1,12 +1,3 @@
-FLOAT MATRIX [FLOAT VECTOR [1.30 2.40 3.40 4.40 5.40 6.40 ]
-Num de columnas Vector/Matrix: 3
-Num de Filas Matrix: 2
-Num de elems Vector/Matrix: 6
-FLOAT MATRIX [FLOAT VECTOR [1.10 2.10 1.90 2.90 1.90 2.30 ]
-Num de columnas Vector/Matrix: 2
-Num de Filas Matrix: 3
-Num de elems Vector/Matrix: 6
-FLOAT MATRIX [FLOAT VECTOR [11.00 15.00 26.00 38.00 ]
-Num de columnas Vector/Matrix: 2
-Num de Filas Matrix: 2
-Num de elems Vector/Matrix: 4
+ID: h_3 value: 2
+ID: H_H value: 6
+STRING value: h7

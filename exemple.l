@@ -42,7 +42,7 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
                             }
 
 
-{lletra}({lletra}|{digit})* {
+{lletra}({lletra}|{digit})*_*({lletra}|{digit})* {
                               yylval.st.value_data.ident.lexema = strdup(yytext);
                               yylval.st.value_data.ident.lenght = yyleng;
                               yylval.st.value_data.ident.line = yylineno;

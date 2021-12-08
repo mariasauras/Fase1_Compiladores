@@ -147,7 +147,7 @@ valor : FLOAT     { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
       | STRING    { $$.value_type = STRING_TYPE; $$.value_data.ident.lexema = $1.lexema; }
       | BOOLEAN   { $$.value_type = BOOL_TYPE; $$.value_data.boolean = $1; }
       | OP sumrest CP { $$ = $2; }
-      | ID        { sym_lookup($1.lexema, &$$); }
+      | ID        { if(sym_lookup($1.lexema, &$$) == SYMTAB_NOT_FOUND) yyerror("Var doesn't exit"); }
       | OC matrix CC     { $$ = $2; }
 
 %%

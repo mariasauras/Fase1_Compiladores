@@ -84,6 +84,7 @@ void yyerror(char *explanation)
 /*                  ARITHMETICAL FUNCTIONS                            */
 /**********************************************************************/
 
+
 void sum_op(sym_value_type * val, sym_value_type v1, sym_value_type v2){
 
   if(v1.value_type == BOOL_TYPE || v2.value_type == BOOL_TYPE  || v1.value_type == STRING_TYPE || v2.value_type == STRING_TYPE){
@@ -598,6 +599,16 @@ void row_value(sym_value_type *matrix, sym_value_type v1, sym_value_type v2){
   (*matrix).value_data.column = v2.value_data.column;
   (*matrix).value_data.num_elems = (*matrix).value_data.row * (*matrix).value_data.column;
 
+}
+
+/* Function to acces a vector */
+void acces_vector(sym_value_type * vector, sym_value_type v1, sym_value_type v2){
+
+}
+
+/* Function to acces a matrix */
+void acces_matrix(sym_value_type * matrix, sym_value_type v1, sym_value_type v2){
+  
 }
 
 /**********************************************************************/

@@ -1547,7 +1547,7 @@ yyreduce:
 
   case 26:
 #line 150 "exemple.y"
-                  { sym_lookup((yyvsp[0].st.value_data.ident).lexema, &(yyval.st)); }
+                  { if(sym_lookup((yyvsp[0].st.value_data.ident).lexema, &(yyval.st)) == SYMTAB_NOT_FOUND) yyerror("Var doesn't exit"); }
 #line 1552 "exemple.tab.c"
     break;
 
