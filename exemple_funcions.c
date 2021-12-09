@@ -378,6 +378,7 @@ void mul_op(sym_value_type * val, sym_value_type v1, sym_value_type v2){
       /* CONCAT*/
       (*val).value_type = STRING_TYPE;
       (*val).value_data.ident.lexema = malloc(strlen(v1.value_data.ident.lexema) + strlen(v2.value_data.ident.lexema) + 1);
+      if((*val).value_data.ident.lexema == NULL) yyerror("Can't inicialize heap memory for CONCAT fuinction");
       strcpy((*val).value_data.ident.lexema, v1.value_data.ident.lexema);
       strcat((*val).value_data.ident.lexema, v2.value_data.ident.lexema);
     }
