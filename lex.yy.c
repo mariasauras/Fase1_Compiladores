@@ -830,15 +830,18 @@ case 1:
 YY_RULE_SETUP
 #line 38 "exemple.l"
 {
-                              yylval.st.value_data.ident.lexema = strdup(yytext);
-                              yylval.st.value_data.ident.lenght = yyleng;
+                              if (strcmp(strdup(yytext),"false") == 0)
+                                yylval.st.value_data.boolean = 0;
+                              else
+                                yylval.st.value_data.boolean = 1;
+                                
                               yylval.st.value_data.ident.value_type = BOOL_TYPE;
                               return BOOLEAN; 
                             }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 46 "exemple.l"
+#line 49 "exemple.l"
 {
                               yylval.st.value_data.ident.lexema = strdup(yytext);
                               yylval.st.value_data.ident.lenght = yyleng;
@@ -849,77 +852,77 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 54 "exemple.l"
+#line 57 "exemple.l"
 { return OP; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 56 "exemple.l"
+#line 59 "exemple.l"
 { return CP; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 58 "exemple.l"
+#line 61 "exemple.l"
 { return SUMA; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 60 "exemple.l"
+#line 63 "exemple.l"
 { return RESTA; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 62 "exemple.l"
+#line 65 "exemple.l"
 { return MUL; } 
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 64 "exemple.l"
+#line 67 "exemple.l"
 { return DIV; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 66 "exemple.l"
+#line 69 "exemple.l"
 { return MOD; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 68 "exemple.l"
+#line 71 "exemple.l"
 { return POW; }                    
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 70 "exemple.l"
+#line 73 "exemple.l"
 { return ASSIGN; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 72 "exemple.l"
+#line 75 "exemple.l"
 { return COMMA; } 
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 74 "exemple.l"
+#line 77 "exemple.l"
 { BEGIN MATRIX; return OC; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 76 "exemple.l"
+#line 79 "exemple.l"
 { return PC; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 78 "exemple.l"
+#line 81 "exemple.l"
 { return SPACE; }        
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 80 "exemple.l"
+#line 83 "exemple.l"
 { BEGIN INITIAL; return CC; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 83 "exemple.l"
+#line 86 "exemple.l"
 {
                               yylval.st.value_data.ident.lexema = strdup(yytext);
                               yylval.st.value_data.ident.lenght = yyleng;
@@ -929,7 +932,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 92 "exemple.l"
+#line 95 "exemple.l"
 {
                               yylval.st.value_data.real = atof(yytext);
                               return FLOAT;
@@ -937,7 +940,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 98 "exemple.l"
+#line 101 "exemple.l"
 {
                               yylval.st.value_data.enter = atoi(yytext);
                               return INTEGER;
@@ -946,26 +949,26 @@ YY_RULE_SETUP
 case 20:
 /* rule 20 can match eol */
 YY_RULE_SETUP
-#line 104 "exemple.l"
+#line 107 "exemple.l"
 {}
 	YY_BREAK
 case 21:
 /* rule 21 can match eol */
 YY_RULE_SETUP
-#line 106 "exemple.l"
+#line 109 "exemple.l"
 { return ENDLINE; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 108 "exemple.l"
+#line 111 "exemple.l"
 {}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 110 "exemple.l"
+#line 113 "exemple.l"
 ECHO;
 	YY_BREAK
-#line 969 "lex.yy.c"
+#line 972 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(MATRIX):
 	yyterminate();
@@ -1944,6 +1947,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 110 "exemple.l"
+#line 113 "exemple.l"
 
 

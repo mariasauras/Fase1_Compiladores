@@ -35,8 +35,11 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 %%
   
 {boolean}                  {
-                              yylval.st.value_data.ident.lexema = strdup(yytext);
-                              yylval.st.value_data.ident.lenght = yyleng;
+                              if (strcmp(strdup(yytext),"false") == 0)
+                                yylval.st.value_data.boolean = 0;
+                              else
+                                yylval.st.value_data.boolean = 1;
+                                
                               yylval.st.value_data.ident.value_type = BOOL_TYPE;
                               return BOOLEAN; 
                             }

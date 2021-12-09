@@ -55,22 +55,16 @@ expressio : ID ASSIGN sumrest ENDLINE  {
 
               if($$.value_type == INT_TYPE){
                 fprintf(yyout, "ID: %s value: %ld\n",$1.lexema, $3.value_data.enter);
-               
-
               } else if($$.value_type == FLOAT_TYPE){
                 fprintf(yyout, "ID: %s value: %.2f\n",$1.lexema, $3.value_data.real);
-
               } else if($$.value_type == BOOL_TYPE){
-                
                 if($$.value_data.boolean == 1){
                   fprintf(yyout, "ID: %s value: True\n",$1.lexema); 
                 } else {
                   fprintf(yyout, "ID: %s value: False\n",$1.lexema);
                 }
-
               }else if($$.value_type == STRING_TYPE){
                 fprintf(yyout, "ID: %s value: %s\n",$1.lexema, $3.value_data.ident.lexema);
-
               }else if ($$.value_type == MATRIX_TYPE){
                   if($$.value_data.matrix_type == INT_TYPE) {
                   int pos;
@@ -100,7 +94,7 @@ expressio : ID ASSIGN sumrest ENDLINE  {
           | sumrest ENDLINE  {
               $$.value_type = $1.value_type;
               if($$.value_type == INT_TYPE){
-                fprintf(yyout, " INT value: %ld\n", $1.value_data.enter);
+                fprintf(yyout, "INT value: %ld\n", $1.value_data.enter);
                 $$.value_data.enter= $1.value_data.enter;
               } else if($$.value_type == FLOAT_TYPE){
                 fprintf(yyout, "FLOAT value: %f\n", $1.value_data.real);
@@ -119,6 +113,8 @@ expressio : ID ASSIGN sumrest ENDLINE  {
             }
 
 
+/* Priority Hierarchy */
+
 matrix_value : FLOAT    { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1;  }
              | INTEGER  { $$.value_type = INT_TYPE; $$.value_data.enter = $1; }
  
@@ -129,7 +125,6 @@ matrix : matrix PC row          { row_value(&$$,$1,$3); }
 row : row SPACE matrix_value    { col_value(&$$,$1,$3); }
     | matrix_value              { col_ini(&$$, $1);}
 
-/* Jerarquia de prioridades */
 sumrest : sumrest SUMA mullist  { sum_op(&$$,$1,$3); }
         | sumrest RESTA mullist { rest_op(&$$,$1,$3); }
         | mullist
