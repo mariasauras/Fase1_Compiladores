@@ -32,7 +32,7 @@ extern int yylex();
 %token <st.value_data.real> FLOAT
 %token <st.value_data.ident> STRING
 %token <st.value_data.boolean> BOOLEAN
-%token  SUMA RESTA MUL DIV MOD POW OP CP OC CC PC SPACE
+%token  SUMA RESTA MUL DIV MOD POW OP CP OC CC PC SPACE COMMA
 
 %type <st> programa
 %type <st> expressio
@@ -142,12 +142,14 @@ mullist : mullist MUL powlist { mul_op(&$$,$1,$3); }
 powlist : powlist POW valor { pow_op(&$$,$1,$3); }
         | valor { }
 
-valor : FLOAT     { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
-      | INTEGER   { $$.value_type = INT_TYPE; $$.value_data.enter = $1; }
-      | STRING    { $$.value_type = STRING_TYPE; $$.value_data.ident.lexema = $1.lexema; }
-      | BOOLEAN   { $$.value_type = BOOL_TYPE; $$.value_data.boolean = $1; }
+valor : FLOAT         { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
+      | INTEGER       { $$.value_type = INT_TYPE; $$.value_data.enter = $1; }
+      | STRING        { $$.value_type = STRING_TYPE; $$.value_data.ident.lexema = $1.lexema; }
+      | BOOLEAN       { $$.value_type = BOOL_TYPE; $$.value_data.boolean = $1; }
       | OP sumrest CP { $$ = $2; }
-      | ID        { if(sym_lookup($1.lexema, &$$) == SYMTAB_NOT_FOUND) yyerror("Var doesn't exit"); }
-      | OC matrix CC     { $$ = $2; }
+      | ID            { if(sym_lookup($1.lexema, &$$) == SYMTAB_NOT_FOUND) yyerror("Var doesn't exit"); }
+      | OC matrix CC  { $$ = $2; }
+      | ID OC sumrest CC { acces_vector(&$$, $1.lexema, $3); }
+      | ID OC sumrest COMMA sumrest CC { acces_matrix(&$$, $1.lexema, $3, $5); }
 
 %%

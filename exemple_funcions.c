@@ -603,12 +603,84 @@ void row_value(sym_value_type *matrix, sym_value_type v1, sym_value_type v2){
 }
 
 /* Function to acces a vector */
-void acces_vector(sym_value_type * vector, sym_value_type v1, sym_value_type v2){
+void acces_vector(sym_value_type * vector, char * id, sym_value_type valist){
+
+  if(valist.value_type == INT_TYPE){
+    
+    long i = valist.value_data.enter;
+    if(i < 0) yyerror("Index out of bounds./n");
+
+    if(sym_lookup(id, vector) == SYMTAB_NOT_FOUND) yyerror("Var doesn't exit");
+
+    if((*vector).value_data.row == 1 || (*vector).value_data.column == 1){
+
+      /* We look at the case in which the vector consists of a row and several columns */
+      if((*vector).value_data.row == 1){
+        if(i < (*vector).value_data.column){
+
+          if((*vector).value_data.matrix_type == INT_TYPE){
+            (*vector).value_type = INT_TYPE;
+            (*vector).value_data.enter = (*vector).value_data.integer_matrix[i];
+          } else if((*vector).value_data.matrix_type == FLOAT_TYPE){
+            (*vector).value_type = FLOAT_TYPE;
+            (*vector).value_data.real = (*vector).value_data.float_matrix[i];
+          }else yyerror("Bad value!");
+
+        }else yyerror("Index out of bounds./n");
+      }
+
+      /* We look at the case in which the vector consists of a column and several rows*/
+      if((*vector).value_data.column == 1){
+        if(i < (*vector).value_data.row){
+
+          if((*vector).value_data.matrix_type == INT_TYPE){
+            (*vector).value_type = INT_TYPE;
+            (*vector).value_data.enter = (*vector).value_data.integer_matrix[i];
+          } else if((*vector).value_data.matrix_type == FLOAT_TYPE){
+            (*vector).value_type = FLOAT_TYPE;
+            (*vector).value_data.real = (*vector).value_data.float_matrix[i];
+          }else yyerror("Bad value!");
+
+        } else yyerror("Index out of bounds./n");
+      }
+    } else yyerror("Vectors only have one column or row.");
+
+  } else yyerror("If u want acces to a vector you can only do with a int number.");
 
 }
 
 /* Function to acces a matrix */
-void acces_matrix(sym_value_type * matrix, sym_value_type v1, sym_value_type v2){
+void acces_matrix(sym_value_type * matrix, char * id, sym_value_type v1, sym_value_type v2){
+
+  if(v1.value_type == INT_TYPE && v2.value_type == INT_TYPE){
+
+    long i = v1.value_data.enter;
+    long j = v2.value_data.enter;
+    long pos;
+    if(i < 0 || j < 0) yyerror("Index out of bounds./n");
+
+    if(sym_lookup(id, matrix) == SYMTAB_NOT_FOUND) yyerror("Var doesn't exit");
+
+    if((*matrix).value_data.row != 1 && (*matrix).value_data.column != 1){
+
+      if(i < (*matrix).value_data.row && j < (*matrix).value_data.column){
+
+        if((*matrix).value_data.matrix_type == INT_TYPE){
+          pos = (*matrix).value_data.column*i+j;
+          (*matrix).value_type = INT_TYPE;
+          (*matrix).value_data.enter = (*matrix).value_data.integer_matrix[pos];
+        } else if((*matrix).value_data.matrix_type == FLOAT_TYPE) {
+          pos = (*matrix).value_data.column*i+j;
+          (*matrix).value_type = FLOAT_TYPE;
+          (*matrix).value_data.real = (*matrix).value_data.float_matrix[pos];
+        } else yyerror("Bad value!");
+
+      }else yyerror("Index out of bounds./n");
+
+    }else yyerror("Matrix have more than one row and column. ");
+
+  }else yyerror("If u want acces to a vector you can only do with a int number.");
+
   
 }
 

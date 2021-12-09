@@ -76,7 +76,8 @@ extern int yydebug;
     OC = 273,
     CC = 274,
     PC = 275,
-    SPACE = 276
+    SPACE = 276,
+    COMMA = 277
   };
 #endif
 
@@ -88,7 +89,7 @@ union YYSTYPE
 
   sym_value_type st;
 
-#line 92 "exemple.tab.h"
+#line 93 "exemple.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

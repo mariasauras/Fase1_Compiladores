@@ -29,7 +29,7 @@ lletra  [a-zA-Z]
 digit   [0-9]
 boolean (true|false)
 float   {digit}+"."{digit}*("e-"{digit}+)? 
-text    ["][^\n\t\"\']*["] 
+text    ["][^_\n\t\"\']*["] 
 comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 
 %%
@@ -68,6 +68,8 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 
 "="                         { return ASSIGN; }
 
+","                         { return COMMA; } 
+
 "["" "*                     { BEGIN MATRIX; return OC; }
 
 <MATRIX>" "*;" "*           { return PC; }
@@ -97,9 +99,7 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
                               return INTEGER;
                             }
 
-
           
-
 ^[ \t]*[\n]                 {}
 
 [\n]                        { return ENDLINE; }

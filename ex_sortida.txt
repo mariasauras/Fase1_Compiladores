@@ -1,7 +1,5 @@
-ID: h_3 value: 2
-ID: H_H value: 6
-FLOAT MATRIX [FLOAT VECTOR [4.50 3.40 6.00 7.00 ]
+INTEGER MATRIX [INTEGER VECTOR [4 6 7 6 ]
 Num de columnas Vector/Matrix: 2
 Num de Filas Matrix: 2
 Num de elems Vector/Matrix: 4
-STRING value: holaQTAL
+ INT value: 6
