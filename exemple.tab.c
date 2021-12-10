@@ -1662,49 +1662,49 @@ yyreduce:
 
   case 39:
 #line 184 "exemple.y"
-                      { (yyval.st).value_type = FLOAT_TYPE; (yyval.st).value_data.real = (yyvsp[0].st.value_data.real); }
+                                             { (yyval.st).value_type = FLOAT_TYPE; (yyval.st).value_data.real = (yyvsp[0].st.value_data.real); }
 #line 1667 "exemple.tab.c"
     break;
 
   case 40:
 #line 185 "exemple.y"
-                      { (yyval.st).value_type = INT_TYPE; (yyval.st).value_data.enter = (yyvsp[0].st.value_data.enter); }
+                                             { (yyval.st).value_type = INT_TYPE; (yyval.st).value_data.enter = (yyvsp[0].st.value_data.enter); }
 #line 1673 "exemple.tab.c"
     break;
 
   case 41:
 #line 186 "exemple.y"
-                      { (yyval.st).value_type = STRING_TYPE; (yyval.st).value_data.ident.lexema = (yyvsp[0].st.value_data.ident).lexema; }
+                                             { (yyval.st).value_type = STRING_TYPE; (yyval.st).value_data.ident.lexema = (yyvsp[0].st.value_data.ident).lexema; }
 #line 1679 "exemple.tab.c"
     break;
 
   case 42:
 #line 187 "exemple.y"
-                      { (yyval.st) = (yyvsp[-1].st); }
+                                             { (yyval.st) = (yyvsp[-1].st); }
 #line 1685 "exemple.tab.c"
     break;
 
   case 43:
 #line 188 "exemple.y"
-                      { if(sym_lookup((yyvsp[0].st.value_data.ident).lexema, &(yyval.st)) == SYMTAB_NOT_FOUND) yyerror("Var doesn't exit"); }
+                                             { if(sym_lookup((yyvsp[0].st.value_data.ident).lexema, &(yyval.st)) == SYMTAB_NOT_FOUND) yyerror("Var doesn't exit"); }
 #line 1691 "exemple.tab.c"
     break;
 
   case 44:
 #line 189 "exemple.y"
-                      { (yyval.st) = (yyvsp[-1].st); }
+                                             { (yyval.st) = (yyvsp[-1].st); }
 #line 1697 "exemple.tab.c"
     break;
 
   case 45:
 #line 190 "exemple.y"
-                         { acces_vector(&(yyval.st), (yyvsp[-3].st.value_data.ident).lexema, (yyvsp[-1].st)); }
+                                             { acces_vector(&(yyval.st), (yyvsp[-3].st.value_data.ident).lexema, (yyvsp[-1].st)); }
 #line 1703 "exemple.tab.c"
     break;
 
   case 46:
 #line 191 "exemple.y"
-                                       { acces_matrix(&(yyval.st), (yyvsp[-5].st.value_data.ident).lexema, (yyvsp[-3].st), (yyvsp[-1].st)); }
+                                             { acces_matrix(&(yyval.st), (yyvsp[-5].st.value_data.ident).lexema, (yyvsp[-3].st), (yyvsp[-1].st)); }
 #line 1709 "exemple.tab.c"
     break;
 

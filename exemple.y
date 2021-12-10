@@ -181,14 +181,14 @@ mullist : mullist MUL powlist { mul_op(&$$,$1,$3); }
 powlist : powlist POW valor { pow_op(&$$,$1,$3); }
         | valor
 
-valor : FLOAT         { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
-      | INTEGER       { $$.value_type = INT_TYPE; $$.value_data.enter = $1; }
-      | STRING        { $$.value_type = STRING_TYPE; $$.value_data.ident.lexema = $1.lexema; }
-      | OP sumrest CP { $$ = $2; }
-      | ID            { if(sym_lookup($1.lexema, &$$) == SYMTAB_NOT_FOUND) yyerror("Var doesn't exit"); }
-      | OC matrix CC  { $$ = $2; }
-      | ID OC sumrest CC { acces_vector(&$$, $1.lexema, $3); }
-      | ID OC sumrest COMMA sumrest CC { acces_matrix(&$$, $1.lexema, $3, $5); }
-      | FP_D OP sumrest COMMA sumrest CP     { div_op(&$$,$3,$5); }
+valor : FLOAT                                { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
+      | INTEGER                              { $$.value_type = INT_TYPE; $$.value_data.enter = $1; }
+      | STRING                               { $$.value_type = STRING_TYPE; $$.value_data.ident.lexema = $1.lexema; }
+      | OP sumrest CP                        { $$ = $2; }
+      | ID                                   { if(sym_lookup($1.lexema, &$$) == SYMTAB_NOT_FOUND) yyerror("Var doesn't exit"); }
+      | OC matrix CC                         { $$ = $2; }
+      | ID OC sumrest CC                     { acces_vector(&$$, $1.lexema, $3); }
+      | ID OC sumrest COMMA sumrest CC       { acces_matrix(&$$, $1.lexema, $3, $5); }
+      | FP_D OP sumrest COMMA sumrest CP     { div_op(&$$,$3,$5); }                 
 
 %%
