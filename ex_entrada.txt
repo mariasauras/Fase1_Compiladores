@@ -3,4 +3,4 @@ j = 5
 gt = i>j
 i == j
 dif = i != j
-j<=i
+(j<=i)

@@ -3,4 +3,3 @@ ID: j value: 5
 ID: gt value: True
 BOOL value: False
 ID: dif value: True
-BOOL value: True
