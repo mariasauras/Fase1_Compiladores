@@ -33,7 +33,9 @@ text    ["][^_\n\t\"\']*["]
 comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 
 %%
-  
+
+"div"                      { return FP_D; }
+
 {boolean}                  {
                               if (strcmp(strdup(yytext),"false") == 0)
                                 yylval.st.value_data.boolean = 0;
@@ -109,7 +111,6 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
                               yylval.st.value_data.ident.value_type = STRING_TYPE;
                               return STRING;
                             } 
-  
 
 
 {float}                     {
@@ -118,7 +119,7 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
                             }
 
 
-{digit}+                {
+{digit}+                    {
                               yylval.st.value_data.enter = atoi(yytext);
                               return INTEGER;
                             }

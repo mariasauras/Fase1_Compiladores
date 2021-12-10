@@ -38,7 +38,7 @@ extern int yylex();
 /* Symbols */
 %token OP CP OC CC PC SPACE COMMA
 /* Relationals Operators */
-%token GREATERTHAN LESSTHAN GREATEREQ LESSEQ EQ DIF
+%token GREATERTHAN LESSTHAN GREATEREQ LESSEQ EQ DIF FP_D
 /* Booleans operators*/
 %token NOT AND OR
 
@@ -62,9 +62,6 @@ expressio_bool : ID ASSIGN orlist ENDLINE{
                   $$.value_type = $3.value_type;
                   sym_enter($1.lexema, &$3);
                   $$ = $3;
-                  fprintf(yyout, "-----------\n");
-                  fprintf(yyout, "BOOL TYPE\n");
-                  fprintf(yyout, "-----------\n");
 
                   if($3.value_data.boolean == true){
                     fprintf(yyout, "ID: %s value: True\n",$1.lexema); 
@@ -192,5 +189,6 @@ valor : FLOAT         { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
       | OC matrix CC  { $$ = $2; }
       | ID OC sumrest CC { acces_vector(&$$, $1.lexema, $3); }
       | ID OC sumrest COMMA sumrest CC { acces_matrix(&$$, $1.lexema, $3, $5); }
+      | FP_D OP sumrest COMMA sumrest CP     { div_op(&$$,$3,$5); }
 
 %%

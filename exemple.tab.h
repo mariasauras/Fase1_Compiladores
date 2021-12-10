@@ -85,9 +85,10 @@ extern int yydebug;
     LESSEQ = 282,
     EQ = 283,
     DIF = 284,
-    NOT = 285,
-    AND = 286,
-    OR = 287
+    FP_D = 285,
+    NOT = 286,
+    AND = 287,
+    OR = 288
   };
 #endif
 
@@ -99,7 +100,7 @@ union YYSTYPE
 
   sym_value_type st;
 
-#line 103 "exemple.tab.h"
+#line 104 "exemple.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

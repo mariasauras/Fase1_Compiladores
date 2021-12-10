@@ -1,7 +1,1 @@
-ID: i value: 10
-ID: j value: 5
------------
-BOOL TYPE
------------
-ID: b value: False
-BOOL value: False
+FLOAT value: 0.666667

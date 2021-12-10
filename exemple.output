@@ -60,6 +60,7 @@ Grammar
    43      | OC matrix CC
    44      | ID OC sumrest CC
    45      | ID OC sumrest COMMA sumrest CC
+   46      | FP_D OP sumrest COMMA sumrest CP
 
 
 Terminals, with rules where they appear
@@ -80,69 +81,70 @@ Terminals, with rules where they appear
     DIV (269) 33
     MOD (270) 34
     POW (271) 36
-    OP (272) 11 41
-    CP (273) 11 41
+    OP (272) 11 41 46
+    CP (273) 11 41 46
     OC (274) 43 44 45
     CC (275) 43 44 45
     PC (276) 25
     SPACE (277) 27
-    COMMA (278) 45
+    COMMA (278) 45 46
     GREATERTHAN (279) 12
     LESSTHAN (280) 14
     GREATEREQ (281) 13
     LESSEQ (282) 15
     EQ (283) 16
     DIF (284) 17
-    NOT (285) 21
-    AND (286) 20
-    OR (287) 18
+    FP_D (285) 46
+    NOT (286) 21
+    AND (287) 20
+    OR (288) 18
 
 
 Nonterminals, with rules where they appear
 
-    $accept (33)
+    $accept (34)
         on left: 0
-    programa <st> (34)
+    programa <st> (35)
         on left: 1 2
         on right: 0 1
-    expressio <st> (35)
+    expressio <st> (36)
         on left: 3 4
         on right: 1 2
-    expressio_bool <st> (36)
+    expressio_bool <st> (37)
         on left: 5 6
         on right: 4
-    expressio_aritmetica <st> (37)
+    expressio_aritmetica <st> (38)
         on left: 7 8
         on right: 3
-    bool_value <st> (38)
+    bool_value <st> (39)
         on left: 9 10 11 12 13 14 15 16 17
         on right: 20 21 22
-    orlist <st> (39)
+    orlist <st> (40)
         on left: 18 19
         on right: 5 6 11 18
-    andlist <st> (40)
+    andlist <st> (41)
         on left: 20 21 22
         on right: 18 19 20
-    matrix_value <st> (41)
+    matrix_value <st> (42)
         on left: 23 24
         on right: 27 28
-    matrix <st> (42)
+    matrix <st> (43)
         on left: 25 26
         on right: 25 43
-    row <st> (43)
+    row <st> (44)
         on left: 27 28
         on right: 25 26 27
-    sumrest <st> (44)
+    sumrest <st> (45)
         on left: 29 30 31
-        on right: 7 8 12 13 14 15 16 17 29 30 41 44 45
-    mullist <st> (45)
+        on right: 7 8 12 13 14 15 16 17 29 30 41 44 45 46
+    mullist <st> (46)
         on left: 32 33 34 35
         on right: 29 30 31 32 33 34
-    powlist <st> (46)
+    powlist <st> (47)
         on left: 36 37
         on right: 32 33 34 35 36
-    valor <st> (47)
-        on left: 38 39 40 41 42 43 44 45
+    valor <st> (48)
+        on left: 38 39 40 41 42 43 44 45 46
         on right: 36 37
 
 
@@ -158,19 +160,20 @@ State 0
     BOOLEAN  shift, and go to state 6
     OP       shift, and go to state 7
     OC       shift, and go to state 8
-    NOT      shift, and go to state 9
+    FP_D     shift, and go to state 9
+    NOT      shift, and go to state 10
 
-    programa              go to state 10
-    expressio             go to state 11
-    expressio_bool        go to state 12
-    expressio_aritmetica  go to state 13
-    bool_value            go to state 14
-    orlist                go to state 15
-    andlist               go to state 16
-    sumrest               go to state 17
-    mullist               go to state 18
-    powlist               go to state 19
-    valor                 go to state 20
+    programa              go to state 11
+    expressio             go to state 12
+    expressio_bool        go to state 13
+    expressio_aritmetica  go to state 14
+    bool_value            go to state 15
+    orlist                go to state 16
+    andlist               go to state 17
+    sumrest               go to state 18
+    mullist               go to state 19
+    powlist               go to state 20
+    valor                 go to state 21
 
 
 State 1
@@ -188,8 +191,8 @@ State 2
    44      | ID . OC sumrest CC
    45      | ID . OC sumrest COMMA sumrest CC
 
-    ASSIGN  shift, and go to state 21
-    OC      shift, and go to state 22
+    ASSIGN  shift, and go to state 22
+    OC      shift, and go to state 23
 
     $default  reduce using rule 42 (valor)
 
@@ -228,62 +231,71 @@ State 7
    41 valor: OP . sumrest CP
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     ID_BOOL  shift, and go to state 3
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
     BOOLEAN  shift, and go to state 6
     OP       shift, and go to state 7
     OC       shift, and go to state 8
-    NOT      shift, and go to state 9
+    FP_D     shift, and go to state 9
+    NOT      shift, and go to state 10
 
-    bool_value  go to state 14
-    orlist      go to state 24
-    andlist     go to state 16
-    sumrest     go to state 25
-    mullist     go to state 18
-    powlist     go to state 19
-    valor       go to state 20
+    bool_value  go to state 15
+    orlist      go to state 25
+    andlist     go to state 17
+    sumrest     go to state 26
+    mullist     go to state 19
+    powlist     go to state 20
+    valor       go to state 21
 
 
 State 8
 
    43 valor: OC . matrix CC
 
-    INTEGER  shift, and go to state 26
-    FLOAT    shift, and go to state 27
+    INTEGER  shift, and go to state 27
+    FLOAT    shift, and go to state 28
 
-    matrix_value  go to state 28
-    matrix        go to state 29
-    row           go to state 30
+    matrix_value  go to state 29
+    matrix        go to state 30
+    row           go to state 31
 
 
 State 9
 
+   46 valor: FP_D . OP sumrest COMMA sumrest CP
+
+    OP  shift, and go to state 32
+
+
+State 10
+
    21 andlist: NOT . bool_value
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     ID_BOOL  shift, and go to state 3
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
     BOOLEAN  shift, and go to state 6
     OP       shift, and go to state 7
     OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
 
-    bool_value  go to state 31
-    sumrest     go to state 32
-    mullist     go to state 18
-    powlist     go to state 19
-    valor       go to state 20
+    bool_value  go to state 33
+    sumrest     go to state 34
+    mullist     go to state 19
+    powlist     go to state 20
+    valor       go to state 21
 
 
-State 10
+State 11
 
     0 $accept: programa . $end
     1 programa: programa . expressio
 
-    $end     shift, and go to state 33
+    $end     shift, and go to state 35
     INTEGER  shift, and go to state 1
     ID       shift, and go to state 2
     ID_BOOL  shift, and go to state 3
@@ -292,68 +304,69 @@ State 10
     BOOLEAN  shift, and go to state 6
     OP       shift, and go to state 7
     OC       shift, and go to state 8
-    NOT      shift, and go to state 9
+    FP_D     shift, and go to state 9
+    NOT      shift, and go to state 10
 
-    expressio             go to state 34
-    expressio_bool        go to state 12
-    expressio_aritmetica  go to state 13
-    bool_value            go to state 14
-    orlist                go to state 15
-    andlist               go to state 16
-    sumrest               go to state 17
-    mullist               go to state 18
-    powlist               go to state 19
-    valor                 go to state 20
+    expressio             go to state 36
+    expressio_bool        go to state 13
+    expressio_aritmetica  go to state 14
+    bool_value            go to state 15
+    orlist                go to state 16
+    andlist               go to state 17
+    sumrest               go to state 18
+    mullist               go to state 19
+    powlist               go to state 20
+    valor                 go to state 21
 
 
-State 11
+State 12
 
     2 programa: expressio .
 
     $default  reduce using rule 2 (programa)
 
 
-State 12
+State 13
 
     4 expressio: expressio_bool .
 
     $default  reduce using rule 4 (expressio)
 
 
-State 13
+State 14
 
     3 expressio: expressio_aritmetica .
 
     $default  reduce using rule 3 (expressio)
 
 
-State 14
+State 15
 
    22 andlist: bool_value .
 
     $default  reduce using rule 22 (andlist)
 
 
-State 15
+State 16
 
     6 expressio_bool: orlist . ENDLINE
    18 orlist: orlist . OR andlist
 
-    ENDLINE  shift, and go to state 35
-    OR       shift, and go to state 36
+    ENDLINE  shift, and go to state 37
+    OR       shift, and go to state 38
 
 
-State 16
+State 17
 
    19 orlist: andlist .
    20 andlist: andlist . AND bool_value
 
-    AND  shift, and go to state 37
+    AND  shift, and go to state 39
 
     $default  reduce using rule 19 (orlist)
 
 
-State 17
+State 18
 
     8 expressio_aritmetica: sumrest . ENDLINE
    12 bool_value: sumrest . GREATERTHAN sumrest
@@ -365,111 +378,113 @@ State 17
    29 sumrest: sumrest . SUMA mullist
    30        | sumrest . RESTA mullist
 
-    ENDLINE      shift, and go to state 38
-    SUMA         shift, and go to state 39
-    RESTA        shift, and go to state 40
-    GREATERTHAN  shift, and go to state 41
-    LESSTHAN     shift, and go to state 42
-    GREATEREQ    shift, and go to state 43
-    LESSEQ       shift, and go to state 44
-    EQ           shift, and go to state 45
-    DIF          shift, and go to state 46
+    ENDLINE      shift, and go to state 40
+    SUMA         shift, and go to state 41
+    RESTA        shift, and go to state 42
+    GREATERTHAN  shift, and go to state 43
+    LESSTHAN     shift, and go to state 44
+    GREATEREQ    shift, and go to state 45
+    LESSEQ       shift, and go to state 46
+    EQ           shift, and go to state 47
+    DIF          shift, and go to state 48
 
 
-State 18
+State 19
 
    31 sumrest: mullist .
    32 mullist: mullist . MUL powlist
    33        | mullist . DIV powlist
    34        | mullist . MOD powlist
 
-    MUL  shift, and go to state 47
-    DIV  shift, and go to state 48
-    MOD  shift, and go to state 49
+    MUL  shift, and go to state 49
+    DIV  shift, and go to state 50
+    MOD  shift, and go to state 51
 
     $default  reduce using rule 31 (sumrest)
 
 
-State 19
+State 20
 
    35 mullist: powlist .
    36 powlist: powlist . POW valor
 
-    POW  shift, and go to state 50
+    POW  shift, and go to state 52
 
     $default  reduce using rule 35 (mullist)
 
 
-State 20
+State 21
 
    37 powlist: valor .
 
     $default  reduce using rule 37 (powlist)
 
 
-State 21
+State 22
 
     5 expressio_bool: ID ASSIGN . orlist ENDLINE
     7 expressio_aritmetica: ID ASSIGN . sumrest ENDLINE
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     ID_BOOL  shift, and go to state 3
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
     BOOLEAN  shift, and go to state 6
     OP       shift, and go to state 7
     OC       shift, and go to state 8
-    NOT      shift, and go to state 9
+    FP_D     shift, and go to state 9
+    NOT      shift, and go to state 10
 
-    bool_value  go to state 14
-    orlist      go to state 51
-    andlist     go to state 16
-    sumrest     go to state 52
-    mullist     go to state 18
-    powlist     go to state 19
-    valor       go to state 20
+    bool_value  go to state 15
+    orlist      go to state 53
+    andlist     go to state 17
+    sumrest     go to state 54
+    mullist     go to state 19
+    powlist     go to state 20
+    valor       go to state 21
 
 
-State 22
+State 23
 
    44 valor: ID OC . sumrest CC
    45      | ID OC . sumrest COMMA sumrest CC
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
-    OP       shift, and go to state 53
+    OP       shift, and go to state 55
     OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
 
-    sumrest  go to state 54
-    mullist  go to state 18
-    powlist  go to state 19
-    valor    go to state 20
+    sumrest  go to state 56
+    mullist  go to state 19
+    powlist  go to state 20
+    valor    go to state 21
 
 
-State 23
+State 24
 
    42 valor: ID .
    44      | ID . OC sumrest CC
    45      | ID . OC sumrest COMMA sumrest CC
 
-    OC  shift, and go to state 22
+    OC  shift, and go to state 23
 
     $default  reduce using rule 42 (valor)
 
 
-State 24
+State 25
 
    11 bool_value: OP orlist . CP
    18 orlist: orlist . OR andlist
 
-    CP  shift, and go to state 55
-    OR  shift, and go to state 36
+    CP  shift, and go to state 57
+    OR  shift, and go to state 38
 
 
-State 25
+State 26
 
    12 bool_value: sumrest . GREATERTHAN sumrest
    13           | sumrest . GREATEREQ sumrest
@@ -481,65 +496,83 @@ State 25
    30        | sumrest . RESTA mullist
    41 valor: OP sumrest . CP
 
-    SUMA         shift, and go to state 39
-    RESTA        shift, and go to state 40
-    CP           shift, and go to state 56
-    GREATERTHAN  shift, and go to state 41
-    LESSTHAN     shift, and go to state 42
-    GREATEREQ    shift, and go to state 43
-    LESSEQ       shift, and go to state 44
-    EQ           shift, and go to state 45
-    DIF          shift, and go to state 46
+    SUMA         shift, and go to state 41
+    RESTA        shift, and go to state 42
+    CP           shift, and go to state 58
+    GREATERTHAN  shift, and go to state 43
+    LESSTHAN     shift, and go to state 44
+    GREATEREQ    shift, and go to state 45
+    LESSEQ       shift, and go to state 46
+    EQ           shift, and go to state 47
+    DIF          shift, and go to state 48
 
 
-State 26
+State 27
 
    24 matrix_value: INTEGER .
 
     $default  reduce using rule 24 (matrix_value)
 
 
-State 27
+State 28
 
    23 matrix_value: FLOAT .
 
     $default  reduce using rule 23 (matrix_value)
 
 
-State 28
+State 29
 
    28 row: matrix_value .
 
     $default  reduce using rule 28 (row)
 
 
-State 29
+State 30
 
    25 matrix: matrix . PC row
    43 valor: OC matrix . CC
 
-    CC  shift, and go to state 57
-    PC  shift, and go to state 58
+    CC  shift, and go to state 59
+    PC  shift, and go to state 60
 
 
-State 30
+State 31
 
    26 matrix: row .
    27 row: row . SPACE matrix_value
 
-    SPACE  shift, and go to state 59
+    SPACE  shift, and go to state 61
 
     $default  reduce using rule 26 (matrix)
 
 
-State 31
+State 32
+
+   46 valor: FP_D OP . sumrest COMMA sumrest CP
+
+    INTEGER  shift, and go to state 1
+    ID       shift, and go to state 24
+    FLOAT    shift, and go to state 4
+    STRING   shift, and go to state 5
+    OP       shift, and go to state 55
+    OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
+
+    sumrest  go to state 62
+    mullist  go to state 19
+    powlist  go to state 20
+    valor    go to state 21
+
+
+State 33
 
    21 andlist: NOT bool_value .
 
     $default  reduce using rule 21 (andlist)
 
 
-State 32
+State 34
 
    12 bool_value: sumrest . GREATERTHAN sumrest
    13           | sumrest . GREATEREQ sumrest
@@ -550,289 +583,303 @@ State 32
    29 sumrest: sumrest . SUMA mullist
    30        | sumrest . RESTA mullist
 
-    SUMA         shift, and go to state 39
-    RESTA        shift, and go to state 40
-    GREATERTHAN  shift, and go to state 41
-    LESSTHAN     shift, and go to state 42
-    GREATEREQ    shift, and go to state 43
-    LESSEQ       shift, and go to state 44
-    EQ           shift, and go to state 45
-    DIF          shift, and go to state 46
+    SUMA         shift, and go to state 41
+    RESTA        shift, and go to state 42
+    GREATERTHAN  shift, and go to state 43
+    LESSTHAN     shift, and go to state 44
+    GREATEREQ    shift, and go to state 45
+    LESSEQ       shift, and go to state 46
+    EQ           shift, and go to state 47
+    DIF          shift, and go to state 48
 
 
-State 33
+State 35
 
     0 $accept: programa $end .
 
     $default  accept
 
 
-State 34
+State 36
 
     1 programa: programa expressio .
 
     $default  reduce using rule 1 (programa)
 
 
-State 35
+State 37
 
     6 expressio_bool: orlist ENDLINE .
 
     $default  reduce using rule 6 (expressio_bool)
 
 
-State 36
+State 38
 
    18 orlist: orlist OR . andlist
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     ID_BOOL  shift, and go to state 3
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
     BOOLEAN  shift, and go to state 6
     OP       shift, and go to state 7
     OC       shift, and go to state 8
-    NOT      shift, and go to state 9
+    FP_D     shift, and go to state 9
+    NOT      shift, and go to state 10
 
-    bool_value  go to state 14
-    andlist     go to state 60
-    sumrest     go to state 32
-    mullist     go to state 18
-    powlist     go to state 19
-    valor       go to state 20
+    bool_value  go to state 15
+    andlist     go to state 63
+    sumrest     go to state 34
+    mullist     go to state 19
+    powlist     go to state 20
+    valor       go to state 21
 
 
-State 37
+State 39
 
    20 andlist: andlist AND . bool_value
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     ID_BOOL  shift, and go to state 3
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
     BOOLEAN  shift, and go to state 6
     OP       shift, and go to state 7
     OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
 
-    bool_value  go to state 61
-    sumrest     go to state 32
-    mullist     go to state 18
-    powlist     go to state 19
-    valor       go to state 20
+    bool_value  go to state 64
+    sumrest     go to state 34
+    mullist     go to state 19
+    powlist     go to state 20
+    valor       go to state 21
 
 
-State 38
+State 40
 
     8 expressio_aritmetica: sumrest ENDLINE .
 
     $default  reduce using rule 8 (expressio_aritmetica)
 
 
-State 39
+State 41
 
    29 sumrest: sumrest SUMA . mullist
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
-    OP       shift, and go to state 53
+    OP       shift, and go to state 55
     OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
 
-    mullist  go to state 62
-    powlist  go to state 19
-    valor    go to state 20
-
-
-State 40
-
-   30 sumrest: sumrest RESTA . mullist
-
-    INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
-    FLOAT    shift, and go to state 4
-    STRING   shift, and go to state 5
-    OP       shift, and go to state 53
-    OC       shift, and go to state 8
-
-    mullist  go to state 63
-    powlist  go to state 19
-    valor    go to state 20
-
-
-State 41
-
-   12 bool_value: sumrest GREATERTHAN . sumrest
-
-    INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
-    FLOAT    shift, and go to state 4
-    STRING   shift, and go to state 5
-    OP       shift, and go to state 53
-    OC       shift, and go to state 8
-
-    sumrest  go to state 64
-    mullist  go to state 18
-    powlist  go to state 19
-    valor    go to state 20
+    mullist  go to state 65
+    powlist  go to state 20
+    valor    go to state 21
 
 
 State 42
 
-   14 bool_value: sumrest LESSTHAN . sumrest
+   30 sumrest: sumrest RESTA . mullist
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
-    OP       shift, and go to state 53
+    OP       shift, and go to state 55
     OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
 
-    sumrest  go to state 65
-    mullist  go to state 18
-    powlist  go to state 19
-    valor    go to state 20
+    mullist  go to state 66
+    powlist  go to state 20
+    valor    go to state 21
 
 
 State 43
 
-   13 bool_value: sumrest GREATEREQ . sumrest
+   12 bool_value: sumrest GREATERTHAN . sumrest
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
-    OP       shift, and go to state 53
+    OP       shift, and go to state 55
     OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
 
-    sumrest  go to state 66
-    mullist  go to state 18
-    powlist  go to state 19
-    valor    go to state 20
+    sumrest  go to state 67
+    mullist  go to state 19
+    powlist  go to state 20
+    valor    go to state 21
 
 
 State 44
 
-   15 bool_value: sumrest LESSEQ . sumrest
+   14 bool_value: sumrest LESSTHAN . sumrest
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
-    OP       shift, and go to state 53
+    OP       shift, and go to state 55
     OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
 
-    sumrest  go to state 67
-    mullist  go to state 18
-    powlist  go to state 19
-    valor    go to state 20
+    sumrest  go to state 68
+    mullist  go to state 19
+    powlist  go to state 20
+    valor    go to state 21
 
 
 State 45
 
-   16 bool_value: sumrest EQ . sumrest
+   13 bool_value: sumrest GREATEREQ . sumrest
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
-    OP       shift, and go to state 53
+    OP       shift, and go to state 55
     OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
 
-    sumrest  go to state 68
-    mullist  go to state 18
-    powlist  go to state 19
-    valor    go to state 20
+    sumrest  go to state 69
+    mullist  go to state 19
+    powlist  go to state 20
+    valor    go to state 21
 
 
 State 46
 
-   17 bool_value: sumrest DIF . sumrest
+   15 bool_value: sumrest LESSEQ . sumrest
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
-    OP       shift, and go to state 53
+    OP       shift, and go to state 55
     OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
 
-    sumrest  go to state 69
-    mullist  go to state 18
-    powlist  go to state 19
-    valor    go to state 20
+    sumrest  go to state 70
+    mullist  go to state 19
+    powlist  go to state 20
+    valor    go to state 21
 
 
 State 47
 
-   32 mullist: mullist MUL . powlist
+   16 bool_value: sumrest EQ . sumrest
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
-    OP       shift, and go to state 53
+    OP       shift, and go to state 55
     OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
 
-    powlist  go to state 70
-    valor    go to state 20
+    sumrest  go to state 71
+    mullist  go to state 19
+    powlist  go to state 20
+    valor    go to state 21
 
 
 State 48
 
-   33 mullist: mullist DIV . powlist
+   17 bool_value: sumrest DIF . sumrest
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
-    OP       shift, and go to state 53
+    OP       shift, and go to state 55
     OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
 
-    powlist  go to state 71
-    valor    go to state 20
+    sumrest  go to state 72
+    mullist  go to state 19
+    powlist  go to state 20
+    valor    go to state 21
 
 
 State 49
 
-   34 mullist: mullist MOD . powlist
+   32 mullist: mullist MUL . powlist
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
-    OP       shift, and go to state 53
+    OP       shift, and go to state 55
     OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
 
-    powlist  go to state 72
-    valor    go to state 20
+    powlist  go to state 73
+    valor    go to state 21
 
 
 State 50
 
-   36 powlist: powlist POW . valor
+   33 mullist: mullist DIV . powlist
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
-    OP       shift, and go to state 53
+    OP       shift, and go to state 55
     OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
 
-    valor  go to state 73
+    powlist  go to state 74
+    valor    go to state 21
 
 
 State 51
 
-    5 expressio_bool: ID ASSIGN orlist . ENDLINE
-   18 orlist: orlist . OR andlist
+   34 mullist: mullist MOD . powlist
 
-    ENDLINE  shift, and go to state 74
-    OR       shift, and go to state 36
+    INTEGER  shift, and go to state 1
+    ID       shift, and go to state 24
+    FLOAT    shift, and go to state 4
+    STRING   shift, and go to state 5
+    OP       shift, and go to state 55
+    OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
+
+    powlist  go to state 75
+    valor    go to state 21
 
 
 State 52
+
+   36 powlist: powlist POW . valor
+
+    INTEGER  shift, and go to state 1
+    ID       shift, and go to state 24
+    FLOAT    shift, and go to state 4
+    STRING   shift, and go to state 5
+    OP       shift, and go to state 55
+    OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
+
+    valor  go to state 76
+
+
+State 53
+
+    5 expressio_bool: ID ASSIGN orlist . ENDLINE
+   18 orlist: orlist . OR andlist
+
+    ENDLINE  shift, and go to state 77
+    OR       shift, and go to state 38
+
+
+State 54
 
     7 expressio_aritmetica: ID ASSIGN sumrest . ENDLINE
    12 bool_value: sumrest . GREATERTHAN sumrest
@@ -844,322 +891,371 @@ State 52
    29 sumrest: sumrest . SUMA mullist
    30        | sumrest . RESTA mullist
 
-    ENDLINE      shift, and go to state 75
-    SUMA         shift, and go to state 39
-    RESTA        shift, and go to state 40
-    GREATERTHAN  shift, and go to state 41
-    LESSTHAN     shift, and go to state 42
-    GREATEREQ    shift, and go to state 43
-    LESSEQ       shift, and go to state 44
-    EQ           shift, and go to state 45
-    DIF          shift, and go to state 46
+    ENDLINE      shift, and go to state 78
+    SUMA         shift, and go to state 41
+    RESTA        shift, and go to state 42
+    GREATERTHAN  shift, and go to state 43
+    LESSTHAN     shift, and go to state 44
+    GREATEREQ    shift, and go to state 45
+    LESSEQ       shift, and go to state 46
+    EQ           shift, and go to state 47
+    DIF          shift, and go to state 48
 
 
-State 53
+State 55
 
    41 valor: OP . sumrest CP
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
-    OP       shift, and go to state 53
+    OP       shift, and go to state 55
     OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
 
-    sumrest  go to state 76
-    mullist  go to state 18
-    powlist  go to state 19
-    valor    go to state 20
+    sumrest  go to state 79
+    mullist  go to state 19
+    powlist  go to state 20
+    valor    go to state 21
 
 
-State 54
+State 56
 
    29 sumrest: sumrest . SUMA mullist
    30        | sumrest . RESTA mullist
    44 valor: ID OC sumrest . CC
    45      | ID OC sumrest . COMMA sumrest CC
 
-    SUMA   shift, and go to state 39
-    RESTA  shift, and go to state 40
-    CC     shift, and go to state 77
-    COMMA  shift, and go to state 78
+    SUMA   shift, and go to state 41
+    RESTA  shift, and go to state 42
+    CC     shift, and go to state 80
+    COMMA  shift, and go to state 81
 
 
-State 55
+State 57
 
    11 bool_value: OP orlist CP .
 
     $default  reduce using rule 11 (bool_value)
 
 
-State 56
+State 58
 
    41 valor: OP sumrest CP .
 
     $default  reduce using rule 41 (valor)
 
 
-State 57
+State 59
 
    43 valor: OC matrix CC .
 
     $default  reduce using rule 43 (valor)
 
 
-State 58
+State 60
 
    25 matrix: matrix PC . row
 
-    INTEGER  shift, and go to state 26
-    FLOAT    shift, and go to state 27
+    INTEGER  shift, and go to state 27
+    FLOAT    shift, and go to state 28
 
-    matrix_value  go to state 28
-    row           go to state 79
+    matrix_value  go to state 29
+    row           go to state 82
 
 
-State 59
+State 61
 
    27 row: row SPACE . matrix_value
 
-    INTEGER  shift, and go to state 26
-    FLOAT    shift, and go to state 27
+    INTEGER  shift, and go to state 27
+    FLOAT    shift, and go to state 28
 
-    matrix_value  go to state 80
+    matrix_value  go to state 83
 
 
-State 60
+State 62
+
+   29 sumrest: sumrest . SUMA mullist
+   30        | sumrest . RESTA mullist
+   46 valor: FP_D OP sumrest . COMMA sumrest CP
+
+    SUMA   shift, and go to state 41
+    RESTA  shift, and go to state 42
+    COMMA  shift, and go to state 84
+
+
+State 63
 
    18 orlist: orlist OR andlist .
    20 andlist: andlist . AND bool_value
 
-    AND  shift, and go to state 37
+    AND  shift, and go to state 39
 
     $default  reduce using rule 18 (orlist)
 
 
-State 61
+State 64
 
    20 andlist: andlist AND bool_value .
 
     $default  reduce using rule 20 (andlist)
 
 
-State 62
+State 65
 
    29 sumrest: sumrest SUMA mullist .
    32 mullist: mullist . MUL powlist
    33        | mullist . DIV powlist
    34        | mullist . MOD powlist
 
-    MUL  shift, and go to state 47
-    DIV  shift, and go to state 48
-    MOD  shift, and go to state 49
+    MUL  shift, and go to state 49
+    DIV  shift, and go to state 50
+    MOD  shift, and go to state 51
 
     $default  reduce using rule 29 (sumrest)
 
 
-State 63
+State 66
 
    30 sumrest: sumrest RESTA mullist .
    32 mullist: mullist . MUL powlist
    33        | mullist . DIV powlist
    34        | mullist . MOD powlist
 
-    MUL  shift, and go to state 47
-    DIV  shift, and go to state 48
-    MOD  shift, and go to state 49
+    MUL  shift, and go to state 49
+    DIV  shift, and go to state 50
+    MOD  shift, and go to state 51
 
     $default  reduce using rule 30 (sumrest)
 
 
-State 64
+State 67
 
    12 bool_value: sumrest GREATERTHAN sumrest .
    29 sumrest: sumrest . SUMA mullist
    30        | sumrest . RESTA mullist
 
-    SUMA   shift, and go to state 39
-    RESTA  shift, and go to state 40
+    SUMA   shift, and go to state 41
+    RESTA  shift, and go to state 42
 
     $default  reduce using rule 12 (bool_value)
 
 
-State 65
+State 68
 
    14 bool_value: sumrest LESSTHAN sumrest .
    29 sumrest: sumrest . SUMA mullist
    30        | sumrest . RESTA mullist
 
-    SUMA   shift, and go to state 39
-    RESTA  shift, and go to state 40
+    SUMA   shift, and go to state 41
+    RESTA  shift, and go to state 42
 
     $default  reduce using rule 14 (bool_value)
 
 
-State 66
+State 69
 
    13 bool_value: sumrest GREATEREQ sumrest .
    29 sumrest: sumrest . SUMA mullist
    30        | sumrest . RESTA mullist
 
-    SUMA   shift, and go to state 39
-    RESTA  shift, and go to state 40
+    SUMA   shift, and go to state 41
+    RESTA  shift, and go to state 42
 
     $default  reduce using rule 13 (bool_value)
 
 
-State 67
+State 70
 
    15 bool_value: sumrest LESSEQ sumrest .
    29 sumrest: sumrest . SUMA mullist
    30        | sumrest . RESTA mullist
 
-    SUMA   shift, and go to state 39
-    RESTA  shift, and go to state 40
+    SUMA   shift, and go to state 41
+    RESTA  shift, and go to state 42
 
     $default  reduce using rule 15 (bool_value)
 
 
-State 68
+State 71
 
    16 bool_value: sumrest EQ sumrest .
    29 sumrest: sumrest . SUMA mullist
    30        | sumrest . RESTA mullist
 
-    SUMA   shift, and go to state 39
-    RESTA  shift, and go to state 40
+    SUMA   shift, and go to state 41
+    RESTA  shift, and go to state 42
 
     $default  reduce using rule 16 (bool_value)
 
 
-State 69
+State 72
 
    17 bool_value: sumrest DIF sumrest .
    29 sumrest: sumrest . SUMA mullist
    30        | sumrest . RESTA mullist
 
-    SUMA   shift, and go to state 39
-    RESTA  shift, and go to state 40
+    SUMA   shift, and go to state 41
+    RESTA  shift, and go to state 42
 
     $default  reduce using rule 17 (bool_value)
 
 
-State 70
+State 73
 
    32 mullist: mullist MUL powlist .
    36 powlist: powlist . POW valor
 
-    POW  shift, and go to state 50
+    POW  shift, and go to state 52
 
     $default  reduce using rule 32 (mullist)
 
 
-State 71
+State 74
 
    33 mullist: mullist DIV powlist .
    36 powlist: powlist . POW valor
 
-    POW  shift, and go to state 50
+    POW  shift, and go to state 52
 
     $default  reduce using rule 33 (mullist)
 
 
-State 72
+State 75
 
    34 mullist: mullist MOD powlist .
    36 powlist: powlist . POW valor
 
-    POW  shift, and go to state 50
+    POW  shift, and go to state 52
 
     $default  reduce using rule 34 (mullist)
 
 
-State 73
+State 76
 
    36 powlist: powlist POW valor .
 
     $default  reduce using rule 36 (powlist)
 
 
-State 74
+State 77
 
     5 expressio_bool: ID ASSIGN orlist ENDLINE .
 
     $default  reduce using rule 5 (expressio_bool)
 
 
-State 75
+State 78
 
     7 expressio_aritmetica: ID ASSIGN sumrest ENDLINE .
 
     $default  reduce using rule 7 (expressio_aritmetica)
 
 
-State 76
+State 79
 
    29 sumrest: sumrest . SUMA mullist
    30        | sumrest . RESTA mullist
    41 valor: OP sumrest . CP
 
-    SUMA   shift, and go to state 39
-    RESTA  shift, and go to state 40
-    CP     shift, and go to state 56
+    SUMA   shift, and go to state 41
+    RESTA  shift, and go to state 42
+    CP     shift, and go to state 58
 
 
-State 77
+State 80
 
    44 valor: ID OC sumrest CC .
 
     $default  reduce using rule 44 (valor)
 
 
-State 78
+State 81
 
    45 valor: ID OC sumrest COMMA . sumrest CC
 
     INTEGER  shift, and go to state 1
-    ID       shift, and go to state 23
+    ID       shift, and go to state 24
     FLOAT    shift, and go to state 4
     STRING   shift, and go to state 5
-    OP       shift, and go to state 53
+    OP       shift, and go to state 55
     OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
 
-    sumrest  go to state 81
-    mullist  go to state 18
-    powlist  go to state 19
-    valor    go to state 20
+    sumrest  go to state 85
+    mullist  go to state 19
+    powlist  go to state 20
+    valor    go to state 21
 
 
-State 79
+State 82
 
    25 matrix: matrix PC row .
    27 row: row . SPACE matrix_value
 
-    SPACE  shift, and go to state 59
+    SPACE  shift, and go to state 61
 
     $default  reduce using rule 25 (matrix)
 
 
-State 80
+State 83
 
    27 row: row SPACE matrix_value .
 
     $default  reduce using rule 27 (row)
 
 
-State 81
+State 84
+
+   46 valor: FP_D OP sumrest COMMA . sumrest CP
+
+    INTEGER  shift, and go to state 1
+    ID       shift, and go to state 24
+    FLOAT    shift, and go to state 4
+    STRING   shift, and go to state 5
+    OP       shift, and go to state 55
+    OC       shift, and go to state 8
+    FP_D     shift, and go to state 9
+
+    sumrest  go to state 86
+    mullist  go to state 19
+    powlist  go to state 20
+    valor    go to state 21
+
+
+State 85
 
    29 sumrest: sumrest . SUMA mullist
    30        | sumrest . RESTA mullist
    45 valor: ID OC sumrest COMMA sumrest . CC
 
-    SUMA   shift, and go to state 39
-    RESTA  shift, and go to state 40
-    CC     shift, and go to state 82
+    SUMA   shift, and go to state 41
+    RESTA  shift, and go to state 42
+    CC     shift, and go to state 87
 
 
-State 82
+State 86
+
+   29 sumrest: sumrest . SUMA mullist
+   30        | sumrest . RESTA mullist
+   46 valor: FP_D OP sumrest COMMA sumrest . CP
+
+    SUMA   shift, and go to state 41
+    RESTA  shift, and go to state 42
+    CP     shift, and go to state 88
+
+
+State 87
 
    45 valor: ID OC sumrest COMMA sumrest CC .
 
     $default  reduce using rule 45 (valor)
+
+
+State 88
+
+   46 valor: FP_D OP sumrest COMMA sumrest CP .
+
+    $default  reduce using rule 46 (valor)
