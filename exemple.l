@@ -22,7 +22,7 @@
 %option nounput
 
 /* Definimos matrix y lo usaremos tanto para los vectores como para las matrices*/
-/**/
+
 %S MATRIX
 
 lletra  [a-zA-Z]
@@ -50,8 +50,12 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
                               yylval.st.value_data.ident.lenght = yyleng;
                               yylval.st.value_data.ident.line = yylineno;
                               yylval.st.value_data.ident.value_type = UNKNOWN_TYPE;
+                              sym_value_type b;
+                              if(sym_lookup(yylval.st.value_data.ident.lexema, &b) == SYMTAB_NOT_FOUND) return ID;
+                              if(b.value_type == BOOL_TYPE) return ID_BOOL;
                               return ID;
                             }
+                            
 
 "("                         { return OP; }
 

@@ -1,5 +1,7 @@
 ID: i value: 10
 ID: j value: 5
-ID: gt value: True
+-----------
+BOOL TYPE
+-----------
+ID: b value: False
 BOOL value: False
-ID: dif value: True

@@ -1,6 +1,4 @@
 i = 10
 j = 5
-gt = i>j
+b = false
 i == j
-dif = i != j
-(j<=i)

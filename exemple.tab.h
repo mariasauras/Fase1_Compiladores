@@ -62,31 +62,32 @@ extern int yydebug;
     ENDLINE = 259,
     INTEGER = 260,
     ID = 261,
-    FLOAT = 262,
-    STRING = 263,
-    BOOLEAN = 264,
-    SUMA = 265,
-    RESTA = 266,
-    MUL = 267,
-    DIV = 268,
-    MOD = 269,
-    POW = 270,
-    OP = 271,
-    CP = 272,
-    OC = 273,
-    CC = 274,
-    PC = 275,
-    SPACE = 276,
-    COMMA = 277,
-    GREATERTHAN = 278,
-    LESSTHAN = 279,
-    GREATEREQ = 280,
-    LESSEQ = 281,
-    EQ = 282,
-    DIF = 283,
-    NOT = 284,
-    AND = 285,
-    OR = 286
+    ID_BOOL = 262,
+    FLOAT = 263,
+    STRING = 264,
+    BOOLEAN = 265,
+    SUMA = 266,
+    RESTA = 267,
+    MUL = 268,
+    DIV = 269,
+    MOD = 270,
+    POW = 271,
+    OP = 272,
+    CP = 273,
+    OC = 274,
+    CC = 275,
+    PC = 276,
+    SPACE = 277,
+    COMMA = 278,
+    GREATERTHAN = 279,
+    LESSTHAN = 280,
+    GREATEREQ = 281,
+    LESSEQ = 282,
+    EQ = 283,
+    DIF = 284,
+    NOT = 285,
+    AND = 286,
+    OR = 287
   };
 #endif
 
@@ -98,7 +99,7 @@ union YYSTYPE
 
   sym_value_type st;
 
-#line 102 "exemple.tab.h"
+#line 103 "exemple.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
