@@ -33,6 +33,10 @@ extern int yylex();
 %token <st.value_data.ident> STRING
 %token <st.value_data.boolean> BOOLEAN
 %token  SUMA RESTA MUL DIV MOD POW OP CP OC CC PC SPACE COMMA
+/* Relationals Operators */
+%token GREATERTHAN LESSTHAN GREATEREQ LEESEQ EQ DIF
+/* Booleans operators*/
+%token NOT AND OR
 
 %type <st> programa
 %type <st> expressio

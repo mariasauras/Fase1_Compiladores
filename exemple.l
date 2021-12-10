@@ -81,6 +81,23 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 
 " "*"]"                     { BEGIN INITIAL; return CC; }
 
+">"                         { retun GREATERTHAN }
+
+">="                        { retun GREATEREQ }
+
+"<"                         { retun LEESTHAN }
+
+"<="                        { retun LEESEQ }
+
+"=="                        { return EQ }
+
+"!="                        { return DIF }
+
+"!"                         { return NOT }
+
+"&&"                        { return AND }
+
+"||"                        { return OR }
 
 {text}                      {
                               yylval.st.value_data.ident.lexema = strdup(yytext);
