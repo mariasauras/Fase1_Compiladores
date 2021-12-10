@@ -44,8 +44,26 @@
     void acces_matrix(sym_value_type * matrix, char * id, sym_value_type v1, sym_value_type v2);
 
     /**********************************************************************/
-    /*                  ARITHMETICAL FUNCTIONS                            */
+    /*                 BOOLEAN & RELATIONAL FUNCTIONS                     */
     /**********************************************************************/
+
+    void not_op(sym_value_type * not, sym_value_type v1);
+
+    void and_op(sym_value_type * and, sym_value_type v1, sym_value_type v2);
+
+    void or_op(sym_value_type * or, sym_value_type v1, sym_value_type v2);
+
+    void gt_op(sym_value_type * gt, sym_value_type v1, sym_value_type v2);
+
+    void ge_op(sym_value_type * ge, sym_value_type v1, sym_value_type v2);
+
+    void lt_op(sym_value_type * lt, sym_value_type v1, sym_value_type v2);
+
+    void le_op(sym_value_type * le, sym_value_type v1, sym_value_type v2);
+
+    void eq_op(sym_value_type * eq, sym_value_type v1, sym_value_type v2);
+
+    void dif_op(sym_value_type * dif, sym_value_type v1, sym_value_type v2);
 
 
 

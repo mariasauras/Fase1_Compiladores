@@ -77,7 +77,16 @@ extern int yydebug;
     CC = 274,
     PC = 275,
     SPACE = 276,
-    COMMA = 277
+    COMMA = 277,
+    GREATERTHAN = 278,
+    LESSTHAN = 279,
+    GREATEREQ = 280,
+    LESSEQ = 281,
+    EQ = 282,
+    DIF = 283,
+    NOT = 284,
+    AND = 285,
+    OR = 286
   };
 #endif
 
@@ -89,7 +98,7 @@ union YYSTYPE
 
   sym_value_type st;
 
-#line 93 "exemple.tab.h"
+#line 102 "exemple.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

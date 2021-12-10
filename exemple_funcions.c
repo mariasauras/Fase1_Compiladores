@@ -685,5 +685,217 @@ void acces_matrix(sym_value_type * matrix, char * id, sym_value_type v1, sym_val
 }
 
 /**********************************************************************/
-/*                      BOOLEAN FUNCTIONS                             */
+/*                 BOOLEAN & RELATIONAL FUNCTIONS                     */
 /**********************************************************************/
+
+/* */
+void not_op(sym_value_type * not, sym_value_type v1){
+
+  if(v1.value_type == BOOL_TYPE){
+    (*not).value_type = BOOL_TYPE;
+    if(v1.value_data.boolean == true){
+      (*not).value_data.boolean = false;
+    } else (*not).value_data.boolean = true;
+  }else yyerror("The NOT operation can only be used with Booleans");
+}
+
+void and_op(sym_value_type * and, sym_value_type v1, sym_value_type v2){
+
+  if(v1.value_type == BOOL_TYPE && v2.value_type == BOOL_TYPE){
+    (*and).value_type = BOOL_TYPE;
+    if(v1.value_data.boolean == true && v2.value_data.boolean == true){
+      (*and).value_data.boolean = true;
+    } else (*and).value_data.boolean = false;
+  }else yyerror("The AND operation can only be used with Booleans");
+
+}
+
+void or_op(sym_value_type * or, sym_value_type v1, sym_value_type v2){
+
+   if(v1.value_type == BOOL_TYPE && v2.value_type == BOOL_TYPE){
+    (*or).value_type = BOOL_TYPE;
+
+    if(v1.value_data.boolean == true && v2.value_data.boolean == false){
+      (*or).value_data.boolean = true;
+    } else if(v1.value_data.boolean == false && v2.value_data.boolean == true){
+      (*or).value_data.boolean = true;
+    } else if(v1.value_data.boolean == true && v2.value_data.boolean == true){
+      (*or).value_data.boolean = true;
+    } else (*or).value_data.boolean = false;
+    
+  } else yyerror("The OR operation can only be used with Booleans");
+
+}
+
+void gt_op(sym_value_type * gt, sym_value_type v1, sym_value_type v2){
+
+  if(v1.value_type == INT_TYPE){
+
+    if(v2.value_type == INT_TYPE){
+      (*gt).value_type = BOOL_TYPE;
+      if(v1.value_data.enter > v2.value_data.enter) {
+        (*gt).value_data.boolean = true;
+      } else (*gt).value_data.boolean = false;
+    } else if(v2.value_type == FLOAT_TYPE){
+      (*gt).value_type = BOOL_TYPE;
+      if((float)v1.value_data.enter > v2.value_data.real) {
+        (*gt).value_data.boolean = true;
+      } else (*gt).value_data.boolean = false;
+    } else yyerror("The value can only be integer or float");
+
+  } else if(v1.value_type == FLOAT_TYPE){
+
+    if(v2.value_type == INT_TYPE){
+      (*gt).value_type = BOOL_TYPE;
+      if(v1.value_data.real > (float)v2.value_data.enter) {
+        (*gt).value_data.boolean = true;
+      } else (*gt).value_data.boolean = false;
+    } else if(v2.value_type == FLOAT_TYPE){
+      (*gt).value_type = BOOL_TYPE;
+      if(v1.value_data.real > v2.value_data.real) {
+        (*gt).value_data.boolean = true;
+      } else (*gt).value_data.boolean = false;
+    } else yyerror("The value can only be integer or float");
+
+   } else yyerror("The value can only be integer or float");
+
+}
+
+void ge_op(sym_value_type * ge, sym_value_type v1, sym_value_type v2){
+
+  if(v1.value_type == INT_TYPE){
+    if(v2.value_type == INT_TYPE){
+      (*ge).value_type = BOOL_TYPE;
+
+      if(v1.value_data.enter >= v2.value_data.enter){
+        (*ge).value_data.boolean = true;
+      } else (*ge).value_data.boolean = false;
+
+    } else if(v2.value_type == FLOAT_TYPE){
+      (*ge).value_type = BOOL_TYPE;
+      if((float)v1.value_data.enter >= v2.value_data.real){
+        (*ge).value_data.boolean = true;
+      } else (*ge).value_data.boolean = false;
+    } else yyerror("The value can only be integer or float");
+
+  } else if(v1.value_type == FLOAT_TYPE){
+    if(v2.value_type == INT_TYPE){
+      (*ge).value_type = BOOL_TYPE;
+
+      if(v1.value_data.real >= (float)v2.value_data.enter){
+        (*ge).value_data.boolean = true;
+      } else (*ge).value_data.boolean = false;
+
+    } else if(v2.value_type == FLOAT_TYPE){
+      (*ge).value_type = BOOL_TYPE;
+      if((float)v1.value_data.real >= v2.value_data.real){
+        (*ge).value_data.boolean = true;
+      } else (*ge).value_data.boolean = false;
+    } else yyerror("The value can only be integer or float");
+
+  } else yyerror("The value can only be integer or float");
+
+}
+
+void lt_op(sym_value_type * lt, sym_value_type v1, sym_value_type v2){
+
+  if(v1.value_type == INT_TYPE){
+
+    if(v2.value_type == INT_TYPE){
+      (*lt).value_type = BOOL_TYPE;
+      if(v1.value_data.enter < v2.value_data.enter) {
+        (*lt).value_data.boolean = true;
+      } else (*lt).value_data.boolean = false;
+    } else if(v2.value_type == FLOAT_TYPE){
+      (*lt).value_type = BOOL_TYPE;
+      if((float)v1.value_data.enter < v2.value_data.real) {
+        (*lt).value_data.boolean = true;
+      } else (*lt).value_data.boolean = false;
+    } else yyerror("The value can only be integer or float");
+
+  } else if(v1.value_type == FLOAT_TYPE){
+
+    if(v2.value_type == INT_TYPE){
+      (*lt).value_type = BOOL_TYPE;
+      if(v1.value_data.real < (float)v2.value_data.enter) {
+        (*lt).value_data.boolean = true;
+      } else (*lt).value_data.boolean = false;
+    } else if(v2.value_type == FLOAT_TYPE){
+      (*lt).value_type = BOOL_TYPE;
+      if(v1.value_data.real < v2.value_data.real) {
+        (*lt).value_data.boolean = true;
+      } else (*lt).value_data.boolean = false;
+    } else yyerror("The value can only be integer or float");
+
+   } else yyerror("The value can only be integer or float");
+
+}
+
+void le_op(sym_value_type * le, sym_value_type v1, sym_value_type v2){
+
+  if(v1.value_type == INT_TYPE){
+
+    if(v2.value_type == INT_TYPE){
+      (*le).value_type = BOOL_TYPE;
+      if(v1.value_data.enter <= v2.value_data.enter) {
+        (*le).value_data.boolean = true;
+      } else (*le).value_data.boolean = false;
+    } else if(v2.value_type == FLOAT_TYPE){
+      (*le).value_type = BOOL_TYPE;
+      if((float)v1.value_data.enter <= v2.value_data.real) {
+        (*le).value_data.boolean = true;
+      } else (*le).value_data.boolean = false;
+    } else yyerror("The value can only be integer or float");
+
+  } else if(v1.value_type == FLOAT_TYPE){
+
+    if(v2.value_type == INT_TYPE){
+      (*le).value_type = BOOL_TYPE;
+      if(v1.value_data.real <= (float)v2.value_data.enter) {
+        (*le).value_data.boolean = true;
+      } else (*le).value_data.boolean = false;
+    } else if(v2.value_type == FLOAT_TYPE){
+      (*le).value_type = BOOL_TYPE;
+      if(v1.value_data.real <= v2.value_data.real) {
+        (*le).value_data.boolean = true;
+      } else (*le).value_data.boolean = false;
+    } else yyerror("The value can only be integer or float");
+
+   } else yyerror("The value can only be integer or float");
+
+}
+
+void eq_op(sym_value_type * eq, sym_value_type v1, sym_value_type v2){
+
+   if(v1.value_type == INT_TYPE && v2.value_type == INT_TYPE){
+     (*eq).value_type = BOOL_TYPE;
+     if(v1.value_data.enter == v2.value_data.enter){
+      (*eq).value_data.boolean = true;
+     }else (*eq).value_data.boolean = false;
+   } else if(v1.value_type == FLOAT_TYPE && v2.value_type == FLOAT_TYPE){
+      (*eq).value_type = BOOL_TYPE;
+     if(v1.value_data.real == v2.value_data.real){
+       (*eq).value_data.boolean = true;
+     }else (*eq).value_data.boolean = false;
+   } else if((v1.value_type == FLOAT_TYPE && v2.value_type == INT_TYPE) || (v1.value_type == INT_TYPE && v2.value_type == FLOAT_TYPE)){
+     (*eq).value_type = BOOL_TYPE;
+     (*eq).value_data.boolean = false;
+   } else yyerror("The value can only be integer or float");
+}
+
+void dif_op(sym_value_type * dif, sym_value_type v1, sym_value_type v2){
+
+     if(v1.value_type == INT_TYPE && v2.value_type == INT_TYPE){
+      (*dif).value_type = BOOL_TYPE;
+      if(v1.value_data.enter != v2.value_data.enter){
+        (*dif).value_data.boolean = true;
+      }else (*dif).value_data.boolean = false;
+   } else if(v1.value_type == FLOAT_TYPE && v2.value_type == FLOAT_TYPE){
+      (*dif).value_type = BOOL_TYPE;
+      if(v1.value_data.real != v2.value_data.real){
+        (*dif).value_data.boolean = true;
+      }else (*dif).value_data.boolean = false;
+   } else if((v1.value_type == FLOAT_TYPE && v2.value_type == INT_TYPE) || (v1.value_type == INT_TYPE && v2.value_type == FLOAT_TYPE)){
+      yyerror("ERROR! Both values should be of the same type");
+   } else yyerror("The value can only be integer or float");
+}

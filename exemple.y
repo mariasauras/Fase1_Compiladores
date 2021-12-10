@@ -34,7 +34,7 @@ extern int yylex();
 %token <st.value_data.boolean> BOOLEAN
 %token  SUMA RESTA MUL DIV MOD POW OP CP OC CC PC SPACE COMMA
 /* Relationals Operators */
-%token GREATERTHAN LESSTHAN GREATEREQ LEESEQ EQ DIF
+%token GREATERTHAN LESSTHAN GREATEREQ LESSEQ EQ DIF
 /* Booleans operators*/
 %token NOT AND OR
 
@@ -42,7 +42,7 @@ extern int yylex();
 %type <st> expressio
 %type <st> valor
 %type <st> sumrest mullist powlist
-%type <st> matrix row  matrix_value
+%type <st> matrix row  matrix_value notlist andlist orlist rel_op
 
 %start programa
 
@@ -51,8 +51,7 @@ extern int yylex();
 programa : programa expressio 
          | expressio 
             
-
-expressio : ID ASSIGN sumrest ENDLINE  {
+expressio : ID ASSIGN rel_op ENDLINE  {
               $$.value_type = $3.value_type;
               sym_enter($1.lexema, &$3);
               $$ = $3;
@@ -95,7 +94,7 @@ expressio : ID ASSIGN sumrest ENDLINE  {
                 fprintf(yyout,"Num de elems Vector/Matrix: %ld\n", $$.value_data.num_elems);
               }
             }
-          | sumrest ENDLINE  {
+          | rel_op ENDLINE  {
               $$.value_type = $1.value_type;
               if($$.value_type == INT_TYPE){
                 fprintf(yyout, "INT value: %ld\n", $1.value_data.enter);
@@ -119,6 +118,23 @@ expressio : ID ASSIGN sumrest ENDLINE  {
 
 /* Priority Hierarchy */
 
+rel_op : rel_op GREATERTHAN orlist  { gt_op(&$$, $1, $3); }
+       | rel_op GREATEREQ   orlist  { ge_op(&$$, $1, $3); } 
+       | rel_op LESSTHAN    orlist  { lt_op(&$$, $1, $3); }
+       | rel_op LESSEQ      orlist  { le_op(&$$, $1, $3); }
+       | rel_op EQ          orlist  { eq_op(&$$, $1, $3); }
+       | rel_op DIF         orlist  { dif_op(&$$, $1, $3); }
+       | orlist
+
+orlist : orlist OR andlist { or_op(&$$, $1, $3); }
+       | andlist
+
+andlist : andlist AND notlist { and_op(&$$, $1, $3); }
+        | notlist
+
+notlist : NOT sumrest { not_op(&$$, $2); }
+        | sumrest
+
 matrix_value : FLOAT    { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1;  }
              | INTEGER  { $$.value_type = INT_TYPE; $$.value_data.enter = $1; }
  
@@ -139,7 +155,7 @@ mullist : mullist MUL powlist { mul_op(&$$,$1,$3); }
         | powlist
 
 powlist : powlist POW valor { pow_op(&$$,$1,$3); }
-        | valor { }
+        | valor
 
 valor : FLOAT         { $$.value_type = FLOAT_TYPE; $$.value_data.real = $1; }
       | INTEGER       { $$.value_type = INT_TYPE; $$.value_data.enter = $1; }

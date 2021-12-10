@@ -81,23 +81,23 @@ comment ([#][^\n\"\']* | [#=][^\"\']*[=#])
 
 " "*"]"                     { BEGIN INITIAL; return CC; }
 
-">"                         { retun GREATERTHAN }
+">"                         { return GREATERTHAN; }
 
-">="                        { retun GREATEREQ }
+">="                        { return GREATEREQ; }
 
-"<"                         { retun LEESTHAN }
+"<"                         { return LESSTHAN; }
 
-"<="                        { retun LEESEQ }
+"<="                        { return LESSEQ; }
 
-"=="                        { return EQ }
+"=="                        { return EQ; }
 
-"!="                        { return DIF }
+"!="                        { return DIF; }
 
-"!"                         { return NOT }
+"!"                         { return NOT; }
 
-"&&"                        { return AND }
+"&&"                        { return AND; }
 
-"||"                        { return OR }
+"||"                        { return OR; }
 
 {text}                      {
                               yylval.st.value_data.ident.lexema = strdup(yytext);
