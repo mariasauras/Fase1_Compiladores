@@ -14,7 +14,7 @@
     void yyerror(char *explanation);
 
     /*********************************************************************/
-    /*                  ARITMETICAL FUNCTIONS                            */
+    /*                  ARITHMETICAL FUNCTIONS                            */
     /*********************************************************************/
 
     void sum_op(sym_value_type * val, sym_value_type v1, sym_value_type v2);
